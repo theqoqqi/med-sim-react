@@ -1,0 +1,244 @@
+{
+  "title": "Все параметры",
+  "type": "composite",
+  "parameters": {
+    "physical": {
+      "title": "Физические показатели",
+      "type": "composite",
+      "parameters": {
+        "age": {
+          "title": "Возраст",
+          "type": "number",
+          "randomType": "gaussian",
+          "randomOptions": {
+            "meanOrigin": 0.35,
+            "deviationFactor": 0.5
+          },
+          "normalRange": [0, 100],
+          "viableRange": [0, 1000]
+        },
+        "gender": {
+          "title": "Пол",
+          "type": "enum",
+          "allowedValues": ["male", "female"]
+        },
+        "height": {
+          "title": "Рост",
+          "type": "number",
+          "randomType": "gaussian",
+          "normalRange": [120, 220],
+          "viableRange": [50, 300]
+        },
+        "weight": {
+          "title": "Вес",
+          "type": "number",
+          "randomType": "gaussian",
+          "normalRange": [40, 120],
+          "viableRange": [20, 200]
+        }
+      }
+    },
+    "physiological": {
+      "title": "Физиологические показатели",
+      "type": "composite",
+      "parameters": {
+        "heartRate": {
+          "title": "Пульс",
+          "type": "number",
+          "randomType": "gaussian",
+          "fluctuation": "medium",
+          "normalRange": [60, 90],
+          "viableRange": [20, 180]
+        },
+        "bloodPressure": {
+          "title": "Артериальное давление",
+          "type": "composite",
+          "parameters": {
+            "systolic": {
+              "title": "Систолическое давление",
+              "type": "number",
+              "randomType": "gaussian",
+              "fluctuation": "low",
+              "normalRange": [95, 140],
+              "viableRange": [60, 260]
+            },
+            "diastolic": {
+              "title": "Диастолическое давление",
+              "type": "number",
+              "randomType": "gaussian",
+              "fluctuation": "low",
+              "normalRange": [60, 90],
+              "viableRange": [20, 140]
+            }
+          }
+        },
+        "temperature": {
+          "title": "Температура",
+          "type": "number",
+          "randomType": "gaussian",
+          "fluctuation": "low",
+          "normalRange": [36, 37.2],
+          "viableRange": [30, 42]
+        },
+        "respiratoryRate": {
+          "title": "Дыхательная частота",
+          "type": "number",
+          "randomType": "gaussian",
+          "fluctuation": "low",
+          "normalRange": [8, 20],
+          "viableRange": [2, 80]
+        },
+        "bloodOxygenLevel": {
+          "title": "Уровень кислорода в крови",
+          "type": "number",
+          "randomType": "gaussian",
+          "fluctuation": "low",
+          "normalRange": [95, 100],
+          "viableRange": [90, 999]
+        },
+        "bloodGlucoseLevel": {
+          "title": "Уровень глюкозы в крови",
+          "type": "number",
+          "randomType": "gaussian",
+          "fluctuation": "low",
+          "normalRange": [3.3, 6.0],
+          "viableRange": [2.0, 40.0]
+        }
+      }
+    },
+    "biochemical": {
+      "title": "Биохимические показатели",
+      "type": "composite",
+      "parameters": {
+        "cholesterolLevel": {
+          "title": "Уровень холестерина",
+          "type": "number",
+          "randomType": "gaussian",
+          "fluctuation": "medium",
+          "normalRange": [2.8, 5.2],
+          "viableRange": [1.5, 8.0]
+        },
+        "hemoglobinLevel": {
+          "title": "Уровень гемоглобина",
+          "type": "number",
+          "randomType": "gaussian",
+          "fluctuation": "medium",
+          "normalRange": [120, 160],
+          "viableRange": [70, 200]
+        },
+        "creatinineLevel": {
+          "title": "Уровень креатинина",
+          "type": "number",
+          "randomType": "gaussian",
+          "fluctuation": "low",
+          "normalRange": [0.5, 1.2],
+          "viableRange": [0.3, 2.0]
+        },
+        "bloodCells": {
+          "title": "Кровяные тельца",
+          "type": "composite",
+          "parameters": {
+            "red": {
+              "title": "Красные",
+              "type": "number",
+              "randomType": "gaussian",
+              "fluctuation": "low",
+              "normalRange": [50, 80],
+              "viableRange": [20, 200]
+            },
+            "white": {
+              "title": "Белые",
+              "type": "number",
+              "randomType": "gaussian",
+              "fluctuation": "low",
+              "normalRange": [170, 380],
+              "viableRange": [60, 900]
+            }
+          }
+        },
+        "electrolyteLevels": {
+          "title": "Уровень электролитов",
+          "type": "composite",
+          "parameters": {
+            "sodiumLevel": {
+              "title": "Уровень натрия",
+              "type": "number",
+              "randomType": "gaussian",
+              "fluctuation": "medium",
+              "normalRange": [135, 145],
+              "viableRange": [80, 200]
+            },
+            "potassiumLevel": {
+              "title": "Уровень калия",
+              "type": "number",
+              "randomType": "gaussian",
+              "fluctuation": "medium",
+              "normalRange": [3.5, 5.0],
+              "viableRange": [2.5, 6.5]
+            }
+          }
+        }
+      }
+    },
+    "psychological": {
+      "title": "Психологические показатели",
+      "type": "composite",
+      "parameters": {
+        "stressLevel": {
+          "title": "Уровень стресса",
+          "type": "number",
+          "randomType": "gaussian",
+          "fluctuation": "high",
+          "validRange": [0, 100],
+          "normalRange": [0, 50],
+          "viableRange": [0, 100]
+        },
+        "anxietyLevel": {
+          "title": "Уровень тревожности",
+          "type": "number",
+          "randomType": "gaussian",
+          "fluctuation": "high",
+          "validRange": [0, 100],
+          "normalRange": [0, 50],
+          "viableRange": [0, 100]
+        },
+        "sleepQuality": {
+          "title": "Качество сна",
+          "type": "number",
+          "randomType": "gaussian",
+          "fluctuation": "high",
+          "validRange": [0, 100],
+          "normalRange": [80, 100],
+          "viableRange": [0, 100]
+        },
+        "fatigueLevel": {
+          "title": "Уровень усталости",
+          "type": "number",
+          "randomType": "gaussian",
+          "fluctuation": "medium",
+          "validRange": [0, 100],
+          "normalRange": [0, 60],
+          "viableRange": [0, 100]
+        },
+        "focusLevel": {
+          "title": "Уровень концентрации",
+          "type": "number",
+          "randomType": "gaussian",
+          "fluctuation": "medium",
+          "validRange": [0, 100],
+          "normalRange": [60, 100],
+          "viableRange": [0, 100]
+        },
+        "memoryLevel": {
+          "title": "Уровень памяти",
+          "type": "number",
+          "randomType": "gaussian",
+          "fluctuation": "low",
+          "validRange": [0, 100],
+          "normalRange": [60, 100],
+          "viableRange": [0, 100]
+        }
+      }
+    }
+  }
+}

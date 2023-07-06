@@ -1,0 +1,82 @@
+[
+  {
+    "title": "Андромалазия",
+    "chancePerDay": 0.005,
+    "progressPerDay": [0.2, 0.3],
+    "impactFunction": "gaussian",
+    "effects": {
+      "physiological": {
+        "temperature": 1.2,
+        "bloodPressure": {
+          "systolic": 5,
+          "diastolic": 3
+        }
+      }
+    }
+  },
+  {
+    "title": "Кардиоферритиния",
+    "chancePerDay": 0.002,
+    "progressPerDay": [0.08, 0.12],
+    "impactFunction": "gaussian",
+    "effects": {
+      "physiological": {
+        "heartRate": 12,
+        "bloodPressure": {
+          "systolic": 20,
+          "diastolic": 10
+        }
+      }
+    }
+  },
+  {
+    "title": "Нефроксеребральный синдром",
+    "chancePerDay": 0.0002,
+    "progressPerDay": [0.15, 0.2],
+    "impactFunction": "linear",
+    "effects": {
+      "physiological.bloodPressure": {
+        "systolic": 40,
+        "diastolic": {
+          "impact": -20,
+          "easingFunction": "gaussian",
+          "easingFunctionOptions": {
+            "meanOrigin": 0.2
+          }
+        }
+      }
+    }
+  },
+  {
+    "title": "Гиперлейкоплазия",
+    "chancePerDay": 0.0003,
+    "progressPerDay": [0.12, 0.15],
+    "impactFunction": "squareRoot",
+    "effects": {
+      "physiological.bloodPressure": {
+        "systolic": 15,
+        "diastolic": 10
+      },
+      "biochemical.bloodCells": {
+        "red": -25,
+        "white": 100
+      }
+    }
+  },
+  {
+    "title": "Нейрофиброз",
+    "chancePerDay": 0.0001,
+    "progressPerDay": [0.15, 0.2],
+    "impactFunction": "quadratic",
+    "effects": {
+      "physiological": {
+        "temperature": 1.5,
+        "heartRate": 8,
+        "bloodPressure": {
+          "systolic": 30,
+          "diastolic": 20
+        }
+      }
+    }
+  }
+]
