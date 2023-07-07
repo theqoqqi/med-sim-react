@@ -23,7 +23,13 @@ function HumanInfo({human}) {
             <div className={styles.humanName}>
                 {human.fullName}
             </div>
-            {human.parameters.children.map((p, index) => <ParameterInfo key={index} parameter={p} /> )}
+            {human.parameters.children.map((p, index) =>
+                <ParameterInfo
+                    key={index}
+                    parameter={p}
+                    flat
+                />
+            )}
         </div>
     );
 }

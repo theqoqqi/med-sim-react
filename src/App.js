@@ -3,6 +3,7 @@ import HumanInfo from './components/organisms/HumanInfo/HumanInfo';
 import {useEffect, useState} from 'react';
 import Simulation from './simulation/Simulation.js';
 import axios from 'axios';
+import React from 'react';
 
 function printInfo(human) {
     console.log('Полное имя:', human.fullName);
@@ -29,6 +30,9 @@ async function readJson(url) {
 }
 
 function App() {
+    const forceUpdate = React.useReducer(() => ({}))[1];
+
+    let [simulation, setSimulation] = useState();
     let [human, setHuman] = useState();
 
     useEffect(() => {
@@ -50,11 +54,20 @@ function App() {
             console.log(human);
 
             setHuman(human);
+            setSimulation(simulation);
         })();
     }, []);
 
+    function nextDay() {
+        simulation.update();
+        forceUpdate();
+    }
+
     return (
         <div className='App'>
+            <button onClick={() => nextDay()}>
+                Следующий день
+            </button>
             <HumanInfo human={human} />
         </div>
     );

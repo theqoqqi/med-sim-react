@@ -7,11 +7,13 @@ ParameterInfo.propTypes = {
     parameter: PropTypes.instanceOf(Parameter),
 };
 
-function CompositeParameterInfo({parameter}) {
+function CompositeParameterInfo({parameter, flat}) {
 
     return (
         <div>
-            {parameter.children.map((p, index) => <ParameterInfo key={index} parameter={p} /> )}
+            {flat
+                ? parameter.mapRecursive((p, index) => <ParameterInfo key={index} parameter={p} /> )
+                : parameter.map((p, index) => <ParameterInfo key={index} parameter={p} /> )}
         </div>
     );
 }
@@ -34,7 +36,7 @@ function EnumParameterInfo({parameter}) {
     );
 }
 
-function ParameterInfo({parameter}) {
+function ParameterInfo({parameter, flat}) {
 
     let mappings = {
         CompositeParameter: CompositeParameterInfo,
@@ -46,7 +48,7 @@ function ParameterInfo({parameter}) {
     return (
         <div className={styles.parameterInfo}>
             {parameter.title}
-            <InfoContent parameter={parameter} />
+            <InfoContent parameter={parameter} flat={flat} />
         </div>
     );
 }
