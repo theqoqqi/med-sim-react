@@ -1,6 +1,6 @@
 
-import Easing from '../utils/Easing.js';
-import NumberRange from '../utils/NumberRange.js';
+import Easing from '../utils/Easing';
+import NumberRange from '../utils/NumberRange';
 
 export default class Effector {
 

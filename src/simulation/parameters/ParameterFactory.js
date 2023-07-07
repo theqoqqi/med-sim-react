@@ -1,6 +1,6 @@
-import CompositeParameter from './CompositeParameter.js';
-import NumberParameter from './NumberParameter.js';
-import EnumParameter from './EnumParameter.js';
+import CompositeParameter from './CompositeParameter';
+import NumberParameter from './NumberParameter';
+import EnumParameter from './EnumParameter';
 
 export default class ParameterFactory {
 

@@ -1,8 +1,8 @@
 
-import Parameter from './Parameter.js';
-import NumberRange from '../utils/NumberRange.js';
-import RandomFunctions from '../utils/RandomFunctions.js';
-import Fluctuation from './Fluctuation.js';
+import Parameter from './Parameter';
+import NumberRange from '../utils/NumberRange';
+import RandomFunctions from '../utils/RandomFunctions';
+import Fluctuation from './Fluctuation';
 
 export default class NumberParameter extends Parameter {
 

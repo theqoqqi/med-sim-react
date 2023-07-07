@@ -1,5 +1,5 @@
 
-import RandomFunctions from '../utils/RandomFunctions.js';
+import RandomFunctions from '../utils/RandomFunctions';
 
 export default class Fluctuation {
 

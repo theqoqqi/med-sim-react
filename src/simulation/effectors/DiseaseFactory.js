@@ -1,9 +1,9 @@
-import ParameterEffect from '../parameters/ParameterEffect.js';
-import Disease from './Disease.js';
-import Easing from '../utils/Easing.js';
-import NumberParameter from '../parameters/NumberParameter.js';
-import CompositeParameter from '../parameters/CompositeParameter.js';
-import Random from '../utils/Random.js';
+import ParameterEffect from '../parameters/ParameterEffect';
+import Disease from './Disease';
+import Easing from '../utils/Easing';
+import NumberParameter from '../parameters/NumberParameter';
+import CompositeParameter from '../parameters/CompositeParameter';
+import Random from '../utils/Random';
 
 export default class DiseaseFactory {
 

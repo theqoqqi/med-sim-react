@@ -1,6 +1,6 @@
 
-import Parameter from './Parameter.js';
-import Random from '../utils/Random.js';
+import Parameter from './Parameter';
+import Random from '../utils/Random';
 
 export default class EnumParameter extends Parameter {
 

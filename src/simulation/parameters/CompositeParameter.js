@@ -1,4 +1,4 @@
-import Parameter from './Parameter.js';
+import Parameter from './Parameter';
 
 export default class CompositeParameter extends Parameter {
 
