@@ -12,8 +12,8 @@ function CompositeParameterInfo({parameter, flat}) {
     return (
         <div>
             {flat
-                ? parameter.mapRecursive((p, index) => <ParameterInfo key={index} parameter={p} /> )
-                : parameter.map((p, index) => <ParameterInfo key={index} parameter={p} /> )}
+                ? parameter.mapRecursive((p, pName) => <ParameterInfo key={pName} parameter={p} /> )
+                : parameter.map((p, pName) => <ParameterInfo key={pName} parameter={p} /> )}
         </div>
     );
 }
