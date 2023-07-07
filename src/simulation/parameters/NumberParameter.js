@@ -31,7 +31,7 @@ export default class NumberParameter extends Parameter {
     }
 
     set(newValue) {
-        this.value = newValue;
+        this.value = this.#validRange.clamp(newValue);
     }
 
     get() {

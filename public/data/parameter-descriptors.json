@@ -14,7 +14,7 @@
             "meanOrigin": 0.35,
             "deviationFactor": 0.5
           },
-          "normalRange": [0, 100],
+          "normalRange": [0, 70],
           "viableRange": [0, 1000]
         },
         "gender": {
@@ -33,6 +33,7 @@
           "title": "Вес",
           "type": "number",
           "randomType": "gaussian",
+          "fluctuation": "low",
           "normalRange": [40, 120],
           "viableRange": [20, 200]
         }
