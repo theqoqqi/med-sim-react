@@ -6,7 +6,7 @@ import axios from 'axios';
 function printInfo(human) {
     console.log('Полное имя:', human.fullName);
 
-    human.parameters.forEachParameter((parameterPath, parameter) => {
+    human.parameters.forEachRecursive(parameter => {
         console.log(parameter.title, parameter.value, `(${parameter.normalRange}, ${parameter.viableRange})`);
     });
 }
@@ -14,7 +14,7 @@ function printInfo(human) {
 function printHistory(human) {
     console.log('ИСТОРИЯ ИЗМЕНЕНИЙ:', human.fullName);
 
-    human.parameters.forEachParameter((parameterPath, parameter) => {
+    human.parameters.forEachRecursive((parameter, parameterPath) => {
         let values = human.stateHistory.map(parameters => parameters.getParameterValue(parameterPath));
 
         console.log(parameter.title, values);

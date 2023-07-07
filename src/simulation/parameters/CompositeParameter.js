@@ -6,15 +6,18 @@ export default class CompositeParameter extends Parameter {
         return this.value;
     }
 
+    get children() {
+        return Object.values(this.parameters);
+    }
+
     update() {
-        this.forEachParameter((parameterName, parameter) => {
-            parameter.update();
-        });
+        this.forEach(parameter => parameter.update());
     }
 
     randomize() {
-        this.forEachParameter((parameterName, parameter) => {
-            parameter.randomize();
+        this.forEach(parameter => {
+            console.log(parameter);
+            parameter.randomize()
         });
     }
 
@@ -49,26 +52,30 @@ export default class CompositeParameter extends Parameter {
         return currentParameters[lastParameterName];
     }
 
-    forEachParameter(callback) {
-        for (const [parameterName, parameter] of Object.entries(this.parameters)) {
-            if (parameter instanceof CompositeParameter) {
-                parameter.forEachParameter((childName, child) => {
-                    callback(parameterName + '.' + childName, child);
-                });
-            } else {
-                callback(parameterName, parameter);
-            }
+    forEach(callback) {
+        for (const [parameterPath, parameter] of Object.entries(this.parameters)) {
+            callback(parameter, parameterPath);
         }
     }
 
+    forEachRecursive(callback) {
+        this.forEach((parameter, parameterPath) => {
+            if (parameter instanceof CompositeParameter) {
+                parameter.forEachRecursive((child, childName) => {
+                    callback(child, parameterPath + '.' + childName);
+                });
+            } else {
+                callback(parameter, parameterPath);
+            }
+        });
+    }
+
     isInNormalRange() {
-        return Object.values(this.parameters)
-            .every(param => param.isInNormalRange());
+        return this.children.every(p => p.isInNormalRange());
     }
 
     isInViableRange() {
-        return Object.values(this.parameters)
-            .every(param => param.isInViableRange());
+        return this.children.every(p => p.isInViableRange());
     }
 
     copy() {

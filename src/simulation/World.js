@@ -3,10 +3,6 @@ export default class World {
 
     #allHumans = [];
 
-    constructor() {
-
-    }
-
     update() {
         for (const human of this.aliveHumans) {
             human.update();

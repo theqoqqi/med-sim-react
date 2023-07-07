@@ -1,6 +1,12 @@
 
 export default class NumberRange {
 
+    static INFINITE = new NumberRange(-Infinity, Infinity);
+
+    static POSITIVE = new NumberRange(0, Infinity);
+
+    static NEGATIVE = new NumberRange(-Infinity, 0);
+
     constructor(min, max) {
         this.min = min;
         this.max = max;
