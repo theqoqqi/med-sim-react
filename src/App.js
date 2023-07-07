@@ -1,4 +1,5 @@
 import './App.css';
+import HumanInfo from './components/organisms/HumanInfo/HumanInfo';
 import {useEffect, useState} from 'react';
 import Simulation from './simulation/Simulation.js';
 import axios from 'axios';
@@ -54,7 +55,7 @@ function App() {
 
     return (
         <div className='App'>
-
+            <HumanInfo human={human} />
         </div>
     );
 }
