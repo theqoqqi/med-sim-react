@@ -70,7 +70,7 @@ export default class CompositeParameter extends Parameter {
     map(callback) {
         let mapped = [];
 
-        this.forEach(parameter => mapped.push(callback(parameter)))
+        this.forEach((parameter, parameterPath) => mapped.push(callback(parameter, parameterPath)))
 
         return mapped;
     }
@@ -78,7 +78,7 @@ export default class CompositeParameter extends Parameter {
     mapRecursive(callback) {
         let mapped = [];
 
-        this.forEachRecursive(parameter => mapped.push(callback(parameter)))
+        this.forEachRecursive((parameter, parameterPath) => mapped.push(callback(parameter, parameterPath)))
 
         return mapped;
     }
