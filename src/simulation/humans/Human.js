@@ -1,7 +1,7 @@
 
 export default class Human {
 
-    static #AGE_PARAMETER_PATH = 'age';
+    static #AGE_PARAMETER_PATH = 'physical.age';
 
     #name;
 
@@ -38,6 +38,10 @@ export default class Human {
 
     get stateHistory() {
         return this.#stateHistory;
+    }
+
+    get isAlive() {
+        return true;
     }
 
     update() {
