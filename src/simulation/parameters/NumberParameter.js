@@ -6,6 +6,8 @@ import Fluctuation from './Fluctuation';
 
 export default class NumberParameter extends Parameter {
 
+    #validRange;
+
     #normalRange;
 
     #viableRange;
@@ -20,6 +22,7 @@ export default class NumberParameter extends Parameter {
 
     constructor(descriptor, value = null) {
         super(descriptor, value);
+        this.#validRange = descriptor.validRange ? NumberRange.from(descriptor.validRange) : NumberRange.INFINITE;
         this.#normalRange = NumberRange.from(descriptor.normalRange);
         this.#viableRange = NumberRange.from(descriptor.viableRange);
         this.#randomType = descriptor?.randomType ?? RandomFunctions.GAUSSIAN;
@@ -62,9 +65,14 @@ export default class NumberParameter extends Parameter {
 
     randomize() {
         let randomValue = RandomFunctions.randomInRange(this.normalRange, this.#randomType, this.#randomOptions);
-        let clampedValue = this.viableRange.clamp(randomValue);
+        let clampedValue = this.validRange.clamp(randomValue);
 
         this.set(clampedValue);
+        this.#fluctuation.reset();
+    }
+
+    get validRange() {
+        return this.#validRange;
     }
 
     get normalRange() {
