@@ -15,10 +15,7 @@ export default class CompositeParameter extends Parameter {
     }
 
     randomize() {
-        this.forEach(parameter => {
-            console.log(parameter);
-            parameter.randomize()
-        });
+        this.forEach(parameter => parameter.randomize());
     }
 
     setParameterValue(path, newValue) {
@@ -68,6 +65,22 @@ export default class CompositeParameter extends Parameter {
                 callback(parameter, parameterPath);
             }
         });
+    }
+
+    map(callback) {
+        let mapped = [];
+
+        this.forEach(parameter => mapped.push(callback(parameter)))
+
+        return mapped;
+    }
+
+    mapRecursive(callback) {
+        let mapped = [];
+
+        this.forEachRecursive(parameter => mapped.push(callback(parameter)))
+
+        return mapped;
     }
 
     isInNormalRange() {
