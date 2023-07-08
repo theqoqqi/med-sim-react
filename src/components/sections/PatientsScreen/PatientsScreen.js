@@ -1,4 +1,4 @@
-import styles from './MainScreen.module.css';
+import styles from './PatientsScreen.module.css';
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Simulation from '../../../simulation/Simulation.js';
@@ -8,13 +8,14 @@ import Conditional from '../../atoms/Conditional/Conditional.js';
 import Section from '../../atoms/Section/Section.js';
 import SectionBody from '../../atoms/Section/SectionBody.js';
 import SectionHeader from '../../atoms/Section/SectionHeader.js';
+import Center from '../../atoms/Center/Center.js';
 
-MainScreen.propTypes = {
+PatientsScreen.propTypes = {
     simulation: PropTypes.instanceOf(Simulation),
 };
 
-function MainScreen({simulation}) {
-    let [selectedHuman, setSelectedHuman] = useState();
+function PatientsScreen({simulation}) {
+    let [selectedHuman, setSelectedHuman] = useState(null);
 
     function selectHuman(human) {
         setSelectedHuman(human);
@@ -24,7 +25,7 @@ function MainScreen({simulation}) {
         <div className={styles.mainScreen}>
             <Section className={styles.patientList}>
                 <SectionHeader className={styles.patientListHeader}>
-                    Пациенты
+                    Список пациентов
                 </SectionHeader>
                 <SectionBody>
                     <HumanList
@@ -39,7 +40,7 @@ function MainScreen({simulation}) {
                     Информация о пациенте
                 </SectionHeader>
                 <SectionBody scrollable>
-                    <Conditional condition={selectedHuman !== null}>
+                    <Conditional condition={selectedHuman !== null} fallback={<Center>Выберите пациента</Center>}>
                         <HumanInfo human={selectedHuman} />
                     </Conditional>
                 </SectionBody>
@@ -48,4 +49,4 @@ function MainScreen({simulation}) {
     );
 }
 
-export default MainScreen;
+export default PatientsScreen;

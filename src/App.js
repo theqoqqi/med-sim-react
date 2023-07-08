@@ -4,7 +4,7 @@ import Simulation from './simulation/Simulation.js';
 import axios from 'axios';
 import {Container, Nav, Tab} from 'react-bootstrap';
 import classNames from 'classnames';
-import MainScreen from './components/sections/MainScreen/MainScreen.js';
+import PatientsScreen from './components/sections/PatientsScreen/PatientsScreen.js';
 import Button from './components/atoms/Button/Button.js';
 
 async function readJson(url) {
@@ -59,7 +59,7 @@ function App() {
         <Container className={classNames(styles.app, 'g-0')}>
             <Tab.Container defaultActiveKey='main'>
                 <div className={classNames(styles.tabs, 'd-flex justify-content-sm-between p-2')}>
-                    <Nav variant='pills'>
+                    <Nav variant='underline'>
                         <Nav.Link eventKey='main'>Пациенты</Nav.Link>
                     </Nav>
                     <div>
@@ -70,7 +70,7 @@ function App() {
                 </div>
                 <Tab.Content>
                     <Tab.Pane eventKey='main'>
-                        <MainScreen simulation={simulation} />
+                        <PatientsScreen simulation={simulation} />
                     </Tab.Pane>
                 </Tab.Content>
             </Tab.Container>
