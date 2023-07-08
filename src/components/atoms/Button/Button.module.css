@@ -1,0 +1,8 @@
+
+.button.transparent,
+.button.transparent:hover,
+.button.transparent:focus,
+.button.transparent:active {
+    border-color: transparent;
+    border-width: 0;
+}
