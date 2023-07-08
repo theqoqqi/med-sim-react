@@ -1,0 +1,22 @@
+
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    border: 1px solid #ccc;
+    border-top: none;
+    border-bottom: none;
+    background-color: #eee;
+
+    overflow: hidden;
+}
+
+.tabs {
+    border-bottom: 1px solid #ccc;
+}
+
+.tab {
+    display: flex;
+    min-height: 0;
+}

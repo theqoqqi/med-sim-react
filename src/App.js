@@ -1,27 +1,11 @@
-import './App.css';
-import HumanInfo from './components/organisms/HumanInfo/HumanInfo';
-import {useEffect, useState} from 'react';
+import styles from './App.module.css';
+import React, {useEffect, useState} from 'react';
 import Simulation from './simulation/Simulation.js';
 import axios from 'axios';
-import React from 'react';
-
-function printInfo(human) {
-    console.log('Полное имя:', human.fullName);
-
-    human.parameters.forEachRecursive(parameter => {
-        console.log(parameter.title, parameter.value, `(${parameter.normalRange}, ${parameter.viableRange})`);
-    });
-}
-
-function printHistory(human) {
-    console.log('ИСТОРИЯ ИЗМЕНЕНИЙ:', human.fullName);
-
-    human.parameters.forEachRecursive((parameter, parameterPath) => {
-        let values = human.stateHistory.map(parameters => parameters.getParameterValue(parameterPath));
-
-        console.log(parameter.title, values);
-    });
-}
+import {Container, Nav, Tab} from 'react-bootstrap';
+import classNames from 'classnames';
+import MainScreen from './components/sections/MainScreen/MainScreen.js';
+import Button from './components/atoms/Button/Button.js';
 
 async function readJson(url) {
     let data = (await axios.get(url)).data;
@@ -29,11 +13,12 @@ async function readJson(url) {
     return typeof data === 'string' ? JSON.parse(data) : data;
 }
 
+const UPDATE_RATE_MS = 200;
+
 function App() {
     const forceUpdate = React.useReducer(() => ({}))[1];
 
     let [simulation, setSimulation] = useState();
-    let [human, setHuman] = useState();
 
     useEffect(() => {
         (async () => {
@@ -45,31 +30,51 @@ function App() {
                 diseaseDescriptors,
             });
 
-            simulation.populate(1);
+            simulation.populate(1000);
 
-            let human = simulation.allHumans[0];
-
-            printInfo(human);
-            printHistory(human);
-            console.log(human);
-
-            setHuman(human);
             setSimulation(simulation);
+
+            setInterval(() => {
+                forceUpdate();
+            }, UPDATE_RATE_MS);
         })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function nextDay() {
         simulation.update();
-        forceUpdate();
+    }
+
+    if (!simulation) {
+        return (
+            <div className='vw-100 vh-100 d-flex justify-content-center align-items-center'>
+                <h3>
+                    Подготовка симуляции...
+                </h3>
+            </div>
+        );
     }
 
     return (
-        <div className='App'>
-            <button onClick={() => nextDay()}>
-                Следующий день
-            </button>
-            <HumanInfo human={human} />
-        </div>
+        <Container className={classNames(styles.app, 'g-0')}>
+            <Tab.Container defaultActiveKey='main'>
+                <div className={classNames(styles.tabs, 'd-flex justify-content-sm-between p-2')}>
+                    <Nav variant='pills'>
+                        <Nav.Link eventKey='main'>Пациенты</Nav.Link>
+                    </Nav>
+                    <div>
+                        <Button variant='primary' onClick={() => nextDay()}>
+                            Следующий день
+                        </Button>
+                    </div>
+                </div>
+                <Tab.Content>
+                    <Tab.Pane eventKey='main'>
+                        <MainScreen simulation={simulation} />
+                    </Tab.Pane>
+                </Tab.Content>
+            </Tab.Container>
+        </Container>
     );
 }
 

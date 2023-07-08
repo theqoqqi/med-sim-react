@@ -1,0 +1,28 @@
+
+.mainScreen {
+    display: flex;
+
+    min-height: 0;
+}
+
+.patientList {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    min-height: 0;
+
+    border-right: 1px solid #ccc;
+}
+
+.patientListHeader {
+    border-bottom: 1px solid #ccc;
+}
+
+.patientInfo {
+    flex: 3;
+}
+
+.patientInfoHeader {
+    border-bottom: 1px solid #ccc;
+}

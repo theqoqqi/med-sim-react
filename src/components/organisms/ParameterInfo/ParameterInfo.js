@@ -2,6 +2,7 @@ import styles from './ParameterInfo.module.css';
 import PropTypes from 'prop-types';
 import Parameter from '../../../simulation/parameters/Parameter.js';
 import React from 'react';
+import classNames from 'classnames';
 
 ParameterInfo.propTypes = {
     parameter: PropTypes.instanceOf(Parameter),
@@ -43,10 +44,12 @@ function ParameterInfo({parameter, flat}) {
         NumberParameter: NumberParameterInfo,
         EnumParameter: EnumParameterInfo,
     };
-    let InfoContent = mappings[parameter.constructor.name];
+    let constructorName = parameter.constructor.name;
+    let typeName = constructorName.slice(0, -'Parameter'.length).toLowerCase();
+    let InfoContent = mappings[constructorName];
 
     return (
-        <div className={styles.parameterInfo}>
+        <div className={classNames(styles.parameterInfo, styles[typeName])}>
             {parameter.title}
             <InfoContent parameter={parameter} flat={flat} />
         </div>
