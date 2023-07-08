@@ -1,7 +1,11 @@
 
+let nextId = 1;
+
 export default class Human {
 
     static #AGE_PARAMETER_PATH = 'physical.age';
+
+    #id;
 
     #name;
 
@@ -12,12 +16,17 @@ export default class Human {
     #stateHistory;
 
     constructor(name, parameters) {
+        this.#id = nextId++;
         this.#name = name;
         this.#parameters = parameters;
         this.#diseases = [];
         this.#stateHistory = [];
 
         this.#pushHistory();
+    }
+
+    get id() {
+        return this.#id;
     }
 
     get fullName() {
@@ -58,7 +67,13 @@ export default class Human {
     }
 
     #pushHistory() {
-        this.#stateHistory.push(this.#parameters.copy());
+        let snapshot = {};
+
+        this.#parameters.forEachRecursive((parameter, parameterPath) => {
+            snapshot[parameterPath] = parameter.get();
+        });
+
+        this.#stateHistory.push(snapshot);
     }
 
     addDiseases(diseases) {
@@ -75,7 +90,7 @@ export default class Human {
         let index = this.#diseases.indexOf(disease);
 
         if (index !== -1) {
-            this.#diseases.push(disease);
+            this.#diseases.splice(disease, 1);
         }
     }
 
