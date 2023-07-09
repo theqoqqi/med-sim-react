@@ -10,7 +10,7 @@ export default class Human {
 
     #id;
 
-    #aliveDays = 0;
+    #simulation;
 
     #name;
 
@@ -21,6 +21,8 @@ export default class Human {
     #treatmentCourses = [];
 
     #isAlive = true;
+
+    #aliveDays = 0;
 
     #lethalParameter;
 
@@ -34,8 +36,9 @@ export default class Human {
         ['geneticDisorders', 0.05],
     ]);
 
-    constructor(name, parameters) {
+    constructor(simulation, name, parameters) {
         this.#id = nextId++;
+        this.#simulation = simulation;
         this.#name = name;
         this.#parameters = parameters;
 
@@ -44,6 +47,10 @@ export default class Human {
 
     get id() {
         return this.#id;
+    }
+
+    get simulation() {
+        return this.#simulation;
     }
 
     get fullName() {

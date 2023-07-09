@@ -67,7 +67,7 @@ export default class Simulation {
         let ordinal = this.#world.allHumans.length + 1;
         let name = new Name(`Фамилия${ordinal}`, `Имя${ordinal}`, `Отчество${ordinal}`);
 
-        return new Human(name, parameters);
+        return new Human(this, name, parameters);
     }
 
     update() {
