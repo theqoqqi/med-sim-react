@@ -31,6 +31,10 @@ export default class Effector {
         this.applyEffects();
     }
 
+    destroy() {
+        this.removeEffects();
+    }
+
     isFinished() {
         return this.progress > 0 && this.impact <= 0;
     }
@@ -49,6 +53,14 @@ export default class Effector {
             let parameter = this.human.getParameter(effect.parameterName);
 
             effect.applyTo(parameter, this.impact);
+        }
+    }
+
+    removeEffects() {
+        for (const effect of this.effects) {
+            let parameter = this.human.getParameter(effect.parameterName);
+
+            effect.removeFrom(parameter);
         }
     }
 }

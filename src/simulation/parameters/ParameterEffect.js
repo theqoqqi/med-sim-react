@@ -12,4 +12,8 @@ export default class ParameterEffect {
 
         parameter.setEffectValue(this, value);
     }
+
+    removeFrom(parameter) {
+        parameter.removeEffect(this);
+    }
 }

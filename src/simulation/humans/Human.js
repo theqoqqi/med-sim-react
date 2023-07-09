@@ -149,6 +149,8 @@ export default class Human {
         if (index !== -1) {
             this.#effectors.splice(effector, 1);
         }
+
+        effector.destroy();
     }
 
     getDiscomfortLevel() {
