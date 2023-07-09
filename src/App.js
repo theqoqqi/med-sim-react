@@ -6,6 +6,7 @@ import {Container, Nav, Tab} from 'react-bootstrap';
 import classNames from 'classnames';
 import PatientsScreen from './components/sections/PatientsScreen/PatientsScreen.js';
 import Button from './components/atoms/Button/Button.js';
+import NecrologyScreen from './components/sections/NecrologyScreen/NecrologyScreen.js';
 
 async function readJson(url) {
     let data = (await axios.get(url)).data;
@@ -18,7 +19,7 @@ const UPDATE_RATE_MS = 200;
 function App() {
     const forceUpdate = React.useReducer(() => ({}))[1];
 
-    let [simulation, setSimulation] = useState();
+    let [simulation, setSimulation] = useState(null);
 
     useEffect(() => {
         (async () => {
@@ -55,17 +56,28 @@ function App() {
         );
     }
 
+    let currentDay = simulation.currentDay;
+    let patientCount = simulation.allPatients.length;
+    let aliveCount = simulation.aliveHumans.length;
+    let newDeaths = simulation.deadHumans.filter(h => h.aliveDays === currentDay).length;
+
     return (
         <Container className={classNames(styles.app, 'g-0')}>
-            <Tab.Container defaultActiveKey='main'>
+            <Tab.Container defaultActiveKey='patients'>
                 <div className={classNames(styles.tabs, 'd-flex justify-content-sm-between p-2')}>
                     <Nav variant='underline'>
-                        <Nav.Link eventKey='main'>Пациенты</Nav.Link>
+                        <Nav.Link eventKey='patients'>
+                            Пациенты ({patientCount})
+                        </Nav.Link>
+                        <Nav.Link eventKey='necrology'>
+                            Умершие
+                            {newDeaths > 0 && ` (+${newDeaths})`}
+                        </Nav.Link>
                     </Nav>
                     <div className={styles.simulationStats}>
                         <div className='d-flex flex-column me-3 text-end'>
-                            <div>День: {simulation.currentDay}</div>
-                            <div>Людей: {simulation.aliveHumans.length}</div>
+                            <small>День: <b>{currentDay}</b></small>
+                            <small>Людей: <b>{aliveCount}</b></small>
                         </div>
                         <Button variant='primary' onClick={() => nextDay()}>
                             Следующий день
@@ -73,8 +85,11 @@ function App() {
                     </div>
                 </div>
                 <Tab.Content className='flex-grow-1'>
-                    <Tab.Pane className='flex-grow-1' eventKey='main'>
+                    <Tab.Pane className='flex-grow-1' eventKey='patients'>
                         <PatientsScreen simulation={simulation} />
+                    </Tab.Pane>
+                    <Tab.Pane className='flex-grow-1' eventKey='necrology'>
+                        <NecrologyScreen simulation={simulation} />
                     </Tab.Pane>
                 </Tab.Content>
             </Tab.Container>

@@ -10,7 +10,9 @@ HumanList.propTypes = {
     humans: PropTypes.arrayOf(PropTypes.instanceOf(Human)),
 };
 
-function HumanList({className, humans, selected, onSelect}) {
+function HumanList({className, humans, selected, onSelect, listItemContent}) {
+    listItemContent ??= human => human.fullName;
+
     return (
         <ScrollPane className={classNames(styles.scrollPane, className)} orientation='vertical'>
             <ListGroup className={styles.humanList} variant='flush'>
@@ -21,7 +23,7 @@ function HumanList({className, humans, selected, onSelect}) {
                         onClick={() => onSelect(human)}
                         action
                     >
-                        {human.fullName}
+                        {listItemContent(human)}
                     </ListGroupItem>
                 ))}
             </ListGroup>

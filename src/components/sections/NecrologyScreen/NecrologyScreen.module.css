@@ -1,0 +1,32 @@
+
+.necrologyScreen {
+    display: flex;
+    flex: 1;
+
+    min-height: 0;
+}
+
+.deadHumanList {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    min-height: 0;
+
+    border-right: 1px solid #ccc;
+}
+
+.deadHumanListHeader {
+    display: flex;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #ccc;
+}
+
+.humanInfo {
+    flex: 3;
+}
+
+.humanInfoHeader {
+    border-bottom: 1px solid #ccc;
+}
