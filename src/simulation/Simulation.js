@@ -30,6 +30,10 @@ export default class Simulation {
         return this.#world.aliveHumans;
     }
 
+    get deadHumans() {
+        return this.#world.deadHumans;
+    }
+
     get allPatients() {
         return this.#currentPatients;
     }

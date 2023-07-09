@@ -1,3 +1,4 @@
+import Random from '../utils/Random.js';
 
 let nextId = 1;
 
@@ -7,6 +8,8 @@ export default class Human {
 
     #id;
 
+    #aliveDays = 0;
+
     #name;
 
     #parameters;
@@ -14,6 +17,8 @@ export default class Human {
     #diseases = [];
 
     #isAlive = true;
+
+    #lethalParameter;
 
     #stateHistory = [];
 
@@ -53,7 +58,20 @@ export default class Human {
         return this.#isAlive;
     }
 
+    get aliveDays() {
+        return this.#aliveDays;
+    }
+
+    get lethalParameter() {
+        return this.#lethalParameter;
+    }
+
     update() {
+        if (!this.isAlive) {
+            return;
+        }
+
+        this.#aliveDays++;
         this.#updateAge();
         this.#updateParameters();
         this.#updateDiseases();
@@ -81,6 +99,18 @@ export default class Human {
         let isDead = Math.random() < lethalityLevel;
 
         this.#isAlive = !isDead;
+
+        if (isDead) {
+            let lethalEntries = this.#parameters.mapRecursive(parameter => {
+                return {
+                    parameter,
+                    lethality: parameter.getLethalityLevel(),
+                };
+            });
+            let randomEntry = Random.weightedByField(lethalEntries, 'lethality');
+
+            this.#lethalParameter = randomEntry.parameter;
+        }
     }
 
     #pushHistory() {
