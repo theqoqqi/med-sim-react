@@ -72,7 +72,7 @@ export default class Simulation {
     collectPatients() {
         this.#currentPatients = [];
 
-        for (const human of this.allHumans) {
+        for (const human of this.aliveHumans) {
             const discomfortLevel = human.getDiscomfortLevel();
             const decision = Math.random();
 
