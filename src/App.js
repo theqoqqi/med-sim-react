@@ -62,14 +62,18 @@ function App() {
                     <Nav variant='underline'>
                         <Nav.Link eventKey='main'>Пациенты</Nav.Link>
                     </Nav>
-                    <div>
+                    <div className={styles.simulationStats}>
+                        <div className='d-flex flex-column me-3 text-end'>
+                            <div>День: {simulation.currentDay}</div>
+                            <div>Людей: {simulation.aliveHumans.length}</div>
+                        </div>
                         <Button variant='primary' onClick={() => nextDay()}>
                             Следующий день
                         </Button>
                     </div>
                 </div>
-                <Tab.Content>
-                    <Tab.Pane eventKey='main'>
+                <Tab.Content className='flex-grow-1'>
+                    <Tab.Pane className='flex-grow-1' eventKey='main'>
                         <PatientsScreen simulation={simulation} />
                     </Tab.Pane>
                 </Tab.Content>

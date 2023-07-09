@@ -3,8 +3,7 @@
     padding: 6px;
     margin-top: 6px;
 
-    border: 1px solid gray;
-    border-radius: 6px;
+    border-top: 1px solid #ccc;
 }
 
 .parameterInfo.composite {

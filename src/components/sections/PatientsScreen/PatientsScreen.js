@@ -22,14 +22,19 @@ function PatientsScreen({simulation}) {
     }
 
     return (
-        <div className={styles.mainScreen}>
+        <div className={styles.patientsScreen}>
             <Section className={styles.patientList}>
                 <SectionHeader className={styles.patientListHeader}>
-                    Список пациентов
+                    <span>
+                        Список пациентов
+                    </span>
+                    <b className='mx-2'>
+                        {simulation.allPatients.length}
+                    </b>
                 </SectionHeader>
                 <SectionBody>
                     <HumanList
-                        humans={simulation.allHumans}
+                        humans={simulation.allPatients}
                         selected={selectedHuman}
                         onSelect={selectHuman}
                     />

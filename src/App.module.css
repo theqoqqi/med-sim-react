@@ -12,6 +12,11 @@
     overflow: hidden;
 }
 
+.simulationStats {
+    display: flex;
+    flex-direction: row;
+}
+
 .tabs {
     border-bottom: 1px solid #ccc;
 }
