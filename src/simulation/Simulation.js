@@ -85,4 +85,12 @@ export default class Simulation {
             }
         }
     }
+
+    removePatient(human) {
+        let index = this.#currentPatients.indexOf(human);
+
+        if (index !== -1) {
+            this.#currentPatients.splice(index, 1);
+        }
+    }
 }

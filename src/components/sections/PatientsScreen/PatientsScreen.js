@@ -9,6 +9,7 @@ import Section from '../../atoms/Section/Section.js';
 import SectionBody from '../../atoms/Section/SectionBody.js';
 import SectionHeader from '../../atoms/Section/SectionHeader.js';
 import Center from '../../atoms/Center/Center.js';
+import Button from '../../atoms/Button/Button.js';
 
 PatientsScreen.propTypes = {
     simulation: PropTypes.instanceOf(Simulation),
@@ -21,6 +22,17 @@ function PatientsScreen({simulation}) {
 
     function selectHuman(human) {
         setSelectedHuman(human);
+    }
+
+    function freePatient(human) {
+        simulation.removePatient(human);
+        selectFirstPatient();
+    }
+
+    function selectFirstPatient() {
+        if (simulation.allPatients.length) {
+            setSelectedHuman(simulation.allPatients[0]);
+        }
     }
 
     return (
@@ -44,7 +56,17 @@ function PatientsScreen({simulation}) {
             </Section>
             <Section className={styles.patientInfo}>
                 <SectionHeader className={styles.patientInfoHeader}>
-                    Информация о пациенте
+                    <span>
+                        Информация о пациенте
+                    </span>
+                    <Button
+                        variant='success'
+                        size='sm'
+                        className='mx-2'
+                        onClick={() => freePatient(selectedHuman)}
+                    >
+                        Отправить домой
+                    </Button>
                 </SectionHeader>
                 <SectionBody scrollable>
                     <Conditional condition={hasSelectedHuman} fallback={<Center>Выберите пациента</Center>}>
