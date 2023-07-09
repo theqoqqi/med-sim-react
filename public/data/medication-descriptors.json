@@ -1,0 +1,66 @@
+[
+  {
+    "title": "MediRelax",
+    "progressPerDay": [0.3, 0.4],
+    "impactFunction": "gaussian",
+    "effects": {
+      "physiological": {
+        "heartRate": -10,
+        "bloodPressure": {
+          "systolic": -5,
+          "diastolic": -3
+        }
+      }
+    }
+  },
+  {
+    "title": "CardioVital",
+    "progressPerDay": [0.4, 0.6],
+    "impactFunction": "gaussian",
+    "effects": {
+      "physiological": {
+        "bloodPressure": {
+          "systolic": -15,
+          "diastolic": -10
+        }
+      },
+      "biochemical": {
+        "cholesterol": -20,
+        "hemoglobin": 10
+      }
+    }
+  },
+  {
+    "title": "RenalCalm",
+    "progressPerDay": [0.08, 0.12],
+    "impactFunction": "gaussian",
+    "effects": {
+      "physiological.bloodPressure": {
+        "systolic": -12,
+        "diastolic": -9
+      }
+    }
+  },
+  {
+    "title": "ImmunoBoost",
+    "progressPerDay": [0.3, 0.4],
+    "impactFunction": "squareRoot",
+    "effects": {
+      "physiological.vitals": {
+        "temperature": -1.0,
+        "heartRate": -5
+      }
+    }
+  },
+  {
+    "title": "NeuroCalm",
+    "progressPerDay": [0.15, 0.2],
+    "impactFunction": "gaussian",
+    "effects": {
+      "psychological": {
+        "stressLevel": -0.3,
+        "qualityOfSleep": 0.2
+      }
+    }
+  }
+]

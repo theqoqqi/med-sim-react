@@ -3,6 +3,7 @@ import DiseaseFactory from './effectors/DiseaseFactory';
 import World from './World';
 import Name from './humans/Name';
 import Human from './humans/Human';
+import MedicationFactory from './effectors/MedicationFactory.js';
 
 export default class Simulation {
 
@@ -10,15 +11,18 @@ export default class Simulation {
 
     #diseaseFactory;
 
+    #medicationFactory;
+
     #world;
 
     #currentPatients = [];
 
     #currentDay = 0;
 
-    constructor({parameterDescriptors, diseaseDescriptors}) {
+    constructor({parameterDescriptors, diseaseDescriptors, medicationDescriptors}) {
         this.#parameterFactory = new ParameterFactory(parameterDescriptors);
         this.#diseaseFactory = new DiseaseFactory(diseaseDescriptors);
+        this.#medicationFactory = new MedicationFactory(medicationDescriptors);
         this.#world = new World();
     }
 
@@ -40,6 +44,10 @@ export default class Simulation {
 
     get currentDay() {
         return this.#currentDay;
+    }
+
+    get allMedicationDescriptors() {
+        return this.#medicationFactory.allDescriptors;
     }
 
     populate(amount) {
@@ -92,5 +100,9 @@ export default class Simulation {
         if (index !== -1) {
             this.#currentPatients.splice(index, 1);
         }
+    }
+
+    createMedication(human, descriptor) {
+        return this.#medicationFactory.createFromDescriptor(human, descriptor);
     }
 }

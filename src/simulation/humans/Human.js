@@ -1,4 +1,6 @@
 import Random from '../utils/Random.js';
+import Disease from '../effectors/Disease.js';
+import Medication from '../effectors/Medication.js';
 
 let nextId = 1;
 
@@ -64,6 +66,14 @@ export default class Human {
 
     get lethalParameter() {
         return this.#lethalParameter;
+    }
+
+    get diseases() {
+        return this.#effectors.filter(e => e instanceof Disease);
+    }
+
+    get medications() {
+        return this.#effectors.filter(e => e instanceof Medication);
     }
 
     update() {
