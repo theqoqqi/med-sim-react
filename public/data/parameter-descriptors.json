@@ -14,8 +14,9 @@
             "meanOrigin": 0.35,
             "deviationFactor": 0.5
           },
-          "normalRange": [0, 70],
-          "viableRange": [0, 1000]
+          "normalRange": [0, 50],
+          "viableRange": [0, 70],
+          "lethalRange": [0, 200]
         },
         "gender": {
           "title": "Пол",
@@ -27,7 +28,8 @@
           "type": "number",
           "randomType": "gaussian",
           "normalRange": [120, 220],
-          "viableRange": [50, 300]
+          "viableRange": [60, 300],
+          "lethalRange": [40, 360]
         },
         "weight": {
           "title": "Вес",
@@ -35,7 +37,8 @@
           "randomType": "gaussian",
           "fluctuation": "low",
           "normalRange": [40, 120],
-          "viableRange": [20, 200]
+          "viableRange": [25, 200],
+          "lethalRange": [15, 400]
         }
       }
     },
@@ -49,7 +52,8 @@
           "randomType": "gaussian",
           "fluctuation": "medium",
           "normalRange": [60, 90],
-          "viableRange": [20, 180]
+          "viableRange": [20, 180],
+          "lethalRange": [10, 220]
         },
         "bloodPressure": {
           "title": "Артериальное давление",
@@ -61,7 +65,8 @@
               "randomType": "gaussian",
               "fluctuation": "low",
               "normalRange": [95, 140],
-              "viableRange": [60, 260]
+              "viableRange": [60, 260],
+              "lethalRange": [30, 320]
             },
             "diastolic": {
               "title": "Диастолическое давление",
@@ -69,7 +74,8 @@
               "randomType": "gaussian",
               "fluctuation": "low",
               "normalRange": [60, 90],
-              "viableRange": [20, 140]
+              "viableRange": [20, 140],
+              "lethalRange": [10, 180]
             }
           }
         },
@@ -79,7 +85,8 @@
           "randomType": "gaussian",
           "fluctuation": "low",
           "normalRange": [36, 37.2],
-          "viableRange": [30, 42]
+          "viableRange": [30, 42],
+          "lethalRange": [27, 45]
         },
         "respiratoryRate": {
           "title": "Дыхательная частота",
@@ -87,15 +94,18 @@
           "randomType": "gaussian",
           "fluctuation": "low",
           "normalRange": [8, 20],
-          "viableRange": [2, 80]
+          "viableRange": [4, 80],
+          "lethalRange": [2, 100]
         },
         "bloodOxygenLevel": {
           "title": "Уровень кислорода в крови",
           "type": "number",
           "randomType": "gaussian",
           "fluctuation": "low",
+          "validRange": [0, 100],
           "normalRange": [95, 100],
-          "viableRange": [90, 999]
+          "viableRange": [90, 100],
+          "lethalRange": [85, 100]
         },
         "bloodGlucoseLevel": {
           "title": "Уровень глюкозы в крови",
@@ -103,7 +113,8 @@
           "randomType": "gaussian",
           "fluctuation": "low",
           "normalRange": [3.3, 6.0],
-          "viableRange": [2.0, 40.0]
+          "viableRange": [2.0, 40.0],
+          "lethalRange": [1.2, 60.0]
         }
       }
     },
@@ -117,7 +128,8 @@
           "randomType": "gaussian",
           "fluctuation": "medium",
           "normalRange": [2.8, 5.2],
-          "viableRange": [1.5, 8.0]
+          "viableRange": [1.5, 8.0],
+          "lethalRange": [1.0, 10.0]
         },
         "hemoglobinLevel": {
           "title": "Уровень гемоглобина",
@@ -125,7 +137,8 @@
           "randomType": "gaussian",
           "fluctuation": "medium",
           "normalRange": [120, 160],
-          "viableRange": [70, 200]
+          "viableRange": [70, 200],
+          "lethalRange": [40, 230]
         },
         "creatinineLevel": {
           "title": "Уровень креатинина",
@@ -133,7 +146,8 @@
           "randomType": "gaussian",
           "fluctuation": "low",
           "normalRange": [0.5, 1.2],
-          "viableRange": [0.3, 2.0]
+          "viableRange": [0.3, 2.0],
+          "lethalRange": [0.2, 2.5]
         },
         "bloodCells": {
           "title": "Кровяные тельца",
@@ -145,7 +159,8 @@
               "randomType": "gaussian",
               "fluctuation": "low",
               "normalRange": [50, 80],
-              "viableRange": [20, 200]
+              "viableRange": [20, 200],
+              "lethalRange": [10, 300]
             },
             "white": {
               "title": "Белые",
@@ -153,7 +168,8 @@
               "randomType": "gaussian",
               "fluctuation": "low",
               "normalRange": [170, 380],
-              "viableRange": [60, 900]
+              "viableRange": [60, 900],
+              "lethalRange": [30, 1500]
             }
           }
         },
@@ -167,7 +183,8 @@
               "randomType": "gaussian",
               "fluctuation": "medium",
               "normalRange": [135, 145],
-              "viableRange": [80, 200]
+              "viableRange": [80, 200],
+              "lethalRange": [50, 240]
             },
             "potassiumLevel": {
               "title": "Уровень калия",
@@ -175,7 +192,8 @@
               "randomType": "gaussian",
               "fluctuation": "medium",
               "normalRange": [3.5, 5.0],
-              "viableRange": [2.5, 6.5]
+              "viableRange": [2.5, 6.5],
+              "lethalRange": [2.0, 7.5]
             }
           }
         }
@@ -192,7 +210,8 @@
           "fluctuation": "high",
           "validRange": [0, 100],
           "normalRange": [0, 50],
-          "viableRange": [0, 100]
+          "viableRange": [0, 90],
+          "lethalRange": [0, 100]
         },
         "anxietyLevel": {
           "title": "Уровень тревожности",
@@ -210,7 +229,8 @@
           "fluctuation": "high",
           "validRange": [0, 100],
           "normalRange": [80, 100],
-          "viableRange": [0, 100]
+          "viableRange": [10, 100],
+          "lethalRange": [0, 100]
         },
         "fatigueLevel": {
           "title": "Уровень усталости",
