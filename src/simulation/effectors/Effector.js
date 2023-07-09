@@ -8,10 +8,15 @@ export default class Effector {
         this.human = human;
         this.title = descriptor.title;
         this.effects = effects;
+        this.lastProgressPerDay = 0;
         this.progressPerDay = NumberRange.from(descriptor.progressPerDay);
         this.progress = 0;
         this.impactFunction = this.getImpactFunction(descriptor);
         this.impact = 0;
+    }
+
+    get impactMultiplier() {
+        return 1;
     }
 
     getImpactFunction(descriptor) {
@@ -27,7 +32,9 @@ export default class Effector {
     }
 
     update() {
-        this.addProgress(this.progressPerDay.random());
+        this.lastProgressPerDay = this.progressPerDay.random();
+
+        this.addProgress(this.lastProgressPerDay);
         this.applyEffects();
     }
 
@@ -36,7 +43,7 @@ export default class Effector {
     }
 
     isFinished() {
-        return this.progress > 0 && this.impact <= 0;
+        return this.progress > 0 && this.impact * this.impactMultiplier <= 0.000001;
     }
 
     addProgress(progress) {
@@ -52,7 +59,7 @@ export default class Effector {
         for (const effect of this.effects) {
             let parameter = this.human.getParameter(effect.parameterName);
 
-            effect.applyTo(parameter, this.impact);
+            effect.applyTo(parameter, this.impact * this.impactMultiplier);
         }
     }
 

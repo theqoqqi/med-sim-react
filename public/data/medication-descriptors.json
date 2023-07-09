@@ -3,6 +3,9 @@
     "title": "MediRelax",
     "progressPerDay": [0.3, 0.4],
     "impactFunction": "gaussian",
+    "sourceEffects": {
+      "viralInfection": 0.5
+    },
     "effects": {
       "physiological": {
         "heartRate": -10,
@@ -17,6 +20,9 @@
     "title": "CardioVital",
     "progressPerDay": [0.4, 0.6],
     "impactFunction": "gaussian",
+    "sourceEffects": {
+      "bacterialInfection": 0.5
+    },
     "effects": {
       "physiological": {
         "bloodPressure": {
@@ -34,6 +40,9 @@
     "title": "RenalCalm",
     "progressPerDay": [0.08, 0.12],
     "impactFunction": "gaussian",
+    "sourceEffects": {
+      "inflammatory": 0.5
+    },
     "effects": {
       "physiological.bloodPressure": {
         "systolic": -12,
@@ -44,9 +53,12 @@
   {
     "title": "ImmunoBoost",
     "progressPerDay": [0.3, 0.4],
-    "impactFunction": "squareRoot",
+    "impactFunction": "gaussian",
+    "sourceEffects": {
+      "autoimmuneDisorders": 0.5
+    },
     "effects": {
-      "physiological.vitals": {
+      "physiological": {
         "temperature": -1.0,
         "heartRate": -5
       }
@@ -56,10 +68,13 @@
     "title": "NeuroCalm",
     "progressPerDay": [0.15, 0.2],
     "impactFunction": "gaussian",
+    "sourceEffects": {
+      "geneticDisorders": 0.5
+    },
     "effects": {
       "psychological": {
         "stressLevel": -0.3,
-        "qualityOfSleep": 0.2
+        "sleepQuality": 0.2
       }
     }
   }

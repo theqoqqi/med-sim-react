@@ -4,6 +4,9 @@
     "chancePerDay": 0.005,
     "progressPerDay": [0.2, 0.3],
     "impactFunction": "gaussian",
+    "sourcePowers": {
+      "viralInfection": 0.8
+    },
     "effects": {
       "physiological": {
         "temperature": 1.2,
@@ -19,6 +22,9 @@
     "chancePerDay": 0.002,
     "progressPerDay": [0.08, 0.12],
     "impactFunction": "gaussian",
+    "sourcePowers": {
+      "inflammatory": 1.2
+    },
     "effects": {
       "physiological": {
         "heartRate": 12,
@@ -34,16 +40,13 @@
     "chancePerDay": 0.0002,
     "progressPerDay": [0.15, 0.2],
     "impactFunction": "linear",
+    "sourcePowers": {
+      "autoimmuneDisorders": 2.5
+    },
     "effects": {
       "physiological.bloodPressure": {
         "systolic": 40,
-        "diastolic": {
-          "impact": -20,
-          "easingFunction": "gaussian",
-          "easingFunctionOptions": {
-            "meanOrigin": 0.2
-          }
-        }
+        "diastolic": 20
       }
     }
   },
@@ -52,6 +55,9 @@
     "chancePerDay": 0.0003,
     "progressPerDay": [0.12, 0.15],
     "impactFunction": "squareRoot",
+    "sourcePowers": {
+      "bacterialInfection": 1.5
+    },
     "effects": {
       "physiological.bloodPressure": {
         "systolic": 15,
@@ -68,6 +74,9 @@
     "chancePerDay": 0.0001,
     "progressPerDay": [0.15, 0.2],
     "impactFunction": "quadratic",
+    "sourcePowers": {
+      "geneticDisorders": 3
+    },
     "effects": {
       "physiological": {
         "temperature": 1.5,
