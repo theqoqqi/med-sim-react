@@ -60,12 +60,12 @@ export default class Simulation {
 
     update() {
         this.#currentDay++;
-        this.addRandomDiseases();
+        this.#addRandomDiseases();
         this.#world.update();
-        this.collectPatients();
+        this.#addNewPatients();
     }
 
-    addRandomDiseases() {
+    #addRandomDiseases() {
         this.#world.aliveHumans.forEach(human => {
             let diseases = this.#diseaseFactory.createRandomSet(human);
 
@@ -73,7 +73,7 @@ export default class Simulation {
         });
     }
 
-    collectPatients() {
+    #addNewPatients() {
         this.#currentPatients = [];
 
         for (const human of this.aliveHumans) {
