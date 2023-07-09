@@ -17,6 +17,8 @@ PatientsScreen.propTypes = {
 function PatientsScreen({simulation}) {
     let [selectedHuman, setSelectedHuman] = useState(null);
 
+    let hasSelectedHuman = selectedHuman !== null && simulation.allPatients.includes(selectedHuman);
+
     function selectHuman(human) {
         setSelectedHuman(human);
     }
@@ -45,7 +47,7 @@ function PatientsScreen({simulation}) {
                     Информация о пациенте
                 </SectionHeader>
                 <SectionBody scrollable>
-                    <Conditional condition={selectedHuman !== null} fallback={<Center>Выберите пациента</Center>}>
+                    <Conditional condition={hasSelectedHuman} fallback={<Center>Выберите пациента</Center>}>
                         <HumanInfo human={selectedHuman} />
                     </Conditional>
                 </SectionBody>
