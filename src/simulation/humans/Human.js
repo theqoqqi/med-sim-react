@@ -86,6 +86,10 @@ export default class Human {
         return this.#effectors.filter(e => e instanceof Medication);
     }
 
+    get treatmentCourses() {
+        return this.#treatmentCourses;
+    }
+
     update() {
         if (!this.isAlive) {
             return;
