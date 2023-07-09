@@ -24,6 +24,14 @@ export default class Human {
 
     #stateHistory = [];
 
+    #diseaseSourceImmunities = new Map([
+        ['viralInfection', 0.05],
+        ['bacterialInfection', 0.05],
+        ['inflammatory', 0.05],
+        ['autoimmuneDisorders', 0.05],
+        ['geneticDisorders', 0.05],
+    ]);
+
     constructor(name, parameters) {
         this.#id = nextId++;
         this.#name = name;
@@ -83,6 +91,7 @@ export default class Human {
 
         this.#aliveDays++;
         this.#updateAge();
+        this.#updateImmunity();
         this.#updateParameters();
         this.#updateEffectors();
         this.#updateAliveState();
@@ -91,6 +100,20 @@ export default class Human {
 
     #updateAge() {
         this.age += 1 / 365;
+    }
+
+    #updateImmunity() {
+        this.diseases.forEach(disease => {
+            this.#cureDisease(disease);
+        });
+    }
+
+    #cureDisease(disease) {
+        let powerMultiplier = 1;
+
+        this.#diseaseSourceImmunities.forEach((power, diseaseSourceName) => {
+            disease.cureSource(diseaseSourceName, power * powerMultiplier);
+        });
     }
 
     #updateParameters() {
