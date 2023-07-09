@@ -11,16 +11,16 @@ export default class Human {
 
     #parameters;
 
-    #diseases;
+    #diseases = [];
 
-    #stateHistory;
+    #isAlive = true;
+
+    #stateHistory = [];
 
     constructor(name, parameters) {
         this.#id = nextId++;
         this.#name = name;
         this.#parameters = parameters;
-        this.#diseases = [];
-        this.#stateHistory = [];
 
         this.#pushHistory();
     }
@@ -50,20 +50,37 @@ export default class Human {
     }
 
     get isAlive() {
-        return true;
+        return this.#isAlive;
     }
 
     update() {
+        this.#updateAge();
+        this.#updateParameters();
+        this.#updateDiseases();
+        this.#updateAliveState();
+        this.#pushHistory();
+    }
+
+    #updateAge() {
         this.age += 1 / 365;
+    }
 
+    #updateParameters() {
         this.#parameters.update();
+    }
 
+    #updateDiseases() {
         this.#diseases.forEach(d => d.update());
 
         this.#diseases.filter(d => d.isFinished())
             .forEach(d => this.removeDisease(d));
+    }
 
-        this.#pushHistory();
+    #updateAliveState() {
+        let lethalityLevel = this.#parameters.getLethalityLevel();
+        let isDead = Math.random() < lethalityLevel;
+
+        this.#isAlive = !isDead;
     }
 
     #pushHistory() {
@@ -92,6 +109,10 @@ export default class Human {
         if (index !== -1) {
             this.#diseases.splice(disease, 1);
         }
+    }
+
+    getDiscomfortLevel() {
+        return this.#parameters.getDiscomfortLevel();
     }
 
     setParameterValue(path, newValue) {

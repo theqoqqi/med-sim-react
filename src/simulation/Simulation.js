@@ -12,6 +12,10 @@ export default class Simulation {
 
     #world;
 
+    #currentPatients = [];
+
+    #currentDay = 0;
+
     constructor({parameterDescriptors, diseaseDescriptors}) {
         this.#parameterFactory = new ParameterFactory(parameterDescriptors);
         this.#diseaseFactory = new DiseaseFactory(diseaseDescriptors);
@@ -22,8 +26,16 @@ export default class Simulation {
         return this.#world.allHumans;
     }
 
-    update() {
-        this.#world.update();
+    get aliveHumans() {
+        return this.#world.aliveHumans;
+    }
+
+    get allPatients() {
+        return this.#currentPatients;
+    }
+
+    get currentDay() {
+        return this.#currentDay;
     }
 
     populate(amount) {
@@ -38,11 +50,35 @@ export default class Simulation {
         let parameters = this.#parameterFactory.createParameters();
         let ordinal = this.#world.allHumans.length + 1;
         let name = new Name(`Фамилия${ordinal}`, `Имя${ordinal}`, `Отчество${ordinal}`);
-        let human = new Human(name, parameters);
-        let diseases = this.#diseaseFactory.createRandomSet(human);
 
-        human.addDiseases(diseases);
+        return new Human(name, parameters);
+    }
 
-        return human;
+    update() {
+        this.#currentDay++;
+        this.addRandomDiseases();
+        this.#world.update();
+        this.collectPatients();
+    }
+
+    addRandomDiseases() {
+        this.#world.aliveHumans.forEach(human => {
+            let diseases = this.#diseaseFactory.createRandomSet(human);
+
+            human.addDiseases(diseases);
+        });
+    }
+
+    collectPatients() {
+        this.#currentPatients = [];
+
+        for (const human of this.allHumans) {
+            const discomfortLevel = human.getDiscomfortLevel();
+            const decision = Math.random();
+
+            if (decision <= discomfortLevel) {
+                this.#currentPatients.push(human);
+            }
+        }
     }
 }

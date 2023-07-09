@@ -30,6 +30,6 @@ export default class World {
     }
 
     get deadHumans() {
-        return this.#allHumans.filter(human => human.isDead);
+        return this.#allHumans.filter(human => !human.isAlive);
     }
 }
