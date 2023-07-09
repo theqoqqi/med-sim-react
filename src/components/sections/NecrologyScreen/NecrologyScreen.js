@@ -8,7 +8,7 @@ import SectionBody from '../../atoms/Section/SectionBody.js';
 import HumanList from '../../organisms/HumanList/HumanList.js';
 import Conditional from '../../atoms/Conditional/Conditional.js';
 import Center from '../../atoms/Center/Center.js';
-import HumanInfo from '../../organisms/HumanInfo/HumanInfo.js';
+import ParametersOverview from '../../organisms/ParametersOverview/ParametersOverview.js';
 
 NecrologyScreen.propTypes = {
     simulation: PropTypes.instanceOf(Simulation),
@@ -54,14 +54,16 @@ function NecrologyScreen({simulation}) {
                 </SectionBody>
             </Section>
             <Section className={styles.humanInfo}>
-                <SectionHeader className={styles.humanInfoHeader}>
-                    Информация об умершем
-                </SectionHeader>
-                <SectionBody scrollable>
-                    <Conditional condition={hasSelectedHuman} fallback={<Center>Выберите умершего</Center>}>
-                        <HumanInfo human={selectedHuman} />
-                    </Conditional>
-                </SectionBody>
+                <Conditional condition={hasSelectedHuman} fallback={<Center>Выберите умершего</Center>}>
+                    <SectionHeader className={styles.humanInfoHeader}>
+                        <span>
+                            {selectedHuman?.fullName}
+                        </span>
+                    </SectionHeader>
+                    <SectionBody scrollable>
+                        <ParametersOverview human={selectedHuman} />
+                    </SectionBody>
+                </Conditional>
             </Section>
         </div>
     );

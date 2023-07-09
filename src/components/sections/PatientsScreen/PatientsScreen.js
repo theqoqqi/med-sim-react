@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Simulation from '../../../simulation/Simulation.js';
 import HumanList from '../../organisms/HumanList/HumanList.js';
-import HumanInfo from '../../organisms/HumanInfo/HumanInfo.js';
+import ParametersOverview from '../../organisms/ParametersOverview/ParametersOverview.js';
 import Conditional from '../../atoms/Conditional/Conditional.js';
 import Section from '../../atoms/Section/Section.js';
 import SectionBody from '../../atoms/Section/SectionBody.js';
@@ -55,24 +55,24 @@ function PatientsScreen({simulation}) {
                 </SectionBody>
             </Section>
             <Section className={styles.patientInfo}>
-                <SectionHeader className={styles.patientInfoHeader}>
-                    <span>
-                        Информация о пациенте
-                    </span>
-                    <Button
-                        variant='success'
-                        size='sm'
-                        className='mx-2'
-                        onClick={() => freePatient(selectedHuman)}
-                    >
-                        Отправить домой
-                    </Button>
-                </SectionHeader>
-                <SectionBody scrollable>
-                    <Conditional condition={hasSelectedHuman} fallback={<Center>Выберите пациента</Center>}>
-                        <HumanInfo human={selectedHuman} />
-                    </Conditional>
-                </SectionBody>
+                <Conditional condition={hasSelectedHuman} fallback={<Center>Выберите пациента</Center>}>
+                    <SectionHeader className={styles.patientInfoHeader}>
+                        <span>
+                            {selectedHuman?.fullName}
+                        </span>
+                        <Button
+                            variant='success'
+                            size='sm'
+                            className='mx-2'
+                            onClick={() => freePatient(selectedHuman)}
+                        >
+                            Отправить домой
+                        </Button>
+                    </SectionHeader>
+                    <SectionBody scrollable>
+                        <ParametersOverview human={selectedHuman} />
+                    </SectionBody>
+                </Conditional>
             </Section>
         </div>
     );
