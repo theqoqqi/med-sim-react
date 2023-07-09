@@ -53,7 +53,7 @@ export default class NumberRange {
             return 0;
         }
 
-        if (toRange.includes(value)) {
+        if (!toRange.includes(value)) {
             return 1;
         }
 
