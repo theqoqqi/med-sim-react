@@ -14,7 +14,7 @@ export default class Human {
 
     #parameters;
 
-    #diseases = [];
+    #effectors = [];
 
     #isAlive = true;
 
@@ -74,7 +74,7 @@ export default class Human {
         this.#aliveDays++;
         this.#updateAge();
         this.#updateParameters();
-        this.#updateDiseases();
+        this.#updateEffectors();
         this.#updateAliveState();
         this.#pushHistory();
     }
@@ -87,11 +87,11 @@ export default class Human {
         this.#parameters.update();
     }
 
-    #updateDiseases() {
-        this.#diseases.forEach(d => d.update());
+    #updateEffectors() {
+        this.#effectors.forEach(d => d.update());
 
-        this.#diseases.filter(d => d.isFinished())
-            .forEach(d => this.removeDisease(d));
+        this.#effectors.filter(d => d.isFinished())
+            .forEach(d => this.removeEffector(d));
     }
 
     #updateAliveState() {
@@ -123,21 +123,21 @@ export default class Human {
         this.#stateHistory.push(snapshot);
     }
 
-    addDiseases(diseases) {
-        diseases.forEach(disease => this.addDisease(disease));
+    addEffectors(effectors) {
+        effectors.forEach(effector => this.addEffector(effector));
     }
 
-    addDisease(disease) {
-        this.#diseases.push(disease);
+    addEffector(effector) {
+        this.#effectors.push(effector);
 
-        disease.start();
+        effector.start();
     }
 
-    removeDisease(disease) {
-        let index = this.#diseases.indexOf(disease);
+    removeEffector(effector) {
+        let index = this.#effectors.indexOf(effector);
 
         if (index !== -1) {
-            this.#diseases.splice(disease, 1);
+            this.#effectors.splice(effector, 1);
         }
     }
 

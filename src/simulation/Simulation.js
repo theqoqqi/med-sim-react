@@ -69,7 +69,7 @@ export default class Simulation {
         this.#world.aliveHumans.forEach(human => {
             let diseases = this.#diseaseFactory.createRandomSet(human);
 
-            human.addDiseases(diseases);
+            human.addEffectors(diseases);
         });
     }
 
