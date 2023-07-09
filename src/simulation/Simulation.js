@@ -50,6 +50,10 @@ export default class Simulation {
         return this.#medicationFactory.allDescriptors;
     }
 
+    get allDiseaseDescriptors() {
+        return this.#diseaseFactory.allDescriptors;
+    }
+
     populate(amount) {
         for (let i = 0; i < amount; i++) {
             let human = this.createHuman();
@@ -104,5 +108,9 @@ export default class Simulation {
 
     createMedication(human, descriptor) {
         return this.#medicationFactory.createFromDescriptor(human, descriptor);
+    }
+
+    createDisease(human, descriptor) {
+        return this.#diseaseFactory.createFromDescriptor(human, descriptor);
     }
 }
