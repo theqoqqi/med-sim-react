@@ -70,7 +70,7 @@ export default class Human {
         let snapshot = {};
 
         this.#parameters.forEachRecursive((parameter, parameterPath) => {
-            snapshot[parameterPath] = parameter.get();
+            snapshot[parameterPath] = parameter.value;
         });
 
         this.#stateHistory.push(snapshot);

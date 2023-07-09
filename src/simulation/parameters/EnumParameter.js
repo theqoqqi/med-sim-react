@@ -25,7 +25,7 @@ export default class EnumParameter extends Parameter {
     }
 
     randomize() {
-        this.set(Random.fromList(this.#allowedValues));
+        this.value = Random.fromList(this.#allowedValues);
     }
 
     copy() {

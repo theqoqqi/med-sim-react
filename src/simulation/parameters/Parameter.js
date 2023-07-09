@@ -1,9 +1,19 @@
 
 export default class Parameter {
 
+    #value;
+
     constructor(descriptor, value) {
         this.descriptor = descriptor;
-        this.value = value;
+        this.#value = value;
+    }
+
+    get value() {
+        return this.#value;
+    }
+
+    set value(value) {
+        this.#value = value;
     }
 
     get title() {

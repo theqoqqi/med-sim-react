@@ -30,12 +30,13 @@ export default class NumberParameter extends Parameter {
         this.#fluctuation = new Fluctuation(this, descriptor?.fluctuation ?? {});
     }
 
-    set(newValue) {
-        this.value = this.#validRange.clamp(newValue);
+    set value(value) {
+        super.value = this.#validRange.clamp(value);
     }
 
-    get() {
-        return this.value;
+    // Must be overridden in pair with setter
+    get value() {
+        return super.value;
     }
 
     update() {
@@ -65,9 +66,8 @@ export default class NumberParameter extends Parameter {
 
     randomize() {
         let randomValue = RandomFunctions.randomInRange(this.normalRange, this.#randomType, this.#randomOptions);
-        let clampedValue = this.validRange.clamp(randomValue);
 
-        this.set(clampedValue);
+        this.value = this.validRange.clamp(randomValue);
         this.#fluctuation.reset();
     }
 

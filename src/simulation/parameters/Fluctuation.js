@@ -47,9 +47,8 @@ export default class Fluctuation {
 
         let gaussian = RandomFunctions.gaussian(1, 0.2);
         const stepSize = this.stepSize * gaussian;
-        const newValue = this.parameter.get() + stepSize;
 
-        this.parameter.set(newValue);
+        this.parameter.value = this.parameter.value + stepSize;
         this.remainingDays--;
     }
 
@@ -61,7 +60,7 @@ export default class Fluctuation {
         let targetValue = this.parameter.normalRange.random();
 
         this.remainingDays = this.daysBetweenTargetUpdates.randomInt();
-        this.stepSize = (targetValue - this.parameter.get()) * this.stepSizeInPercents;
+        this.stepSize = (targetValue - this.parameter.value) * this.stepSizeInPercents;
     }
 
     static getPreset(presetName) {
