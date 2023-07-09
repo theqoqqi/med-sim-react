@@ -28,6 +28,14 @@ export default class Parameter {
         return true;
     }
 
+    getDiscomfortLevel() {
+        return 0;
+    }
+
+    getLethalityLevel() {
+        return 0;
+    }
+
     copy() {
         return new Parameter(this.descriptor, this.value);
     }

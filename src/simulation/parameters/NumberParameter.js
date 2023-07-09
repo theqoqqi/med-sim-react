@@ -1,4 +1,3 @@
-
 import Parameter from './Parameter';
 import NumberRange from '../utils/NumberRange';
 import RandomFunctions from '../utils/RandomFunctions';
@@ -11,6 +10,8 @@ export default class NumberParameter extends Parameter {
     #normalRange;
 
     #viableRange;
+
+    #lethalRange;
 
     #randomType;
 
@@ -25,6 +26,7 @@ export default class NumberParameter extends Parameter {
         this.#validRange = descriptor.validRange ? NumberRange.from(descriptor.validRange) : NumberRange.INFINITE;
         this.#normalRange = NumberRange.from(descriptor.normalRange);
         this.#viableRange = NumberRange.from(descriptor.viableRange);
+        this.#lethalRange = descriptor.lethalRange ? NumberRange.from(descriptor.lethalRange) : null;
         this.#randomType = descriptor?.randomType ?? RandomFunctions.GAUSSIAN;
         this.#randomOptions = descriptor?.randomOptions ?? {};
         this.#fluctuation = new Fluctuation(this, descriptor?.fluctuation ?? {});
@@ -65,9 +67,13 @@ export default class NumberParameter extends Parameter {
     }
 
     randomize() {
-        let randomValue = RandomFunctions.randomInRange(this.normalRange, this.#randomType, this.#randomOptions);
+        let randomValue;
 
-        this.value = this.validRange.clamp(randomValue);
+        do {
+            randomValue = RandomFunctions.randomInRange(this.normalRange, this.#randomType, this.#randomOptions);
+        } while (!this.normalRange.includes(randomValue));
+
+        this.value = randomValue;
         this.#fluctuation.reset();
     }
 
@@ -83,12 +89,28 @@ export default class NumberParameter extends Parameter {
         return this.#viableRange;
     }
 
+    get lethalRange() {
+        return this.#lethalRange;
+    }
+
     isInNormalRange() {
         return this.#normalRange.includes(this.value);
     }
 
     isInViableRange() {
         return this.#viableRange.includes(this.value);
+    }
+
+    getDiscomfortLevel() {
+        return NumberRange.getDistanceForValue(this.value, this.normalRange, this.viableRange);
+    }
+
+    getLethalityLevel() {
+        if (!this.lethalRange) {
+            return 0;
+        }
+
+        return NumberRange.getDistanceForValue(this.value, this.viableRange, this.lethalRange);
     }
 
     copy() {

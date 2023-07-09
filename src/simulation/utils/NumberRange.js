@@ -47,4 +47,26 @@ export default class NumberRange {
     static from(array) {
         return new NumberRange(array[0], array[1]);
     }
+
+    static getDistanceForValue(value, fromRange, toRange) {
+        if (fromRange.includes(value)) {
+            return 0;
+        }
+
+        if (toRange.includes(value)) {
+            return 1;
+        }
+
+        const distanceFromInner = Math.min(
+            Math.abs(value - fromRange.min),
+            Math.abs(value - fromRange.max)
+        );
+
+        const distanceFromOuter = Math.min(
+            Math.abs(value - toRange.min),
+            Math.abs(value - toRange.max)
+        );
+
+        return distanceFromInner / (distanceFromInner + distanceFromOuter);
+    }
 }

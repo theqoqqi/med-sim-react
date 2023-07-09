@@ -91,6 +91,28 @@ export default class CompositeParameter extends Parameter {
         return this.children.every(p => p.isInViableRange());
     }
 
+    getDiscomfortLevel() {
+        let discomfortLevels = this.map(p => p.getDiscomfortLevel());
+
+        return this.multiplyChances(discomfortLevels);
+    }
+
+    getLethalityLevel() {
+        let lethalityLevels = this.map(p => p.getLethalityLevel());
+
+        return this.multiplyChances(lethalityLevels);
+    }
+
+    multiplyChances(chances) {
+        let totalChance = 1;
+
+        for (const chance of chances) {
+            totalChance *= 1 - chance;
+        }
+
+        return 1 - totalChance;
+    }
+
     copy() {
         let copiedParameters = {};
 
