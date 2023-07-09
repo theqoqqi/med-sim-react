@@ -18,6 +18,8 @@ export default class Human {
 
     #effectors = [];
 
+    #treatmentCourses = [];
+
     #isAlive = true;
 
     #lethalParameter;
@@ -92,6 +94,7 @@ export default class Human {
         this.#aliveDays++;
         this.#updateAge();
         this.#updateImmunity();
+        this.#updateTreatmentCourses();
         this.#updateParameters();
         this.#updateEffectors();
         this.#updateAliveState();
@@ -114,6 +117,13 @@ export default class Human {
         this.#diseaseSourceImmunities.forEach((power, diseaseSourceName) => {
             disease.cureSource(diseaseSourceName, power * powerMultiplier);
         });
+    }
+
+    #updateTreatmentCourses() {
+        this.#treatmentCourses.forEach(c => c.update());
+
+        this.#treatmentCourses.filter(c => c.isFinished)
+            .forEach(c => this.removeTreatmentCourse(c));
     }
 
     #updateParameters() {
@@ -174,6 +184,18 @@ export default class Human {
         }
 
         effector.destroy();
+    }
+
+    addTreatmentCourse(course) {
+        this.#treatmentCourses.push(course);
+    }
+
+    removeTreatmentCourse(course) {
+        let index = this.#treatmentCourses.indexOf(course);
+
+        if (index !== -1) {
+            this.#treatmentCourses.splice(course, 1);
+        }
     }
 
     getDiscomfortLevel() {
