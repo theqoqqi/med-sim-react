@@ -20,8 +20,8 @@ function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, on
     const maxInterval = 15;
     const maxTimes = 30;
 
-    let intervalPresets = [1, 2, 3, 5, 7, 10];
-    let timesPresets = [1, 2, 3, 5, 7, 10];
+    let intervalPresets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let timesPresets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     let [selectedMedication, setSelectedMedication] = useState(null);
     let [interval, setInterval] = useState('');
@@ -40,7 +40,7 @@ function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, on
 
     return (
         <div className={styles.createTreatmentCourseModal}>
-            <Modal show={visible} onHide={() => onCancel()}>
+            <Modal show={visible} onHide={() => onCancel()} size='lg'>
                 <Modal.Header closeButton>
                     <Modal.Title>Создать курс лечения</Modal.Title>
                 </Modal.Header>
