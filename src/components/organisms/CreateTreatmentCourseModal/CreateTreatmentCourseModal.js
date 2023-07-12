@@ -7,7 +7,7 @@ import Simulation from '../../../simulation/Simulation.js';
 import classNames from 'classnames';
 import MedicationList from '../MedicationList/MedicationList.js';
 import ScrollPane from '../../atoms/ScrollPane/ScrollPane.js';
-import TreatmentCourse from '../../../simulation/effectors/TreatmentCourse.js';
+import TreatmentCourse from '../../../simulation/TreatmentCourse.js';
 
 CreateTreatmentCourseModal.propTypes = {
     simulation: PropTypes.instanceOf(Simulation),

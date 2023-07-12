@@ -1,4 +1,3 @@
-
 export default class DiseaseSource {
 
     static #allSources = new Map([

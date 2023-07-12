@@ -1,4 +1,3 @@
-import Disease from './Disease.js';
 import NumberParameter from '../parameters/NumberParameter.js';
 import CompositeParameter from '../parameters/CompositeParameter.js';
 import ParameterEffect from '../parameters/ParameterEffect.js';

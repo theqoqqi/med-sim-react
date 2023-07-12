@@ -1,6 +1,6 @@
 import Random from '../utils/Random.js';
-import Disease from '../effectors/Disease.js';
-import Medication from '../effectors/Medication.js';
+import Disease from '../effectors/diseases/Disease.js';
+import Medication from '../effectors/medications/Medication.js';
 
 let nextId = 1;
 

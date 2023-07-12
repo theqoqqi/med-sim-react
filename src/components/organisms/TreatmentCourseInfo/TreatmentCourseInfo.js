@@ -3,9 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 import classNames from 'classnames';
-import TreatmentCourse from '../../../simulation/effectors/TreatmentCourse.js';
 import 'react-step-progress-bar/styles.css';
 import {ProgressBar, Step} from 'react-step-progress-bar';
+import TreatmentCourse from '../../../simulation/TreatmentCourse.js';
 
 TreatmentCourseInfo.propTypes = {
     className: PropTypes.any,

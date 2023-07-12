@@ -1,4 +1,4 @@
-import Effector from './Effector';
+import Effector from '../Effector.js';
 
 export default class Medication extends Effector {
 

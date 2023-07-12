@@ -1,6 +1,6 @@
-import Random from '../utils/Random';
-import {BaseEffectorFactory} from './BaseEffectorFactory.js';
+import {BaseEffectorFactory} from '../BaseEffectorFactory.js';
 import Disease from './Disease.js';
+import Random from '../../utils/Random.js';
 
 export default class DiseaseFactory extends BaseEffectorFactory {
 

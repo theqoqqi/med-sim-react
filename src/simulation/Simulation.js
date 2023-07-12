@@ -1,9 +1,9 @@
 import ParameterFactory from './parameters/ParameterFactory';
-import DiseaseFactory from './effectors/DiseaseFactory';
 import World from './World';
 import Name from './humans/Name';
 import Human from './humans/Human';
-import MedicationFactory from './effectors/MedicationFactory.js';
+import DiseaseFactory from './effectors/diseases/DiseaseFactory.js';
+import MedicationFactory from './effectors/medications/MedicationFactory.js';
 
 export default class Simulation {
 
