@@ -1,6 +1,9 @@
 
 .parameterInfo {
     padding: 6px;
+}
+
+.parameterInfo + .parameterInfo {
     margin-top: 6px;
 }
 

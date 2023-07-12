@@ -17,7 +17,7 @@ function CompositeParameterInfo({className, parameter, flat}) {
     }
 
     return (
-        <div>
+        <div className='mt-2'>
             {flat
                 ? parameter.mapRecursive(renderParameter)
                 : parameter.map(renderParameter)}

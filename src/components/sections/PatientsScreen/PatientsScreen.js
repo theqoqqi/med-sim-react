@@ -101,6 +101,9 @@ function PatientsScreen({simulation}) {
                             </div>
                             <TreatmentCoursesOverview human={selectedHuman} />
                         </div>
+                        <div className='px-3 pt-2'>
+                            <h6>Результаты анализов</h6>
+                        </div>
                         <ParametersOverview human={selectedHuman} />
                     </SectionBody>
                 </Conditional>
