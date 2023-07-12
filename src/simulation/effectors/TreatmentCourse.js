@@ -41,6 +41,10 @@ export default class TreatmentCourse {
         return this.#medicationDescriptor;
     }
 
+    get interval() {
+        return this.#interval;
+    }
+
     get totalTimes() {
         return this.#totalTimes;
     }

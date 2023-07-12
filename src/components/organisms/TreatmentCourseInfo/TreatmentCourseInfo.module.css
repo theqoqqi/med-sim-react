@@ -1,0 +1,26 @@
+
+.treatmentCourseInfo {
+
+}
+
+.timingsBadge {
+    padding: 0 6px;
+    border-radius: 4px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    background-color: #ddd;
+}
+
+.timesIcon {
+    font-size: 16px;
+
+    user-select: none;
+}
+
+.intervalIcon {
+    font-size: 16px;
+
+    user-select: none;
+}

@@ -10,6 +10,7 @@ import SectionBody from '../../atoms/Section/SectionBody.js';
 import SectionHeader from '../../atoms/Section/SectionHeader.js';
 import Center from '../../atoms/Center/Center.js';
 import Button from '../../atoms/Button/Button.js';
+import TreatmentCoursesOverview from '../../organisms/TreatmentCoursesOverview/TreatmentCoursesOverview.js';
 
 PatientsScreen.propTypes = {
     simulation: PropTypes.instanceOf(Simulation),
@@ -70,6 +71,12 @@ function PatientsScreen({simulation}) {
                         </Button>
                     </SectionHeader>
                     <SectionBody scrollable>
+                        <div className='px-3 py-2'>
+                            <div className='d-flex justify-content-between'>
+                                <h6>Назначенные медикаменты</h6>
+                            </div>
+                            <TreatmentCoursesOverview human={selectedHuman} />
+                        </div>
                         <ParametersOverview human={selectedHuman} />
                     </SectionBody>
                 </Conditional>
