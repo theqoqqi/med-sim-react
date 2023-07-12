@@ -26,7 +26,7 @@ export default class DiseaseSource {
     }
 
     static byName(name) {
-        if (this.#allSources.has(name)) {
+        if (!this.#allSources.has(name)) {
             throw new Error(`Disease source "${name}" not exists`);
         }
 
