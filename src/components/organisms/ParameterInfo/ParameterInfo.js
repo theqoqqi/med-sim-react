@@ -6,15 +6,21 @@ import classNames from 'classnames';
 
 ParameterInfo.propTypes = {
     parameter: PropTypes.instanceOf(Parameter),
+    className: PropTypes.any,
+    flat: PropTypes.bool,
 };
 
-function CompositeParameterInfo({parameter, flat}) {
+function CompositeParameterInfo({className, parameter, flat}) {
+
+    function renderParameter(p, pName) {
+        return <ParameterInfo key={pName} className={className} parameter={p} />;
+    }
 
     return (
         <div>
             {flat
-                ? parameter.mapRecursive((p, pName) => <ParameterInfo key={pName} parameter={p} /> )
-                : parameter.map((p, pName) => <ParameterInfo key={pName} parameter={p} /> )}
+                ? parameter.mapRecursive(renderParameter)
+                : parameter.map(renderParameter)}
         </div>
     );
 }
@@ -37,7 +43,7 @@ function EnumParameterInfo({parameter}) {
     );
 }
 
-function ParameterInfo({parameter, flat}) {
+function ParameterInfo({className, parameter, flat}) {
 
     let mappings = {
         CompositeParameter: CompositeParameterInfo,
@@ -49,9 +55,9 @@ function ParameterInfo({parameter, flat}) {
     let InfoContent = mappings[constructorName];
 
     return (
-        <div className={classNames(styles.parameterInfo, styles[typeName])}>
+        <div className={classNames(styles.parameterInfo, styles[typeName], className)}>
             {parameter.title}
-            <InfoContent parameter={parameter} flat={flat} />
+            <InfoContent parameter={parameter} className={className} flat={flat} />
         </div>
     );
 }

@@ -24,7 +24,7 @@ function ParametersOverview({human}) {
             <Row className='g-0'>
                 {human.parameters.children.map((p, index) =>
                     <Col className='g-1' xs={3} key={index}>
-                        <ParameterInfo parameter={p} flat />
+                        <ParameterInfo parameter={p} className={styles.parameterInfo} flat />
                     </Col>
                 )}
             </Row>

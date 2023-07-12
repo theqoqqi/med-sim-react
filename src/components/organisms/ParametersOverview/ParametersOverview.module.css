@@ -2,3 +2,7 @@
 .parametersOverview {
     padding: 8px;
 }
+
+.parameterInfo {
+    border-top: 1px solid #ccc;
+}
