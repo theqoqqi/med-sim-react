@@ -12,6 +12,7 @@ import Center from '../../atoms/Center/Center.js';
 import Button from '../../atoms/Button/Button.js';
 import TreatmentCoursesOverview from '../../organisms/TreatmentCoursesOverview/TreatmentCoursesOverview.js';
 import CreateTreatmentCourseModal from '../../organisms/CreateTreatmentCourseModal/CreateTreatmentCourseModal.js';
+import classNames from 'classnames';
 
 PatientsScreen.propTypes = {
     simulation: PropTypes.instanceOf(Simulation),
@@ -86,8 +87,8 @@ function PatientsScreen({simulation}) {
                         </Button>
                     </SectionHeader>
                     <SectionBody scrollable>
-                        <div className='px-3 py-2'>
-                            <div className='d-flex justify-content-between'>
+                        <div className={classNames(styles.treatmentCoursesOverview, 'px-2 py-2')}>
+                            <div className='d-flex justify-content-between align-items-center px-2'>
                                 <h6>Назначенные медикаменты</h6>
                                 <Button
                                     variant='primary'

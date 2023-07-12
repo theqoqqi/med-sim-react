@@ -22,8 +22,13 @@ function TreatmentCoursesOverview({human}) {
     return (
         <div className={styles.medicationsOverview}>
             <Row>
+                {human.treatmentCourses.length === 0 && (
+                    <Col xs={12} className='text-muted'>
+                        Ничего не назначено
+                    </Col>
+                )}
                 {human.treatmentCourses.map((course, index) =>
-                    <Col xs={3} key={index}>
+                    <Col xs={4} key={index}>
                         <TreatmentCourseInfo course={course} className={styles.treatmentCourseInfo} />
                     </Col>
                 )}

@@ -53,6 +53,14 @@ export default class TreatmentCourse {
         return this.#totalTimes - this.#remainingTimes;
     }
 
+    get currentDay() {
+        return this.#currentDay;
+    }
+
+    get totalDays() {
+        return (this.#totalTimes - 1) * this.#interval;
+    }
+
     get shouldTake() {
         return !this.isFinished && this.#currentDay % this.#interval === 0;
     }
