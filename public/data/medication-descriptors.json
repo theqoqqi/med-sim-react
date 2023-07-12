@@ -31,8 +31,8 @@
         }
       },
       "biochemical": {
-        "cholesterol": -20,
-        "hemoglobin": 10
+        "cholesterolLevel": -20,
+        "hemoglobinLevel": 10
       }
     }
   },
