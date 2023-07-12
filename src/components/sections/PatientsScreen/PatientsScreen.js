@@ -11,6 +11,7 @@ import SectionHeader from '../../atoms/Section/SectionHeader.js';
 import Center from '../../atoms/Center/Center.js';
 import Button from '../../atoms/Button/Button.js';
 import TreatmentCoursesOverview from '../../organisms/TreatmentCoursesOverview/TreatmentCoursesOverview.js';
+import CreateTreatmentCourseModal from '../../organisms/CreateTreatmentCourseModal/CreateTreatmentCourseModal.js';
 
 PatientsScreen.propTypes = {
     simulation: PropTypes.instanceOf(Simulation),
@@ -18,6 +19,7 @@ PatientsScreen.propTypes = {
 
 function PatientsScreen({simulation}) {
     let [selectedHuman, setSelectedHuman] = useState(null);
+    let [isAssigningTreatment, setAssigningTreatment] = useState(false);
 
     let hasSelectedHuman = selectedHuman !== null && simulation.allPatients.includes(selectedHuman);
 
@@ -28,6 +30,19 @@ function PatientsScreen({simulation}) {
     function freePatient(human) {
         simulation.removePatient(human);
         selectFirstPatient();
+    }
+
+    function showAssignTreatmentModal() {
+        setAssigningTreatment(true);
+    }
+
+    function hideAssignTreatmentModal() {
+        setAssigningTreatment(false);
+    }
+
+    function assignTreatment(course) {
+        selectedHuman.addTreatmentCourse(course);
+        hideAssignTreatmentModal();
     }
 
     function selectFirstPatient() {
@@ -74,6 +89,14 @@ function PatientsScreen({simulation}) {
                         <div className='px-3 py-2'>
                             <div className='d-flex justify-content-between'>
                                 <h6>Назначенные медикаменты</h6>
+                                <Button
+                                    variant='primary'
+                                    size='sm'
+                                    className=''
+                                    onClick={() => showAssignTreatmentModal()}
+                                >
+                                    Назначить
+                                </Button>
                             </div>
                             <TreatmentCoursesOverview human={selectedHuman} />
                         </div>
@@ -81,6 +104,13 @@ function PatientsScreen({simulation}) {
                     </SectionBody>
                 </Conditional>
             </Section>
+            <CreateTreatmentCourseModal
+                simulation={simulation}
+                patient={selectedHuman}
+                visible={isAssigningTreatment}
+                onCancel={() => hideAssignTreatmentModal()}
+                onCreate={course => assignTreatment(course)}
+            />
         </div>
     );
 }
