@@ -21,10 +21,10 @@ function TreatmentCoursesOverview({human}) {
 
     return (
         <div className={styles.medicationsOverview}>
-            <Row className='g-0'>
+            <Row>
                 {human.treatmentCourses.map((course, index) =>
-                    <Col className='g-1' xs={3} key={index}>
-                        <TreatmentCourseInfo course={course} />
+                    <Col xs={3} key={index}>
+                        <TreatmentCourseInfo course={course} className={styles.treatmentCourseInfo} />
                     </Col>
                 )}
             </Row>
