@@ -12,6 +12,10 @@ export default class NumberRange {
         this.max = max;
     }
 
+    get average() {
+        return (this.min + this.max) / 2;
+    }
+
     includes(value) {
         return value >= this.min && value <= this.max;
     }

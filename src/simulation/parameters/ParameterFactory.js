@@ -4,9 +4,12 @@ import EnumParameter from './EnumParameter';
 
 export default class ParameterFactory {
 
+    #parameterSetDescriptor;
+
     #templateParameterSet;
 
     constructor(parameterSetDescriptor) {
+        this.#parameterSetDescriptor = parameterSetDescriptor;
         this.#templateParameterSet = ParameterFactory.#createTemplate(parameterSetDescriptor);
     }
 
@@ -16,6 +19,48 @@ export default class ParameterFactory {
         parameters.randomize();
 
         return parameters;
+    }
+
+    mapEffects(effects, callback, startPath = null) {
+        let parameterDescriptors = this.#parameterSetDescriptor.parameters;
+
+        return Object.entries(effects)
+            .flatMap(([parameterPath, effectDescriptor]) => {
+                if (startPath) {
+                    parameterPath = startPath + '.' + parameterPath;
+                }
+
+                let parameterDescriptor = this.getParameterDescriptorByPath(parameterDescriptors, parameterPath);
+
+                if (parameterDescriptor.type === 'composite') {
+                    return this.mapEffects(effectDescriptor, callback, parameterPath);
+                }
+
+                let value = typeof effectDescriptor === 'object'
+                    ? effectDescriptor?.impact
+                    : effectDescriptor;
+
+                return callback(parameterPath, value);
+            });
+    }
+
+    getParameterDescriptor(parameterPath) {
+        return this.getParameterDescriptorByPath(this.#parameterSetDescriptor.parameters, parameterPath);
+    }
+
+    getParameterDescriptorByPath(object, path) {
+        const parts = path.split('.');
+        const lastPart = parts.pop();
+
+        for (const part of parts) {
+            object = object[part]?.parameters;
+
+            if (!object) {
+                return null;
+            }
+        }
+
+        return object[lastPart];
     }
 
     static #createTemplate(descriptor) {

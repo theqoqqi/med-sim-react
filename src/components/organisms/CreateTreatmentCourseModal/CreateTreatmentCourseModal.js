@@ -48,6 +48,7 @@ function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, on
                     <ScrollPane className={styles.medicationListScrollPane} orientation='vertical'>
                         <MedicationList
                             descriptors={simulation.allMedicationDescriptors}
+                            simulation={simulation}
                             selected={selectedMedication}
                             onSelect={medication => setSelectedMedication(medication)}
                         />

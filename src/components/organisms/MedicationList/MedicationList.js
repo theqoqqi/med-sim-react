@@ -3,12 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MedicationInfo from '../MedicationInfo/MedicationInfo.js';
 import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import Simulation from '../../../simulation/Simulation.js';
 
 MedicationList.propTypes = {
     descriptors: PropTypes.arrayOf(PropTypes.object),
+    simulation: PropTypes.instanceOf(Simulation),
 };
 
-function MedicationList({descriptors, selected, onSelect}) {
+function MedicationList({descriptors, simulation, selected, onSelect}) {
 
     return (
         <ListGroup className={styles.medicationList} variant='flush'>
@@ -19,7 +21,7 @@ function MedicationList({descriptors, selected, onSelect}) {
                     onClick={() => onSelect?.(descriptor)}
                     action
                 >
-                    <MedicationInfo descriptor={descriptor} />
+                    <MedicationInfo descriptor={descriptor} simulation={simulation} />
                 </ListGroupItem>
             ))}
         </ListGroup>

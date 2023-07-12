@@ -113,4 +113,12 @@ export default class Simulation {
     createDisease(human, descriptor) {
         return this.#diseaseFactory.createFromDescriptor(human, descriptor);
     }
+
+    mapParameterEffects(effects, callback, startPath = null) {
+        return this.#parameterFactory.mapEffects(effects, callback, startPath);
+    }
+
+    getParameterTitle(parameterPath) {
+        return this.#parameterFactory.getParameterDescriptor(parameterPath).title;
+    }
 }
