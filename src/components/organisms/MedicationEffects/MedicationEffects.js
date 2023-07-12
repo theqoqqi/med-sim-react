@@ -13,6 +13,7 @@ MedicationEffects.propTypes = {
 };
 
 function MedicationEffects({ descriptor, simulation, patient }) {
+    let colorizeSources = false;
 
     let sourceImpacts = Object.entries(descriptor.sourceEffects).map(([sourceName, value]) => {
         let title = DiseaseSource.byName(sourceName).title;
@@ -33,7 +34,7 @@ function MedicationEffects({ descriptor, simulation, patient }) {
     }
 
     function getImpactClassForSource(sourceName, impactValue) {
-        if (!patient) {
+        if (!colorizeSources || !patient) {
             return getImpactClass(0);
         }
 
