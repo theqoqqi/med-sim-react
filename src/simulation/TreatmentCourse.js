@@ -36,6 +36,10 @@ export default class TreatmentCourse {
         this.#human.addEffector(medication);
     }
 
+    get patient() {
+        return this.#human;
+    }
+
     get medicationDescriptor() {
         return this.#medicationDescriptor;
     }

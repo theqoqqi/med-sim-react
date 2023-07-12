@@ -1,11 +1,12 @@
 import styles from './TreatmentCourseInfo.module.css';
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {OverlayTrigger, Tooltip} from 'react-bootstrap';
+import {Collapse, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import classNames from 'classnames';
 import 'react-step-progress-bar/styles.css';
 import {ProgressBar, Step} from 'react-step-progress-bar';
 import TreatmentCourse from '../../../simulation/TreatmentCourse.js';
+import MedicationEffects from '../MedicationEffects/MedicationEffects.js';
 
 TreatmentCourseInfo.propTypes = {
     className: PropTypes.any,
@@ -28,6 +29,8 @@ function getStepNumberTooltip(stepNumber, interval, currentDay) {
 }
 
 function TreatmentCourseInfo({className, course}) {
+
+    let [isEffectsVisible, setEffectsVisible] = useState(false);
 
     let currentDay = course.currentDay;
     let totalDays = course.totalDays;
@@ -72,6 +75,25 @@ function TreatmentCourseInfo({className, course}) {
                     </div>
                 </OverlayTrigger>
             </div>
+            <div className='d-flex justify-content-between'>
+                <small>
+                    Эффекты препарата:
+                </small>
+                <a className='link-primary' href='#' onClick={() => setEffectsVisible(!isEffectsVisible)}>
+                    <small>
+                        {isEffectsVisible ? 'свернуть' : 'развернуть'}
+                    </small>
+                </a>
+            </div>
+            <Collapse in={isEffectsVisible}>
+                <div>
+                    <MedicationEffects
+                        descriptor={course.medicationDescriptor}
+                        simulation={course.patient.simulation}
+                        patient={course.patient}
+                    />
+                </div>
+            </Collapse>
             <div className='m-2 mt-3'>
                 <ProgressBar percent={elapsedPercent} height={8}>
                     {stepsArray.map(number => (

@@ -29,7 +29,10 @@ function TreatmentCoursesOverview({human}) {
                 )}
                 {human.treatmentCourses.map((course, index) =>
                     <Col xs={4} key={index}>
-                        <TreatmentCourseInfo course={course} className={styles.treatmentCourseInfo} />
+                        <TreatmentCourseInfo
+                            course={course}
+                            className={styles.treatmentCourseInfo}
+                        />
                     </Col>
                 )}
             </Row>
