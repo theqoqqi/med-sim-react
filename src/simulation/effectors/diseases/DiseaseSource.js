@@ -5,7 +5,7 @@ export default class DiseaseSource {
         ['bacterialInfection', new DiseaseSource('bacterialInfection', 'Бактериальная инфекция')],
         ['inflammatory', new DiseaseSource('inflammatory', 'Воспалительный процесс')],
         ['autoimmuneDisorders', new DiseaseSource('autoimmuneDisorders', 'Аутоиммунное расстройство')],
-        ['geneticDisorders', new DiseaseSource('geneticDisorders', 'Генетические расстройство')],
+        ['geneticDisorders', new DiseaseSource('geneticDisorders', 'Генетическое расстройство')],
     ]);
 
     #name;
