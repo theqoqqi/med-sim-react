@@ -60,13 +60,13 @@ function TreatmentCourseInfo({className, course}) {
                     {course.medicationDescriptor.title}
                 </div>
                 <OverlayTrigger overlay={renderTimingsTooltip}>
-                    <div className={classNames(styles.timingsBadge, 'd-flex gap-2')}>
+                    <div className={classNames(styles.timingsBadge, 'd-flex gap-3')}>
                         <span className='d-flex align-items-center gap-1'>
-                            <span className={styles.intervalIcon}>↻</span>
+                            <span className={styles.intervalIcon}>⇔</span>
                             {interval}
                         </span>
                         <span className='d-flex align-items-center gap-1'>
-                            <span className={styles.timesIcon}>×</span>
+                            <span className={styles.timesIcon}>↻</span>
                             {totalTimes}
                         </span>
                     </div>
