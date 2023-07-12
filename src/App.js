@@ -25,10 +25,12 @@ function App() {
         (async () => {
             let parameterDescriptors = await readJson('./data/parameter-descriptors.json');
             let diseaseDescriptors = await readJson('./data/disease-descriptors.json');
+            let medicationDescriptors = await readJson('./data/medication-descriptors.json');
 
             let simulation = new Simulation({
                 parameterDescriptors,
                 diseaseDescriptors,
+                medicationDescriptors,
             });
 
             simulation.populate(1000);

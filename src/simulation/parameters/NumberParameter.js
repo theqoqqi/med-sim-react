@@ -23,7 +23,7 @@ export default class NumberParameter extends Parameter {
 
     constructor(descriptor, value = null) {
         super(descriptor, value);
-        this.#validRange = descriptor.validRange ? NumberRange.from(descriptor.validRange) : NumberRange.INFINITE;
+        this.#validRange = descriptor.validRange ? NumberRange.from(descriptor.validRange) : NumberRange.POSITIVE;
         this.#normalRange = NumberRange.from(descriptor.normalRange);
         this.#viableRange = NumberRange.from(descriptor.viableRange);
         this.#lethalRange = descriptor.lethalRange ? NumberRange.from(descriptor.lethalRange) : null;
