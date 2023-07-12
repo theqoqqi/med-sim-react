@@ -1,0 +1,30 @@
+
+.medicationEffects {
+    font-size: 13px;
+}
+
+.effect {
+
+}
+
+.effect.sourceEffect {
+
+}
+
+.effect.parameterEffect {
+
+}
+
+.effect.positive {
+    font-weight: 500;
+    color: #00aa00;
+}
+
+.effect.neutral {
+    color: gray;
+}
+
+.effect.negative {
+    font-weight: 500;
+    color: indianred;
+}

@@ -49,6 +49,7 @@ function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, on
                         <MedicationList
                             descriptors={simulation.allMedicationDescriptors}
                             simulation={simulation}
+                            patient={patient}
                             selected={selectedMedication}
                             onSelect={medication => setSelectedMedication(medication)}
                         />

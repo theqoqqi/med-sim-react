@@ -209,6 +209,12 @@ export default class Human {
         }
     }
 
+    getMaxDiseaseSourcePower(sourceName) {
+        let sourcePowers = this.diseases.map(disease => disease.getSourcePower(sourceName));
+
+        return Math.max(0, ...sourcePowers);
+    }
+
     getDiscomfortLevel() {
         return this.#parameters.getDiscomfortLevel();
     }

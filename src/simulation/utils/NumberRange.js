@@ -40,6 +40,16 @@ export default class NumberRange {
         return this.min + Math.floor(Math.random() * (this.max - this.min + 1));
     }
 
+    getDistance(value) {
+        if (this.includes(value)) {
+            return 0;
+        }
+
+        return value < this.min
+            ? this.min - value
+            : value - this.max;
+    }
+
     toString() {
         return `${this.min}-${this.max}`;
     }
