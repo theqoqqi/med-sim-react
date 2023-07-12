@@ -1,13 +1,13 @@
 import styles from './CreateTreatmentCourseModal.module.css';
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {Form, InputGroup, Modal} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import Button from '../../atoms/Button/Button.js';
 import Simulation from '../../../simulation/Simulation.js';
-import classNames from 'classnames';
 import MedicationList from '../MedicationList/MedicationList.js';
 import ScrollPane from '../../atoms/ScrollPane/ScrollPane.js';
 import TreatmentCourse from '../../../simulation/TreatmentCourse.js';
+import {NumberControlWithPresets} from '../../molecules/NumberControlWithPresets/NumberControlWithPresets.js';
 
 CreateTreatmentCourseModal.propTypes = {
     simulation: PropTypes.instanceOf(Simulation),
@@ -15,44 +15,6 @@ CreateTreatmentCourseModal.propTypes = {
     onCancel: PropTypes.func,
     onCreate: PropTypes.func,
 };
-
-function NumberControlWithPresets({
-                                      className, title, unitTitle, presets,
-                                      value, minValue, maxValue, onInput, placeholder
-                                  }) {
-
-    return (
-        <InputGroup className={className}>
-            <InputGroup.Text>
-                {title}
-            </InputGroup.Text>
-            {presets.map(presetValue => (
-                <Button
-                    key={presetValue}
-                    className={classNames('border', {
-                        active: presetValue === +value,
-                    })}
-                    variant={presetValue === +value ? 'primary' : 'light'}
-                    onClick={() => onInput(presetValue)}
-                >
-                    {presetValue}
-                </Button>
-            ))}
-            <Form.Control
-                className='text-center'
-                type='number'
-                value={value}
-                onInput={e => onInput(e.target.value)}
-                min={minValue}
-                max={maxValue}
-                placeholder={placeholder}
-            />
-            <InputGroup.Text>
-                {unitTitle}
-            </InputGroup.Text>
-        </InputGroup>
-    );
-}
 
 function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, onCreate }) {
     const maxInterval = 15;
