@@ -5,7 +5,11 @@ import Random from '../../utils/Random.js';
 export default class DiseaseFactory extends BaseEffectorFactory {
 
     createInstance(descriptor, human, effects) {
-        return new Disease(descriptor, human, effects);
+        return new Disease({
+            ...descriptor,
+            human,
+            effects,
+        });
     }
 
     createRandom(human) {

@@ -4,10 +4,14 @@ export default class Medication extends Effector {
 
     #sourceEffects;
 
-    constructor(descriptor, human, effects) {
-        super(descriptor, human, effects);
+    constructor({ sourceEffects, ...options }) {
+        super(options);
 
-        this.#sourceEffects = Medication.#createEffectMap(descriptor);
+        this.#sourceEffects = Medication.#createEffectMap(sourceEffects);
+    }
+
+    get sourceEffects() {
+        return this.#sourceEffects;
     }
 
     update() {
@@ -30,8 +34,8 @@ export default class Medication extends Effector {
         });
     }
 
-    static #createEffectMap(descriptor) {
-        return Object.entries(descriptor?.sourceEffects ?? {})
+    static #createEffectMap(sourceEffects) {
+        return Object.entries(sourceEffects ?? {})
             .reduce((map, [sourceName, power]) => map.set(sourceName, power), new Map());
     }
 }

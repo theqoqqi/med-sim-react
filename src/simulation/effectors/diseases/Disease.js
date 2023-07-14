@@ -6,11 +6,11 @@ export default class Disease extends Effector {
 
     #maxPower;
 
-    constructor(descriptor, human, effects) {
-        super(descriptor, human, effects);
+    constructor({ sourcePowers, maxPower, ...options }) {
+        super(options);
 
-        this.#sourcePowers = Disease.#createPowerMap(descriptor);
-        this.#maxPower = Disease.#getSumOfPowers(this.#sourcePowers);
+        this.#sourcePowers = Disease.#createPowerMap(sourcePowers);
+        this.#maxPower = maxPower ?? Disease.#getSumOfPowers(this.#sourcePowers);
     }
 
     get #currentPower() {
@@ -19,6 +19,10 @@ export default class Disease extends Effector {
 
     get impactMultiplier() {
         return this.#currentPower / this.#maxPower;
+    }
+
+    get sourcePowers() {
+        return this.#sourcePowers;
     }
 
     cureSource(sourceName, cureBy) {
@@ -38,8 +42,8 @@ export default class Disease extends Effector {
             : 0;
     }
 
-    static #createPowerMap(descriptor) {
-        return Object.entries(descriptor.sourcePowers)
+    static #createPowerMap(sourcePowers) {
+        return Object.entries(sourcePowers)
             .reduce((map, [sourceName, power]) => map.set(sourceName, power), new Map());
     }
 

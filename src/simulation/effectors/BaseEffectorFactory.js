@@ -65,6 +65,6 @@ export class BaseEffectorFactory {
 
         let easingFunction = Easing.getFunction(descriptor.easingFunction, descriptor.easingFunctionOptions);
 
-        return new ParameterEffect(parameterName, descriptor.impact, easingFunction);
+        return new ParameterEffect(parameterName, descriptor.impact, easingFunction); // TODO: эффект параметра тоже надо сделать сериализуемым, чтобы в нем не было поля с функцией
     }
 }

@@ -4,14 +4,18 @@ import NumberRange from '../utils/NumberRange';
 
 export default class Effector {
 
-    constructor(descriptor, human, effects) {
+    #impactFunctionInstance;
+
+    constructor({ title, human, effects, progressPerDay, impactFunction, impactFunctionOptions }) {
         this.human = human;
-        this.title = descriptor.title;
+        this.title = title;
         this.effects = effects;
         this.lastProgressPerDay = 0;
-        this.progressPerDay = NumberRange.from(descriptor.progressPerDay);
+        this.progressPerDay = NumberRange.from(progressPerDay);
         this.progress = 0;
-        this.impactFunction = this.getImpactFunction(descriptor);
+        this.impactFunction = impactFunction;
+        this.impactFunctionOptions = impactFunctionOptions;
+        this.#impactFunctionInstance = this.getImpactFunction(impactFunction, impactFunctionOptions);
         this.impact = 0;
     }
 
@@ -19,9 +23,9 @@ export default class Effector {
         return 1;
     }
 
-    getImpactFunction(descriptor) {
-        let functionName = descriptor?.impactFunction ?? 'linear';
-        let options = descriptor?.impactFunctionOptions ?? {};
+    getImpactFunction(functionName, options) {
+        functionName ??= 'linear';
+        options ??= {};
 
         return Easing.getFunction(functionName, options);
     }
@@ -52,7 +56,7 @@ export default class Effector {
 
     setProgress(progress) {
         this.progress = progress;
-        this.impact = this.impactFunction(progress);
+        this.impact = this.#impactFunctionInstance(progress);
     }
 
     applyEffects() {
