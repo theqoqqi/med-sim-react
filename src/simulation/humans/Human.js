@@ -184,7 +184,8 @@ export default class Human {
     addEffector(effector) {
         this.#effectors.push(effector);
 
-        effector.start();
+        effector.setHuman(this);
+        effector.applyEffects();
     }
 
     removeEffector(effector) {
@@ -194,7 +195,7 @@ export default class Human {
             this.#effectors.splice(effector, 1);
         }
 
-        effector.destroy();
+        effector.removeEffects();
     }
 
     addTreatmentCourse(course) {

@@ -6,8 +6,8 @@ export default class Effector {
 
     #impactFunctionInstance;
 
-    constructor({ title, human, effects, progressPerDay, impactFunction, impactFunctionOptions }) {
-        this.human = human;
+    constructor({ title, effects, progressPerDay, impactFunction, impactFunctionOptions }) {
+        this.human = null;
         this.title = title;
         this.effects = effects;
         this.lastProgressPerDay = 0;
@@ -30,9 +30,8 @@ export default class Effector {
         return Easing.getFunction(functionName, options);
     }
 
-    start() {
-        this.setProgress(0);
-        this.applyEffects();
+    setHuman(human) {
+        this.human = human;
     }
 
     update() {
@@ -40,10 +39,6 @@ export default class Effector {
 
         this.addProgress(this.lastProgressPerDay);
         this.applyEffects();
-    }
-
-    destroy() {
-        this.removeEffects();
     }
 
     isFinished() {
