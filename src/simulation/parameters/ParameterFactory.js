@@ -98,6 +98,9 @@ export default class ParameterFactory {
             childParameters[parameterName] = ParameterFactory.#createParameter(parameterDescriptor);
         }
 
-        return new CompositeParameter(descriptor, childParameters);
+        return new CompositeParameter({
+            title: descriptor.title,
+            value: childParameters,
+        });
     }
 }

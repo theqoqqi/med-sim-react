@@ -6,10 +6,10 @@ export default class EnumParameter extends Parameter {
 
     #allowedValues;
 
-    constructor(descriptor, value = null) {
-        super(descriptor, value);
+    constructor({allowedValues, ...options}) {
+        super(options);
 
-        this.#allowedValues = descriptor?.allowedValues || [];
+        this.#allowedValues = allowedValues ?? [];
     }
 
     set(newValue) {
@@ -29,6 +29,10 @@ export default class EnumParameter extends Parameter {
     }
 
     copy() {
-        return new EnumParameter(this.descriptor, this.value);
+        return new EnumParameter({
+            title: this.title,
+            value: this.value,
+            allowedValues: this.#allowedValues,
+        });
     }
 }

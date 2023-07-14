@@ -21,15 +21,25 @@ export default class NumberParameter extends Parameter {
 
     #effects = new Map();
 
-    constructor(descriptor, value = null) {
-        super(descriptor, value);
-        this.#validRange = descriptor.validRange ? NumberRange.from(descriptor.validRange) : NumberRange.POSITIVE;
-        this.#normalRange = NumberRange.from(descriptor.normalRange);
-        this.#viableRange = NumberRange.from(descriptor.viableRange);
-        this.#lethalRange = descriptor.lethalRange ? NumberRange.from(descriptor.lethalRange) : null;
-        this.#randomType = descriptor?.randomType ?? RandomFunctions.GAUSSIAN;
-        this.#randomOptions = descriptor?.randomOptions ?? {};
-        this.#fluctuation = new Fluctuation(this, descriptor?.fluctuation ?? {});
+    constructor({
+        validRange,
+        normalRange,
+        viableRange,
+        lethalRange,
+        randomType,
+        randomOptions,
+        fluctuation,
+        ...options
+    }) {
+        super(options);
+
+        this.#validRange = NumberRange.from(validRange, NumberRange.POSITIVE);
+        this.#normalRange = NumberRange.from(normalRange);
+        this.#viableRange = NumberRange.from(viableRange);
+        this.#lethalRange = NumberRange.from(lethalRange, null);
+        this.#randomType = randomType ?? RandomFunctions.GAUSSIAN;
+        this.#randomOptions = randomOptions ?? {};
+        this.#fluctuation = Fluctuation.from(this, fluctuation);
     }
 
     set value(value) {
@@ -93,6 +103,18 @@ export default class NumberParameter extends Parameter {
         return this.#lethalRange;
     }
 
+    get randomType() {
+        return this.#randomType;
+    }
+
+    get randomOptions() {
+        return this.#randomOptions;
+    }
+
+    get fluctuation() {
+        return this.#fluctuation;
+    }
+
     isInNormalRange() {
         return this.#normalRange.includes(this.value);
     }
@@ -114,6 +136,16 @@ export default class NumberParameter extends Parameter {
     }
 
     copy() {
-        return new NumberParameter(this.descriptor, this.value);
+        return new NumberParameter({
+            title: this.title,
+            value: this.value,
+            viableRange: this.viableRange,
+            normalRange: this.normalRange,
+            validRange: this.validRange,
+            lethalRange: this.lethalRange,
+            randomType: this.randomType,
+            randomOptions: this.randomOptions,
+            fluctuation: this.fluctuation,
+        });
     }
 }

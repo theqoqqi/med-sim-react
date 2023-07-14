@@ -1,10 +1,12 @@
 
 export default class Parameter {
 
+    #title;
+
     #value;
 
-    constructor(descriptor, value) {
-        this.descriptor = descriptor;
+    constructor({ title, value }) {
+        this.#title = title;
         this.#value = value;
     }
 
@@ -17,7 +19,7 @@ export default class Parameter {
     }
 
     get title() {
-        return this.descriptor.title;
+        return this.#title;
     }
 
     isInNormalRange() {
@@ -37,7 +39,10 @@ export default class Parameter {
     }
 
     copy() {
-        return new Parameter(this.descriptor, this.value);
+        return new Parameter({
+            title: this.title,
+            value: this.value,
+        });
     }
 
     update() {

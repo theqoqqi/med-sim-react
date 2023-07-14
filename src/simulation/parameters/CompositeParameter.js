@@ -120,6 +120,9 @@ export default class CompositeParameter extends Parameter {
             copiedParameters[parameterName] = parameter.copy();
         }
 
-        return new CompositeParameter(this.descriptor, copiedParameters);
+        return new CompositeParameter({
+            title: this.title,
+            value: copiedParameters,
+        });
     }
 }

@@ -22,18 +22,18 @@ export default class Fluctuation {
         }],
     ]);
 
-    constructor(parameter, descriptor) {
-        if (typeof descriptor === 'string') {
-            descriptor = Fluctuation.getPreset(descriptor);
-        }
-
+    constructor({ parameter, daysBetweenTargetUpdates, stepSizeInPercents }) {
         this.parameter = parameter;
-        this.daysBetweenTargetUpdates = NumberRange.from(descriptor?.daysBetweenTargetUpdates ?? [1, 1]);
+        this.daysBetweenTargetUpdates = NumberRange.from(daysBetweenTargetUpdates ?? [1, 1]);
         this.remainingDays = null;
-        this.stepSizeInPercents = descriptor?.stepSizeInPercents ?? 0;
+        this.stepSizeInPercents = stepSizeInPercents ?? 0;
         this.stepSize = null;
 
         this.reset();
+    }
+
+    setParameter(parameter) {
+        this.parameter = parameter;
     }
 
     reset() {
@@ -61,6 +61,17 @@ export default class Fluctuation {
 
         this.remainingDays = this.daysBetweenTargetUpdates.randomInt();
         this.stepSize = (targetValue - this.parameter.value) * this.stepSizeInPercents;
+    }
+
+    static from(parameter, options) {
+        if (typeof options === 'string') {
+            options = this.getPreset(options);
+        }
+
+        return new Fluctuation({
+            parameter,
+            ...options,
+        });
     }
 
     static getPreset(presetName) {
