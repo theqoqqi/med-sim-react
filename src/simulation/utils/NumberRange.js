@@ -58,8 +58,20 @@ export default class NumberRange {
         return new NumberRange(min, max);
     }
 
-    static from(array) {
-        return new NumberRange(array[0], array[1]);
+    static from(options, defaultRange = null) {
+        if (!options) {
+            return defaultRange;
+        }
+
+        if (options instanceof NumberRange) {
+            return options;
+        }
+
+        if (options.length) {
+            return new NumberRange(options[0], options[1]);
+        }
+
+        return new NumberRange(options.min, options.max);
     }
 
     static getDistanceForValue(value, fromRange, toRange) {
