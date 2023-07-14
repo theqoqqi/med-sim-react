@@ -200,6 +200,8 @@ export default class Human {
 
     addTreatmentCourse(course) {
         this.#treatmentCourses.push(course);
+
+        course.setPatient(this);
     }
 
     removeTreatmentCourse(course) {
