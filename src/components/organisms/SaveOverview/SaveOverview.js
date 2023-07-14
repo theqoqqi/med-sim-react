@@ -11,9 +11,6 @@ SaveOverview.propTypes = {
 };
 
 function SaveOverview({ save, onLoad, onRemove }) {
-    let aliveHumans = save.world.humans.filter(h => h.isAlive);
-    let humanCount = save.world.humans.length;
-    let aliveCount = aliveHumans.length;
     let savedAt = new Date(save.savedAt);
     let startedAt = new Date(save.startedAt);
 
@@ -46,10 +43,10 @@ function SaveOverview({ save, onLoad, onRemove }) {
                 Текущий день: {save.currentDay}
             </div>
             <div>
-                Стартовое население: {humanCount}
+                Стартовое население: {save.totalHumans}
             </div>
             <div>
-                Текущее население: {aliveCount}
+                Текущее население: {save.aliveHumans}
             </div>
             <div>
                 Дата создания: {startedAt.toLocaleString()}

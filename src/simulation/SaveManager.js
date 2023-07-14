@@ -1,42 +1,16 @@
+// noinspection NpmUsedModulesInstalled
+import { stringify, parse } from 'zipson';
 
 class JsonLocalStorage {
-
-    static #stringifier = (key, value) => {
-        if (value !== value) {
-            return 'NaN';
-        }
-
-        if (value === Infinity) {
-            return 'Infinity';
-        }
-
-        if (value === -Infinity) {
-            return '-Infinity';
-        }
-
-        return value;
-    };
-
-    static #parser = (key, value) => {
-        if (value === 'NaN') {
-            return NaN;
-        }
-
-        if (value === 'Infinity') {
-            return Infinity;
-        }
-
-        if (value === '-Infinity') {
-            return -Infinity;
-        }
-
-        return value;
-    };
 
     static getItem(key, defaultValue = null) {
         let jsonText = localStorage.getItem(key) ?? null;
 
-        return jsonText ? JSON.parse(jsonText, this.#parser) : defaultValue;
+        return jsonText ? this.parse(jsonText) : defaultValue;
+    }
+
+    static parse(jsonText) {
+        return parse(jsonText);
     }
 
     static setItem(key, json) {
@@ -45,29 +19,54 @@ class JsonLocalStorage {
             return;
         }
 
-        localStorage.setItem(key, JSON.stringify(json, this.#stringifier));
+        localStorage.setItem(key, this.stringify(json));
+    }
+
+    static stringify(json) {
+        return stringify(json);
     }
 }
 
 export default class SaveManager {
 
-    static getAllSaves() {
-        return JsonLocalStorage.getItem('saves', []);
+    static #allSaveInfos;
+
+    static getAllSaveInfos() {
+        if (!this.#allSaveInfos) {
+            this.#allSaveInfos = JsonLocalStorage.getItem('saves', []);
+        }
+
+        return this.#allSaveInfos;
     }
 
-    static addSave(saveJson) {
-        let saves = this.getAllSaves();
+    static addSave(save) {
+        save.saveId = Date.now();
+        save.savedAt = Date.now();
 
-        saveJson.saveId = Date.now();
-        saveJson.savedAt = Date.now();
-        saves.push(saveJson);
+        this.#allSaveInfos.push(this.createSaveInfo(save));
 
-        JsonLocalStorage.setItem('saves', saves);
+        JsonLocalStorage.setItem('saves', this.#allSaveInfos);
+        JsonLocalStorage.setItem('save_' + save.saveId, save);
+    }
+
+    static createSaveInfo(save) {
+        return {
+            title: save.title,
+            saveId: save.saveId,
+            savedAt: save.savedAt,
+            startedAt: save.startedAt,
+            currentDay: save.currentDay,
+            totalHumans: save.world.humans.length,
+            aliveHumans: save.world.humans.filter(h => h.isAlive).length,
+        };
+    }
+
+    static getSave(saveId) {
+        return JsonLocalStorage.getItem('save_' + saveId);
     }
 
     static removeSave(save) {
-        let saves = this.getAllSaves();
-        let index = saves.findIndex(s => s.saveId === save.saveId);
+        let index = this.#allSaveInfos.findIndex(s => s.saveId === save.saveId);
 
         if (index !== -1) {
             this.removeSaveByIndex(index);
@@ -75,14 +74,16 @@ export default class SaveManager {
     }
 
     static removeSaveByIndex(index) {
-        let saves = this.getAllSaves();
+        let saveInfo = this.#allSaveInfos[index];
+        this.#allSaveInfos.splice(index, 1);
 
-        saves.splice(index, 1);
-
-        JsonLocalStorage.setItem('saves', saves);
+        JsonLocalStorage.setItem('saves', this.#allSaveInfos);
+        JsonLocalStorage.setItem('save_' + saveInfo.saveId, null);
     }
 
     static clearSaves() {
-        JsonLocalStorage.setItem('saves', null);
+        for (let i = this.#allSaveInfos.length - 1; i >= 0; i++) {
+            this.removeSaveByIndex(i);
+        }
     }
 }

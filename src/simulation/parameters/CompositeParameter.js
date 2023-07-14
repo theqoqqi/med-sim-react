@@ -142,7 +142,7 @@ export default class CompositeParameter extends Parameter {
         let parameters = {};
 
         for (const [parameterName, parameterJson] of Object.entries(parameterJsons)) {
-            parameters[parameterName] = ParameterFactory.getType(parameterJson.type).fromJson(parameterJson);
+            parameters[parameterName] = ParameterFactory.getType(parameterJson.className).fromJson(parameterJson);
         }
 
         return parameters;

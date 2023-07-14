@@ -51,7 +51,7 @@ export default class Parameter {
 
     toJson() {
         return {
-            type: this.constructor.name,
+            className: this.constructor.name,
             title: this.title,
             value: this.value,
         };

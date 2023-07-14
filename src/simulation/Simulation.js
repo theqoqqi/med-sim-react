@@ -4,6 +4,7 @@ import Name from './humans/Name';
 import Human from './humans/Human';
 import DiseaseFactory from './effectors/diseases/DiseaseFactory.js';
 import MedicationFactory from './effectors/medications/MedicationFactory.js';
+import NumberRange from './utils/NumberRange.js';
 
 export default class Simulation {
 
@@ -68,21 +69,109 @@ export default class Simulation {
             simulationId: this.#id,
             startedAt: this.#startedAt.getTime(),
             title: this.#title,
-            world: this.#world.toJson(),
+            world: Simulation.#worldToJson(this.#world),
             currentPatients: this.#currentPatients.map(p => p.id),
             currentDay: this.#currentDay,
         };
+    }
+
+    static #worldToJson(world) {
+        let json = world.toJson();
+
+        json.humans.forEach(human => {
+            human.parameters = this.#removeStaticData(human.parameters);
+        });
+
+        return json;
+    }
+
+    static #removeStaticData(parameter) {
+        this.#removeKeys(parameter, [
+            'title',
+        ]);
+
+        if (parameter.className === 'CompositeParameter') {
+            Object.entries(parameter.value).forEach(([childName, child]) => {
+                parameter.value[childName] = this.#removeStaticData(child);
+            });
+        }
+
+        if (parameter.className === 'NumberParameter') {
+            this.#removeKeys(parameter, [
+                'validRange',
+                'normalRange',
+                'viableRange',
+                'lethalRange',
+                'randomType',
+                'randomOptions',
+            ]);
+        }
+
+        if (parameter.className === 'EnumParameter') {
+            this.#removeKeys(parameter, [
+                'allowedValues',
+            ]);
+        }
+
+        return parameter;
+    }
+
+    static #removeKeys(object, keys) {
+        for (let key of keys) {
+            delete object[key];
+        }
     }
 
     load(json) {
         this.#id = json.simulationId;
         this.#startedAt = new Date(json.startedAt);
         this.#title = json.title;
-        this.#world = World.fromJson(json.world);
+        this.#world = this.#jsonToWorld(json.world);
         this.#currentPatients = json.currentPatients.map(id => this.#world.getHumanById(id));
         this.#currentDay = json.currentDay;
 
         this.#world.allHumans.forEach(human => human.setSimulation(this));
+    }
+
+    #jsonToWorld(json) {
+        json.humans.forEach(human => {
+            human.parameters = this.#restoreStaticData(human.parameters);
+        });
+
+        return World.fromJson(json);
+    }
+
+    #restoreStaticData(parameter, parameterPath = null) {
+        let descriptor = parameterPath === null
+            ? this.#parameterFactory.parameterSetDescriptor
+            : this.#parameterFactory.getParameterDescriptor(parameterPath);
+
+        parameter.title = descriptor.title;
+
+        if (parameter.className === 'CompositeParameter') {
+            Object.entries(parameter.value).forEach(([childName, child]) => {
+                let childPath = parameterPath === null
+                    ? childName
+                    : parameterPath + '.' + childName;
+
+                parameter.value[childName] = this.#restoreStaticData(child, childPath);
+            });
+        }
+
+        if (parameter.className === 'NumberParameter') {
+            parameter.validRange = NumberRange.from(descriptor.validRange, NumberRange.POSITIVE);
+            parameter.normalRange = NumberRange.from(descriptor.normalRange);
+            parameter.viableRange = NumberRange.from(descriptor.viableRange);
+            parameter.lethalRange = NumberRange.from(descriptor.lethalRange, null);
+            parameter.randomType = descriptor.randomType ?? 'linear';
+            parameter.randomOptions = descriptor.randomOptions ?? {};
+        }
+
+        if (parameter.className === 'EnumParameter') {
+            parameter.allowedValues = descriptor.allowedValues ?? [];
+        }
+
+        return parameter;
     }
 
     populate(amount) {

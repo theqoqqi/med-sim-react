@@ -7,8 +7,6 @@ SaveListItem.propTypes = {
 };
 
 function SaveListItem({ save }) {
-    let aliveHumans = save.world.humans.filter(h => h.isAlive);
-    let aliveCount = aliveHumans.length;
     let savedAt = new Date(save.savedAt);
 
     return (
@@ -18,7 +16,7 @@ function SaveListItem({ save }) {
             </div>
             <small className='d-flex justify-content-between opacity-75'>
                 <span>
-                    день { save.currentDay }, { aliveCount } человек
+                    день { save.currentDay }, { save.aliveHumans } человек
                 </span>
                 <span>
                     { savedAt.toLocaleString() }

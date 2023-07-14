@@ -55,10 +55,7 @@ export default class NumberRange {
     }
 
     toJson() {
-        return {
-            min: this.min,
-            max: this.max,
-        };
+        return [ this.min, this.max ];
     }
 
     static fromJson(json) {

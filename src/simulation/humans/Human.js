@@ -47,7 +47,7 @@ export default class Human {
         isAlive = true,
         aliveDays = 0,
         lethalParameter,
-        stateHistory = []
+        stateHistory = null
     }) {
         this.#id = id;
         this.#name = Name.from(name);
@@ -55,12 +55,20 @@ export default class Human {
         this.#isAlive = isAlive;
         this.#aliveDays = aliveDays;
         this.#lethalParameter = lethalParameter;
-        this.#stateHistory = stateHistory;
+        this.#stateHistory = stateHistory ?? this.createStateHistory();
 
         this.addEffectors(effectors);
         this.addTreatmentCourses(treatmentCourses);
+    }
 
-        this.#pushHistory();
+    createStateHistory() {
+        let history = {};
+
+        this.#parameters.forEachRecursive((parameter, parameterPath) => {
+            history[parameterPath] = [parameter.value];
+        });
+
+        return history;
     }
 
     setSimulation(simulation) {
@@ -190,13 +198,9 @@ export default class Human {
     }
 
     #pushHistory() {
-        let snapshot = {};
-
         this.#parameters.forEachRecursive((parameter, parameterPath) => {
-            snapshot[parameterPath] = parameter.value;
+            this.#stateHistory[parameterPath].push(parameter.value);
         });
-
-        this.#stateHistory.push(snapshot);
     }
 
     addEffectors(effectors) {
@@ -270,17 +274,35 @@ export default class Human {
             isAlive: this.isAlive,
             aliveDays: this.aliveDays,
             lethalParameter: this.lethalParameter?.toJson(),
-            stateHistory: this.stateHistory,
+            stateHistory: Human.#packHistory(this.stateHistory),
         };
     }
 
+    static #packHistory(stateHistory) {
+        return Object.values(stateHistory);
+    }
+
     static fromJson(json) {
+        let parameters = ParameterFactory.getType(json.parameters.className).fromJson(json.parameters);
+
         return new Human({
             ...json,
-            parameters: ParameterFactory.getType(json.parameters.type).fromJson(json.parameters),
-            effectors: json.effectors.map(e => BaseEffectorFactory.getType(e.type).fromJson(e)),
+            parameters,
+            effectors: json.effectors.map(e => BaseEffectorFactory.getType(e.className).fromJson(e)),
             treatmentCourses: json.treatmentCourses.map(c => TreatmentCourse.fromJson(c)),
-            lethalParameter: ParameterFactory.getType(json?.lethalParameter?.type)?.fromJson(json.lethalParameter),
+            lethalParameter: ParameterFactory.getType(json?.lethalParameter?.className)?.fromJson(json.lethalParameter),
+            stateHistory: this.#unpackHistory(parameters, json.stateHistory),
         });
+    }
+
+    static #unpackHistory(parameters, stateHistory) {
+        let unpacked = {};
+        let index = 0;
+
+        parameters.forEachRecursive((parameter, parameterPath) => {
+            unpacked[parameterPath] = stateHistory[index++];
+        });
+
+        return unpacked;
     }
 }

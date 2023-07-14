@@ -64,16 +64,21 @@ export default class Fluctuation {
     }
 
     toJson() {
-        return {
-            daysBetweenTargetUpdates: this.daysBetweenTargetUpdates.toJson(),
-            remainingDays: this.remainingDays,
-            stepSizeInPercents: this.stepSizeInPercents,
-            stepSize: this.stepSize,
-        };
+        return [
+            this.daysBetweenTargetUpdates.toJson(),
+            this.remainingDays,
+            this.stepSizeInPercents,
+            this.stepSize,
+        ];
     }
 
     static fromJson(json) {
-        return new Fluctuation(json);
+        return new Fluctuation({
+            daysBetweenTargetUpdates: json[0],
+            remainingDays: json[1],
+            stepSizeInPercents: json[2],
+            stepSize: json[3],
+        });
     }
 
     static from(parameter, options) {

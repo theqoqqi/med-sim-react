@@ -30,7 +30,9 @@ function GameInfoScreen({ simulation }) {
         SaveManager.addSave(simulation.save());
     }
 
-    function loadSave(save) {
+    function loadSave(saveInfo) {
+        let save = SaveManager.getSave(saveInfo.saveId);
+
         simulation.load(save);
     }
 

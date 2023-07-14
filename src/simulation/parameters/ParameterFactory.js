@@ -21,6 +21,10 @@ export default class ParameterFactory {
         this.#templateParameterSet = ParameterFactory.#createTemplate(parameterSetDescriptor);
     }
 
+    get parameterSetDescriptor() {
+        return this.#parameterSetDescriptor;
+    }
+
     createParameters() {
         let parameters = this.#templateParameterSet.copy();
 

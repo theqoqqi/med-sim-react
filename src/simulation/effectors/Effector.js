@@ -81,7 +81,7 @@ export default class Effector {
 
     toJson() {
         return {
-            type: this.constructor.name,
+            className: this.constructor.name,
             title: this.title,
             effects: this.effects.map(e => e.toJson()),
             progress: this.progress,
