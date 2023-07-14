@@ -1,7 +1,6 @@
 import NumberParameter from '../parameters/NumberParameter.js';
 import CompositeParameter from '../parameters/CompositeParameter.js';
 import ParameterEffect from '../parameters/ParameterEffect.js';
-import Easing from '../utils/Easing.js';
 
 export class BaseEffectorFactory {
 
@@ -60,11 +59,15 @@ export class BaseEffectorFactory {
 
     createNumberParameterEffect(descriptor, parameterName) {
         if (typeof descriptor === 'number') {
-            return new ParameterEffect(parameterName, descriptor, Easing.linear);
+            return new ParameterEffect({
+                parameterName,
+                impact: descriptor,
+            });
         }
 
-        let easingFunction = Easing.getFunction(descriptor.easingFunction, descriptor.easingFunctionOptions);
-
-        return new ParameterEffect(parameterName, descriptor.impact, easingFunction); // TODO: эффект параметра тоже надо сделать сериализуемым, чтобы в нем не было поля с функцией
+        return new ParameterEffect({
+            parameterName,
+            ...descriptor,
+        });
     }
 }

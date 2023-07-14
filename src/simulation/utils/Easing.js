@@ -22,6 +22,8 @@ export default class Easing {
     }
 
     static getFunction(functionName, predefinedOptions = {}) {
+        predefinedOptions ??= {};
+
         let func = Easing[functionName];
 
         return (progress, options) => {
