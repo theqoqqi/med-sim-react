@@ -18,6 +18,10 @@ export default class Name {
     }
 
     static from(fullName) {
+        if (fullName instanceof Name) {
+            return fullName;
+        }
+
         const [lastName, firstName, middleName] = fullName.trim().split(' ').map(s => s.trim());
 
         return new Name(lastName, firstName, middleName);

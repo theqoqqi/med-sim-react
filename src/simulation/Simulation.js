@@ -56,18 +56,36 @@ export default class Simulation {
 
     populate(amount) {
         for (let i = 0; i < amount; i++) {
-            let human = this.createHuman();
+            let human = this.#createHuman();
 
-            this.#world.addHuman(human);
+            this.addHuman(human);
         }
     }
 
-    createHuman() {
-        let parameters = this.#parameterFactory.createParameters();
-        let ordinal = this.#world.allHumans.length + 1;
-        let name = new Name(`Фамилия${ordinal}`, `Имя${ordinal}`, `Отчество${ordinal}`);
+    #createHuman() {
+        let id = this.#getNextHumanId();
 
-        return new Human(this, name, parameters);
+        return new Human({
+            id,
+            name: new Name(`Фамилия${id}`, `Имя${id}`, `Отчество${id}`),
+            parameters: this.#parameterFactory.createParameters(),
+        });
+    }
+
+    #getNextHumanId() {
+        if (this.#world.allHumans.length === 0) {
+            return 1;
+        }
+
+        let allIds = this.#world.allHumans.map(human => human.id);
+
+        return Math.max(...allIds) + 1;
+    }
+
+    addHuman(human) {
+        this.#world.addHuman(human);
+
+        human.setSimulation(this);
     }
 
     update() {

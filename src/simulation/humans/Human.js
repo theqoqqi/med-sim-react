@@ -1,8 +1,7 @@
 import Random from '../utils/Random.js';
 import Disease from '../effectors/diseases/Disease.js';
 import Medication from '../effectors/medications/Medication.js';
-
-let nextId = 1;
+import Name from './Name.js';
 
 export default class Human {
 
@@ -10,7 +9,7 @@ export default class Human {
 
     #id;
 
-    #simulation;
+    #simulation = null;
 
     #name;
 
@@ -36,13 +35,16 @@ export default class Human {
         ['geneticDisorders', 0.05],
     ]);
 
-    constructor(simulation, name, parameters) {
-        this.#id = nextId++;
-        this.#simulation = simulation;
-        this.#name = name;
+    constructor({ id, name, parameters }) {
+        this.#id = id;
+        this.#name = Name.from(name);
         this.#parameters = parameters;
 
         this.#pushHistory();
+    }
+
+    setSimulation(simulation) {
+        this.#simulation = simulation;
     }
 
     get id() {
