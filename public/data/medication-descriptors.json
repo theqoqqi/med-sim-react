@@ -1,5 +1,5 @@
-[
-  {
+{
+  "mediRelax": {
     "title": "MediRelax",
     "progressPerDay": [0.3, 0.4],
     "impactFunction": "gaussian",
@@ -16,7 +16,7 @@
       }
     }
   },
-  {
+  "cardioVital": {
     "title": "CardioVital",
     "progressPerDay": [0.4, 0.6],
     "impactFunction": "gaussian",
@@ -36,7 +36,7 @@
       }
     }
   },
-  {
+  "renalCalm": {
     "title": "RenalCalm",
     "progressPerDay": [0.08, 0.12],
     "impactFunction": "gaussian",
@@ -50,7 +50,7 @@
       }
     }
   },
-  {
+  "immunoBoost": {
     "title": "ImmunoBoost",
     "progressPerDay": [0.3, 0.4],
     "impactFunction": "gaussian",
@@ -64,7 +64,7 @@
       }
     }
   },
-  {
+  "neuroCalm": {
     "title": "NeuroCalm",
     "progressPerDay": [0.15, 0.2],
     "impactFunction": "gaussian",
@@ -78,4 +78,4 @@
       }
     }
   }
-]
+}

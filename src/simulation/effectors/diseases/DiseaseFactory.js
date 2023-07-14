@@ -9,13 +9,13 @@ export default class DiseaseFactory extends BaseEffectorFactory {
     }
 
     createRandom() {
-        const randomDescriptor = Random.weightedByField(this.allDescriptors, 'chancePerDay');
+        const randomDescriptor = Random.weightedByField(this.descriptors, 'chancePerDay');
 
         return this.createFromDescriptor(randomDescriptor);
     }
 
     createRandomSet() {
-        return this.allDescriptors
+        return this.descriptors
             .filter(descriptor => Math.random() < descriptor.chancePerDay)
             .map(descriptor => this.createFromDescriptor(descriptor));
     }

@@ -107,11 +107,11 @@ export default class Simulation {
     }
 
     createMedication(descriptor) {
-        return this.#medicationFactory.createFromDescriptor(descriptor);
+        return this.#medicationFactory.create(descriptor);
     }
 
     createDisease(descriptor) {
-        return this.#diseaseFactory.createFromDescriptor(descriptor);
+        return this.#diseaseFactory.create(descriptor);
     }
 
     mapParameterEffects(effects, callback, startPath = null) {

@@ -2,13 +2,20 @@ import ParameterEffect from '../parameters/ParameterEffect.js';
 
 export class BaseEffectorFactory {
 
-    allDescriptors;
+    descriptorsByNames;
+
+    descriptors;
 
     #parameterFactory;
 
     constructor(effectorDescriptors, parameterFactory) {
-        this.allDescriptors = effectorDescriptors;
+        this.descriptorsByNames = BaseEffectorFactory.#withNames(effectorDescriptors);
+        this.descriptors = Object.values(effectorDescriptors);
         this.#parameterFactory = parameterFactory;
+    }
+
+    get allDescriptors() {
+        return this.descriptors;
     }
 
     /**
@@ -18,21 +25,20 @@ export class BaseEffectorFactory {
         throw new Error('Unsupported operation. This method must be overwritten in subclass.');
     }
 
-    createByIndex(index) {
-        const descriptor = this.allDescriptors[index];
+    create(nameOrDescriptor) {
+        return typeof nameOrDescriptor === 'string'
+            ? this.createByName(nameOrDescriptor)
+            : this.createFromDescriptor(nameOrDescriptor);
+    }
 
-        if (!descriptor) {
-            throw new Error(`Descriptor with index ${index} not found.`);
-        }
+    createByName(name) {
+        let descriptor = this.descriptorsByNames[name];
 
         return this.createFromDescriptor(descriptor);
     }
 
     createFromDescriptor(descriptor) {
-        const effects = Object.entries(descriptor.effects)
-            .flatMap(([parameterName, effectDescriptor]) => {
-                return this.#createParameterEffects(parameterName, effectDescriptor);
-            });
+        const effects = this.#createCompositeParameterEffects(descriptor.effects);
 
         return this.createInstance({
             ...descriptor,
@@ -70,12 +76,22 @@ export class BaseEffectorFactory {
         });
     }
 
-    #createCompositeParameterEffects(descriptor, parameterPath) {
+    #createCompositeParameterEffects(descriptor, startPath = null) {
         return Object.entries(descriptor)
             .flatMap(([parameterName, effectDescriptor]) => {
-                let combinedPath = parameterPath + '.' + parameterName;
+                let combinedPath = startPath
+                    ? startPath + '.' + parameterName
+                    : parameterName;
 
                 return this.#createParameterEffects(combinedPath, effectDescriptor);
             });
+    }
+
+    static #withNames(descriptors) {
+        for (const [name, descriptor] of Object.entries(descriptors)) {
+            descriptor.name = name;
+        }
+
+        return descriptors;
     }
 }
