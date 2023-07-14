@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import PatientsScreen from './components/sections/PatientsScreen/PatientsScreen.js';
 import Button from './components/atoms/Button/Button.js';
 import NecrologyScreen from './components/sections/NecrologyScreen/NecrologyScreen.js';
+import GameInfoScreen from './components/sections/GameInfoScreen/GameInfoScreen.js';
 
 async function readJson(url) {
     let data = (await axios.get(url)).data;
@@ -68,6 +69,9 @@ function App() {
             <Tab.Container defaultActiveKey='patients'>
                 <div className={classNames(styles.tabs, 'd-flex justify-content-sm-between p-2')}>
                     <Nav variant='underline'>
+                        <Nav.Link eventKey='gameInfo'>
+                            Общее
+                        </Nav.Link>
                         <Nav.Link eventKey='patients'>
                             Пациенты ({patientCount})
                         </Nav.Link>
@@ -87,6 +91,9 @@ function App() {
                     </div>
                 </div>
                 <Tab.Content className='flex-grow-1'>
+                    <Tab.Pane className='flex-grow-1' eventKey='gameInfo'>
+                        <GameInfoScreen simulation={simulation} />
+                    </Tab.Pane>
                     <Tab.Pane className='flex-grow-1' eventKey='patients'>
                         <PatientsScreen simulation={simulation} />
                     </Tab.Pane>
