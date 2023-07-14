@@ -4,27 +4,19 @@ import Random from '../../utils/Random.js';
 
 export default class DiseaseFactory extends BaseEffectorFactory {
 
-    createInstance(descriptor, human, effects) {
-        return new Disease({
-            ...descriptor,
-            human,
-            effects,
-        });
+    createInstance(options) {
+        return new Disease(options);
     }
 
-    createRandom(human) {
+    createRandom() {
         const randomDescriptor = Random.weightedByField(this.allDescriptors, 'chancePerDay');
 
-        return this.createFromDescriptor(human, randomDescriptor);
+        return this.createFromDescriptor(randomDescriptor);
     }
 
-    createRandomSet(human) {
+    createRandomSet() {
         return this.allDescriptors
-            .filter(descriptor => {
-                return Math.random() < descriptor.chancePerDay;
-            })
-            .map(descriptor => {
-                return this.createFromDescriptor(human, descriptor);
-            });
+            .filter(descriptor => Math.random() < descriptor.chancePerDay)
+            .map(descriptor => this.createFromDescriptor(descriptor));
     }
 }

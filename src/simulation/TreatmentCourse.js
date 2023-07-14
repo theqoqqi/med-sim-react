@@ -31,7 +31,7 @@ export default class TreatmentCourse {
     }
 
     applyMedication() {
-        let medication = this.#human.simulation.createMedication(this.#human, this.#medicationDescriptor);
+        let medication = this.#human.simulation.createMedication(this.#medicationDescriptor);
 
         this.#human.addEffector(medication);
     }

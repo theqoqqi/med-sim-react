@@ -1,63 +1,62 @@
-import NumberParameter from '../parameters/NumberParameter.js';
-import CompositeParameter from '../parameters/CompositeParameter.js';
 import ParameterEffect from '../parameters/ParameterEffect.js';
 
 export class BaseEffectorFactory {
 
     allDescriptors;
 
-    constructor(effectorDescriptors) {
+    #parameterFactory;
+
+    constructor(effectorDescriptors, parameterFactory) {
         this.allDescriptors = effectorDescriptors;
+        this.#parameterFactory = parameterFactory;
     }
 
     /**
      * @return Effector
      * */
-    createInstance(descriptor, human, effects) {
+    createInstance(options) {
         throw new Error('Unsupported operation. This method must be overwritten in subclass.');
     }
 
-    createByIndex(human, index) {
+    createByIndex(index) {
         const descriptor = this.allDescriptors[index];
 
         if (!descriptor) {
             throw new Error(`Descriptor with index ${index} not found.`);
         }
 
-        return this.createFromDescriptor(human, descriptor);
+        return this.createFromDescriptor(descriptor);
     }
 
-    createFromDescriptor(human, descriptor) {
+    createFromDescriptor(descriptor) {
         const effects = Object.entries(descriptor.effects)
             .flatMap(([parameterName, effectDescriptor]) => {
-                return this.createParameterEffects(human, parameterName, effectDescriptor);
+                return this.#createParameterEffects(parameterName, effectDescriptor);
             });
 
-        return this.createInstance(descriptor, human, effects);
+        return this.createInstance({
+            ...descriptor,
+            effects,
+        });
     }
 
-    createParameterEffects(human, parameterPath, descriptor) {
-        let parameter = human.getParameter(parameterPath);
+    #createParameterEffects(parameterPath, descriptor) {
+        let parameterDescriptor = this.#parameterFactory.getParameterDescriptor(parameterPath);
 
-        if (parameter instanceof NumberParameter) {
+        if (parameterDescriptor.type === 'number') {
             return [
-                this.createNumberParameterEffect(descriptor, parameterPath)
+                BaseEffectorFactory.#createNumberParameterEffect(descriptor, parameterPath)
             ];
         }
 
-        if (parameter instanceof CompositeParameter) {
-            return Object.entries(descriptor)
-                .flatMap(([parameterName, effectDescriptor]) => {
-                    let combinedPath = parameterPath + '.' + parameterName;
-
-                    return this.createParameterEffects(human, combinedPath, effectDescriptor);
-                });
+        if (parameterDescriptor.type === 'composite') {
+            return this.#createCompositeParameterEffects(descriptor, parameterPath);
         }
 
         throw new Error('Invalid parameter: ' + parameterPath);
     }
 
-    createNumberParameterEffect(descriptor, parameterName) {
+    static #createNumberParameterEffect(descriptor, parameterName) {
         if (typeof descriptor === 'number') {
             return new ParameterEffect({
                 parameterName,
@@ -69,5 +68,14 @@ export class BaseEffectorFactory {
             parameterName,
             ...descriptor,
         });
+    }
+
+    #createCompositeParameterEffects(descriptor, parameterPath) {
+        return Object.entries(descriptor)
+            .flatMap(([parameterName, effectDescriptor]) => {
+                let combinedPath = parameterPath + '.' + parameterName;
+
+                return this.#createParameterEffects(combinedPath, effectDescriptor);
+            });
     }
 }

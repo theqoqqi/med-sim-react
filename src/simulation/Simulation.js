@@ -21,8 +21,8 @@ export default class Simulation {
 
     constructor({parameterDescriptors, diseaseDescriptors, medicationDescriptors}) {
         this.#parameterFactory = new ParameterFactory(parameterDescriptors);
-        this.#diseaseFactory = new DiseaseFactory(diseaseDescriptors);
-        this.#medicationFactory = new MedicationFactory(medicationDescriptors);
+        this.#diseaseFactory = new DiseaseFactory(diseaseDescriptors, this.#parameterFactory);
+        this.#medicationFactory = new MedicationFactory(medicationDescriptors, this.#parameterFactory);
         this.#world = new World();
     }
 
@@ -79,7 +79,7 @@ export default class Simulation {
 
     #addRandomDiseases() {
         this.#world.aliveHumans.forEach(human => {
-            let diseases = this.#diseaseFactory.createRandomSet(human);
+            let diseases = this.#diseaseFactory.createRandomSet();
 
             human.addEffectors(diseases);
         });
@@ -106,12 +106,12 @@ export default class Simulation {
         }
     }
 
-    createMedication(human, descriptor) {
-        return this.#medicationFactory.createFromDescriptor(human, descriptor);
+    createMedication(descriptor) {
+        return this.#medicationFactory.createFromDescriptor(descriptor);
     }
 
-    createDisease(human, descriptor) {
-        return this.#diseaseFactory.createFromDescriptor(human, descriptor);
+    createDisease(descriptor) {
+        return this.#diseaseFactory.createFromDescriptor(descriptor);
     }
 
     mapParameterEffects(effects, callback, startPath = null) {
