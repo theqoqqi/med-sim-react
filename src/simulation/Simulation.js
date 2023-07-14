@@ -13,6 +13,12 @@ export default class Simulation {
 
     #medicationFactory;
 
+    #id;
+
+    #startedAt;
+
+    #title;
+
     #world;
 
     #currentPatients = [];
@@ -23,6 +29,9 @@ export default class Simulation {
         this.#parameterFactory = new ParameterFactory(parameterDescriptors);
         this.#diseaseFactory = new DiseaseFactory(diseaseDescriptors, this.#parameterFactory);
         this.#medicationFactory = new MedicationFactory(medicationDescriptors, this.#parameterFactory);
+        this.#id = Date.now();
+        this.#startedAt = new Date();
+        this.#title = 'Сохранение ' + new Date().toLocaleDateString();
         this.#world = new World();
     }
 
@@ -56,6 +65,9 @@ export default class Simulation {
 
     save() {
         return {
+            simulationId: this.#id,
+            startedAt: this.#startedAt.getTime(),
+            title: this.#title,
             world: this.#world.toJson(),
             currentPatients: this.#currentPatients.map(p => p.id),
             currentDay: this.#currentDay,
@@ -63,6 +75,9 @@ export default class Simulation {
     }
 
     load(json) {
+        this.#id = json.simulationId;
+        this.#startedAt = new Date(json.startedAt);
+        this.#title = json.title;
         this.#world = World.fromJson(json.world);
         this.#currentPatients = json.currentPatients.map(id => this.#world.getHumanById(id));
         this.#currentDay = json.currentDay;
