@@ -114,6 +114,14 @@ export default class Simulation {
         return this.#diseaseFactory.create(descriptor);
     }
 
+    getMedicationDescriptor(name) {
+        return this.#medicationFactory.allDescriptorsByNames[name];
+    }
+
+    getDiseaseDescriptor(name) {
+        return this.#diseaseFactory.allDescriptorsByNames[name];
+    }
+
     mapParameterEffects(effects, callback, startPath = null) {
         return this.#parameterFactory.mapEffects(effects, callback, startPath);
     }

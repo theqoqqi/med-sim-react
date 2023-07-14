@@ -1,8 +1,9 @@
+
 export default class TreatmentCourse {
 
     #human;
 
-    #medicationDescriptor;
+    #medicationName;
 
     #interval;
 
@@ -12,9 +13,9 @@ export default class TreatmentCourse {
 
     #currentDay;
 
-    constructor(human, medicationDescriptor, interval, times) {
+    constructor(human, medicationName, interval, times) {
         this.#human = human;
-        this.#medicationDescriptor = medicationDescriptor;
+        this.#medicationName = medicationName;
         this.#interval = interval;
         this.#totalTimes = times;
         this.#remainingTimes = times;
@@ -31,7 +32,7 @@ export default class TreatmentCourse {
     }
 
     applyMedication() {
-        let medication = this.#human.simulation.createMedication(this.#medicationDescriptor);
+        let medication = this.#human.simulation.createMedication(this.#medicationName);
 
         this.#human.addEffector(medication);
     }
@@ -40,8 +41,12 @@ export default class TreatmentCourse {
         return this.#human;
     }
 
+    get medicationName() {
+        return this.#medicationName;
+    }
+
     get medicationDescriptor() {
-        return this.#medicationDescriptor;
+        return this.#human.simulation.getMedicationDescriptor(this.#medicationName);
     }
 
     get interval() {

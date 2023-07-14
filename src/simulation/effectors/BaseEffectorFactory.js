@@ -14,6 +14,10 @@ export class BaseEffectorFactory {
         this.#parameterFactory = parameterFactory;
     }
 
+    get allDescriptorsByNames() {
+        return this.descriptorsByNames;
+    }
+
     get allDescriptors() {
         return this.descriptors;
     }

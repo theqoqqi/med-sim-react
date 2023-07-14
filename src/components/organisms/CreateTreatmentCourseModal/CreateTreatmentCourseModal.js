@@ -30,7 +30,7 @@ function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, on
     function onClickCreate() {
         let treatmentCourse = new TreatmentCourse(
             patient,
-            selectedMedication,
+            selectedMedication.name,
             interval,
             times
         );
