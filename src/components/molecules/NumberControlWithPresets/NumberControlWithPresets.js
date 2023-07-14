@@ -3,7 +3,7 @@ import Button from '../../atoms/Button/Button.js';
 import classNames from 'classnames';
 import React from 'react';
 
-export function NumberControlWithPresets({
+export default function NumberControlWithPresets({
     className, title, unitTitle, presets,
     value, minValue, maxValue, placeholder,
     onInput

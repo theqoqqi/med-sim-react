@@ -1,5 +1,5 @@
 import styles from './CreateTreatmentCourseModal.module.css';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {Modal} from 'react-bootstrap';
 import Button from '../../atoms/Button/Button.js';
@@ -7,7 +7,7 @@ import Simulation from '../../../simulation/Simulation.js';
 import MedicationList from '../MedicationList/MedicationList.js';
 import ScrollPane from '../../atoms/ScrollPane/ScrollPane.js';
 import TreatmentCourse from '../../../simulation/TreatmentCourse.js';
-import {NumberControlWithPresets} from '../../molecules/NumberControlWithPresets/NumberControlWithPresets.js';
+import NumberControlWithPresets from '../../molecules/NumberControlWithPresets/NumberControlWithPresets.js';
 
 CreateTreatmentCourseModal.propTypes = {
     simulation: PropTypes.instanceOf(Simulation),
@@ -26,6 +26,15 @@ function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, on
     let [selectedMedication, setSelectedMedication] = useState(null);
     let [interval, setInterval] = useState('');
     let [times, setTimes] = useState('');
+    let [isAllValid, setAllValid] = useState(false);
+
+    useEffect(() => {
+        let allValid = selectedMedication !== null
+            && interval > 0
+            && times > 0;
+
+        setAllValid(allValid);
+    }, [selectedMedication, interval, times]);
 
     function onClickCreate() {
         let treatmentCourse = new TreatmentCourse({
@@ -75,7 +84,11 @@ function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, on
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant='primary' onClick={() => onClickCreate()}>
+                    <Button
+                        variant='primary'
+                        onClick={() => onClickCreate()}
+                        disabled={!isAllValid}
+                    >
                         Создать
                     </Button>
                 </Modal.Footer>
