@@ -135,17 +135,20 @@ export default class NumberParameter extends Parameter {
         return NumberRange.getDistanceForValue(this.value, this.viableRange, this.lethalRange);
     }
 
-    copy() {
-        return new NumberParameter({
-            title: this.title,
-            value: this.value,
-            viableRange: this.viableRange,
-            normalRange: this.normalRange,
-            validRange: this.validRange,
-            lethalRange: this.lethalRange,
+    toJson() {
+        return {
+            ...super.toJson(),
+            validRange: this.validRange?.toJson(),
+            viableRange: this.viableRange.toJson(),
+            normalRange: this.normalRange.toJson(),
+            lethalRange: this.lethalRange?.toJson(),
             randomType: this.randomType,
             randomOptions: this.randomOptions,
-            fluctuation: this.fluctuation,
-        });
+            fluctuation: this.fluctuation?.toJson(),
+        };
+    }
+
+    static fromJson(json) {
+        return new NumberParameter(json);
     }
 }

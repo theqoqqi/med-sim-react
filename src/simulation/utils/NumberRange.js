@@ -54,6 +54,17 @@ export default class NumberRange {
         return `${this.min}-${this.max}`;
     }
 
+    toJson() {
+        return {
+            min: this.min,
+            max: this.max,
+        };
+    }
+
+    static fromJson(json) {
+        return this.from(json);
+    }
+
     static of(min, max) {
         return new NumberRange(min, max);
     }

@@ -1,4 +1,3 @@
-
 export default class Parameter {
 
     #title;
@@ -39,10 +38,7 @@ export default class Parameter {
     }
 
     copy() {
-        return new Parameter({
-            title: this.title,
-            value: this.value,
-        });
+        return this.constructor.fromJson(this.toJson());
     }
 
     update() {
@@ -51,5 +47,17 @@ export default class Parameter {
 
     randomize() {
 
+    }
+
+    toJson() {
+        return {
+            type: this.constructor.name,
+            title: this.title,
+            value: this.value,
+        };
+    }
+
+    static fromJson(json) {
+        return new Parameter(json);
     }
 }

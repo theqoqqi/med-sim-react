@@ -63,6 +63,19 @@ export default class Fluctuation {
         this.stepSize = (targetValue - this.parameter.value) * this.stepSizeInPercents;
     }
 
+    toJson() {
+        return {
+            daysBetweenTargetUpdates: this.daysBetweenTargetUpdates.toJson(),
+            remainingDays: this.remainingDays,
+            stepSizeInPercents: this.stepSizeInPercents,
+            stepSize: this.stepSize,
+        };
+    }
+
+    static fromJson(json) {
+        return new Fluctuation(json);
+    }
+
     static from(parameter, options) {
         if (typeof options === 'string') {
             options = this.getPreset(options);

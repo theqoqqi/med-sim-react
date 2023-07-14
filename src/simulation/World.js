@@ -1,11 +1,22 @@
+import Human from './humans/Human.js';
 
 export default class World {
 
     #allHumans = [];
 
+    constructor({ humans = [] } = {}) {
+        this.addHumans(humans);
+    }
+
     update() {
         for (const human of this.aliveHumans) {
             human.update();
+        }
+    }
+
+    addHumans(humans) {
+        for (const human of humans) {
+            this.addHuman(human);
         }
     }
 
@@ -31,5 +42,21 @@ export default class World {
 
     get deadHumans() {
         return this.#allHumans.filter(human => !human.isAlive);
+    }
+
+    getHumanById(id) {
+        return this.#allHumans.find(h => h.id === id);
+    }
+
+    toJson() {
+        return {
+            humans: this.#allHumans.map(h => h.toJson()),
+        };
+    }
+
+    static fromJson(json) {
+        return new World({
+            humans: json.humans.map(h => Human.fromJson(h)),
+        });
     }
 }

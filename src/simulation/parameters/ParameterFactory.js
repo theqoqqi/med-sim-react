@@ -1,8 +1,16 @@
 import CompositeParameter from './CompositeParameter';
 import NumberParameter from './NumberParameter';
 import EnumParameter from './EnumParameter';
+import Parameter from './Parameter.js';
 
 export default class ParameterFactory {
+
+    static #types = {
+        [Parameter.name]: Parameter,
+        [CompositeParameter.name]: CompositeParameter,
+        [NumberParameter.name]: NumberParameter,
+        [EnumParameter.name]: EnumParameter,
+    };
 
     #parameterSetDescriptor;
 
@@ -102,5 +110,9 @@ export default class ParameterFactory {
             title: descriptor.title,
             value: childParameters,
         });
+    }
+
+    static getType(name) {
+        return this.#types[name];
     }
 }

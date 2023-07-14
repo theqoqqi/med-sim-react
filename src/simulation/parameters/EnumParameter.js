@@ -28,11 +28,14 @@ export default class EnumParameter extends Parameter {
         this.value = Random.fromList(this.#allowedValues);
     }
 
-    copy() {
-        return new EnumParameter({
-            title: this.title,
-            value: this.value,
+    toJson() {
+        return {
+            ...super.toJson(),
             allowedValues: this.#allowedValues,
-        });
+        };
+    }
+
+    static fromJson(json) {
+        return new EnumParameter(json);
     }
 }

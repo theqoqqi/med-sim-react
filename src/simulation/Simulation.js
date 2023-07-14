@@ -54,6 +54,22 @@ export default class Simulation {
         return this.#diseaseFactory.allDescriptors;
     }
 
+    save() {
+        return {
+            world: this.#world.toJson(),
+            currentPatients: this.#currentPatients.map(p => p.id),
+            currentDay: this.#currentDay,
+        };
+    }
+
+    load(json) {
+        this.#world = World.fromJson(json.world);
+        this.#currentPatients = json.currentPatients.map(id => this.#world.getHumanById(id));
+        this.#currentDay = json.currentDay;
+
+        this.#world.allHumans.forEach(human => human.setSimulation(this));
+    }
+
     populate(amount) {
         for (let i = 0; i < amount; i++) {
             let human = this.#createHuman();

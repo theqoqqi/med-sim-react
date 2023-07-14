@@ -1,4 +1,3 @@
-
 import Easing from '../utils/Easing';
 import NumberRange from '../utils/NumberRange';
 
@@ -6,17 +5,26 @@ export default class Effector {
 
     #impactFunctionInstance;
 
-    constructor({ title, effects, progressPerDay, impactFunction, impactFunctionOptions }) {
+    constructor({
+        title,
+        effects,
+        progress = 0,
+        progressPerDay,
+        lastProgressPerDay = 0,
+        impact = 0,
+        impactFunction,
+        impactFunctionOptions
+    }) {
         this.human = null;
         this.title = title;
         this.effects = effects;
-        this.lastProgressPerDay = 0;
+        this.progress = progress;
         this.progressPerDay = NumberRange.from(progressPerDay);
-        this.progress = 0;
+        this.lastProgressPerDay = lastProgressPerDay;
+        this.impact = impact;
         this.impactFunction = impactFunction;
         this.impactFunctionOptions = impactFunctionOptions;
         this.#impactFunctionInstance = this.getImpactFunction(impactFunction, impactFunctionOptions);
-        this.impact = 0;
     }
 
     get impactMultiplier() {
@@ -68,5 +76,23 @@ export default class Effector {
 
             effect.removeFrom(parameter);
         }
+    }
+
+    toJson() {
+        return {
+            type: this.constructor.name,
+            title: this.title,
+            effects: this.effects,
+            progress: this.progress,
+            progressPerDay: this.progressPerDay.toJson(),
+            lastProgressPerDay: this.lastProgressPerDay,
+            impact: this.impact,
+            impactFunction: this.impactFunction,
+            impactFunctionOptions: this.impactFunctionOptions,
+        };
+    }
+
+    static fromJson(json) {
+        return new Effector(json);
     }
 }

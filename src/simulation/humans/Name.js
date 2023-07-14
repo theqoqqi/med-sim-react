@@ -17,6 +17,14 @@ export default class Name {
         return `${this.lastName} ${firstNameChar}. ${middleNameChar}.`;
     }
 
+    toJson() {
+        return this.fullName;
+    }
+
+    static fromJson(json) {
+        return Name.from(json);
+    }
+
     static from(fullName) {
         if (fullName instanceof Name) {
             return fullName;

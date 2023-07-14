@@ -113,16 +113,24 @@ export default class CompositeParameter extends Parameter {
         return 1 - totalChance;
     }
 
-    copy() {
+    toJson() {
+        return {
+            ...super.toJson(),
+            value: this.#copyParameters(),
+        };
+    }
+
+    #copyParameters() {
         let copiedParameters = {};
 
         for (const [parameterName, parameter] of Object.entries(this.parameters)) {
             copiedParameters[parameterName] = parameter.copy();
         }
 
-        return new CompositeParameter({
-            title: this.title,
-            value: copiedParameters,
-        });
+        return copiedParameters;
+    }
+
+    static fromJson(json) {
+        return new CompositeParameter(json);
     }
 }

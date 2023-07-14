@@ -65,6 +65,10 @@ export default class TreatmentCourse {
         return this.#totalTimes - this.#remainingTimes;
     }
 
+    get remainingTimes() {
+        return this.#remainingTimes;
+    }
+
     get currentDay() {
         return this.#currentDay;
     }
@@ -79,5 +83,19 @@ export default class TreatmentCourse {
 
     get isFinished() {
         return this.#remainingTimes === 0;
+    }
+
+    toJson() {
+        return {
+            medicationName: this.medicationName,
+            interval: this.interval,
+            totalTimes: this.totalTimes,
+            remainingTimes: this.remainingTimes,
+            currentDay: this.currentDay,
+        };
+    }
+
+    static fromJson(json) {
+        return new TreatmentCourse(json);
     }
 }

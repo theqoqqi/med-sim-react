@@ -27,4 +27,17 @@ export default class ParameterEffect {
     removeFrom(parameter) {
         parameter.removeEffect(this);
     }
+
+    toJson() {
+        return {
+            parameterName: this.parameterName,
+            impact: this.impact,
+            easingFunction: this.easingFunction,
+            easingFunctionOptions: this.easingFunctionOptions,
+        };
+    }
+
+    static fromJson(json) {
+        return new ParameterEffect(json);
+    }
 }

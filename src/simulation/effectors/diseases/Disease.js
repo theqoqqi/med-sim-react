@@ -6,7 +6,7 @@ export default class Disease extends Effector {
 
     #maxPower;
 
-    constructor({ sourcePowers, maxPower, ...options }) {
+    constructor({ sourcePowers, maxPower = null, ...options }) {
         super(options);
 
         this.#sourcePowers = Disease.#createPowerMap(sourcePowers);
@@ -50,5 +50,17 @@ export default class Disease extends Effector {
     static #getSumOfPowers(sourcePowers) {
         return Array.from(sourcePowers.values())
             .reduce((sum, current) => sum + current, 0);
+    }
+
+    toJson() {
+        return {
+            ...super.toJson(),
+            sourcePowers: Object.fromEntries(this.#sourcePowers),
+            maxPower: this.#maxPower,
+        };
+    }
+
+    static fromJson(json) {
+        return new Disease(json);
     }
 }

@@ -38,4 +38,15 @@ export default class Medication extends Effector {
         return Object.entries(sourceEffects ?? {})
             .reduce((map, [sourceName, power]) => map.set(sourceName, power), new Map());
     }
+
+    toJson() {
+        return {
+            ...super.toJson(),
+            sourceEffects: Object.fromEntries(this.#sourceEffects),
+        };
+    }
+
+    static fromJson(json) {
+        return new Medication(json);
+    }
 }

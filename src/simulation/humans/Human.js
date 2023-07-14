@@ -2,6 +2,9 @@ import Random from '../utils/Random.js';
 import Disease from '../effectors/diseases/Disease.js';
 import Medication from '../effectors/medications/Medication.js';
 import Name from './Name.js';
+import TreatmentCourse from '../TreatmentCourse.js';
+import {BaseEffectorFactory} from '../effectors/BaseEffectorFactory.js';
+import ParameterFactory from '../parameters/ParameterFactory.js';
 
 export default class Human {
 
@@ -19,13 +22,13 @@ export default class Human {
 
     #treatmentCourses = [];
 
-    #isAlive = true;
+    #isAlive;
 
-    #aliveDays = 0;
+    #aliveDays;
 
     #lethalParameter;
 
-    #stateHistory = [];
+    #stateHistory;
 
     #diseaseSourceImmunities = new Map([
         ['viralInfection', 0.05],
@@ -35,10 +38,27 @@ export default class Human {
         ['geneticDisorders', 0.05],
     ]);
 
-    constructor({ id, name, parameters }) {
+    constructor({
+        id,
+        name,
+        parameters,
+        effectors = [],
+        treatmentCourses = [],
+        isAlive = true,
+        aliveDays = 0,
+        lethalParameter,
+        stateHistory = []
+    }) {
         this.#id = id;
         this.#name = Name.from(name);
         this.#parameters = parameters;
+        this.#isAlive = isAlive;
+        this.#aliveDays = aliveDays;
+        this.#lethalParameter = lethalParameter;
+        this.#stateHistory = stateHistory;
+
+        this.addEffectors(effectors);
+        this.addTreatmentCourses(treatmentCourses);
 
         this.#pushHistory();
     }
@@ -200,6 +220,10 @@ export default class Human {
         effector.removeEffects();
     }
 
+    addTreatmentCourses(courses) {
+        courses.forEach(course => this.addTreatmentCourse(course));
+    }
+
     addTreatmentCourse(course) {
         this.#treatmentCourses.push(course);
 
@@ -234,5 +258,29 @@ export default class Human {
 
     getParameter(path) {
         return this.#parameters.getParameter(path);
+    }
+
+    toJson() {
+        return {
+            id: this.id,
+            name: this.#name.toJson(),
+            parameters: this.parameters.toJson(),
+            effectors: this.#effectors.map(e => e.toJson()),
+            treatmentCourses: this.treatmentCourses.map(c => c.toJson()),
+            isAlive: this.isAlive,
+            aliveDays: this.aliveDays,
+            lethalParameter: this.lethalParameter?.toJson(),
+            stateHistory: this.stateHistory,
+        };
+    }
+
+    static fromJson(json) {
+        return new Human({
+            ...json,
+            parameters: ParameterFactory.getType(json.parameters.type).fromJson(json.parameters),
+            effectors: json.effectors.map(e => BaseEffectorFactory.getType(e.type).fromJson(e)),
+            treatmentCourses: json.treatmentCourses.map(c => TreatmentCourse.fromJson(c)),
+            lethalParameter: ParameterFactory.getType(json?.lethalParameter?.type)?.fromJson(json.lethalParameter),
+        });
     }
 }

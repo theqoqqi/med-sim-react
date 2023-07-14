@@ -1,6 +1,15 @@
 import ParameterEffect from '../parameters/ParameterEffect.js';
+import Effector from './Effector.js';
+import Disease from './diseases/Disease.js';
+import Medication from './medications/Medication.js';
 
 export class BaseEffectorFactory {
+
+    static #types = {
+        [Effector.name]: Effector,
+        [Disease.name]: Disease,
+        [Medication.name]: Medication,
+    };
 
     descriptorsByNames;
 
@@ -97,5 +106,9 @@ export class BaseEffectorFactory {
         }
 
         return descriptors;
+    }
+
+    static getType(name) {
+        return this.#types[name];
     }
 }
