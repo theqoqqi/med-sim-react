@@ -38,6 +38,10 @@ export default class ParameterEffect {
     }
 
     static fromJson(json) {
+        if (json instanceof ParameterEffect) {
+            return json;
+        }
+
         return new ParameterEffect(json);
     }
 }

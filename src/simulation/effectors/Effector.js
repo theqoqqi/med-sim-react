@@ -1,5 +1,6 @@
 import Easing from '../utils/Easing';
 import NumberRange from '../utils/NumberRange';
+import ParameterEffect from '../parameters/ParameterEffect.js';
 
 export default class Effector {
 
@@ -17,7 +18,7 @@ export default class Effector {
     }) {
         this.human = null;
         this.title = title;
-        this.effects = effects;
+        this.effects = effects.map(e => ParameterEffect.fromJson(e));
         this.progress = progress;
         this.progressPerDay = NumberRange.from(progressPerDay);
         this.lastProgressPerDay = lastProgressPerDay;
@@ -82,7 +83,7 @@ export default class Effector {
         return {
             type: this.constructor.name,
             title: this.title,
-            effects: this.effects,
+            effects: this.effects.map(e => e.toJson()),
             progress: this.progress,
             progressPerDay: this.progressPerDay.toJson(),
             lastProgressPerDay: this.lastProgressPerDay,

@@ -1,4 +1,5 @@
 import Parameter from './Parameter';
+import ParameterFactory from './ParameterFactory.js';
 
 export default class CompositeParameter extends Parameter {
 
@@ -116,21 +117,34 @@ export default class CompositeParameter extends Parameter {
     toJson() {
         return {
             ...super.toJson(),
-            value: this.#copyParameters(),
+            value: CompositeParameter.#parametersToJson(this.parameters),
         };
     }
 
-    #copyParameters() {
-        let copiedParameters = {};
+    static #parametersToJson(parameters) {
+        let json = {};
 
-        for (const [parameterName, parameter] of Object.entries(this.parameters)) {
-            copiedParameters[parameterName] = parameter.copy();
+        for (const [parameterName, parameter] of Object.entries(parameters)) {
+            json[parameterName] = parameter.toJson();
         }
 
-        return copiedParameters;
+        return json;
     }
 
     static fromJson(json) {
-        return new CompositeParameter(json);
+        return new CompositeParameter({
+            ...json,
+            value: this.#jsonToParameters(json.value),
+        });
+    }
+
+    static #jsonToParameters(parameterJsons) {
+        let parameters = {};
+
+        for (const [parameterName, parameterJson] of Object.entries(parameterJsons)) {
+            parameters[parameterName] = ParameterFactory.getType(parameterJson.type).fromJson(parameterJson);
+        }
+
+        return parameters;
     }
 }
