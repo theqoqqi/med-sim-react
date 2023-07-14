@@ -7,18 +7,18 @@ export default class TreatmentCourse {
 
     #interval;
 
-    #totalTimes;
+    #totalIntakes;
 
-    #remainingTimes;
+    #remainingIntakes;
 
     #currentDay;
 
-    constructor({ medicationName, interval, totalTimes, remainingTimes = null, currentDay = 0 }) {
+    constructor({ medicationName, interval, totalIntakes, remainingIntakes = null, currentDay = 0 }) {
         this.#patient = null;
         this.#medicationName = medicationName;
         this.#interval = interval;
-        this.#totalTimes = totalTimes;
-        this.#remainingTimes = remainingTimes ?? totalTimes;
+        this.#totalIntakes = totalIntakes;
+        this.#remainingIntakes = remainingIntakes ?? totalIntakes;
         this.#currentDay = currentDay;
     }
 
@@ -29,7 +29,7 @@ export default class TreatmentCourse {
     update() {
         if (this.shouldTake) {
             this.applyMedication();
-            this.#remainingTimes--;
+            this.#remainingIntakes--;
         }
 
         this.#currentDay++;
@@ -57,16 +57,16 @@ export default class TreatmentCourse {
         return this.#interval;
     }
 
-    get totalTimes() {
-        return this.#totalTimes;
+    get totalIntakes() {
+        return this.#totalIntakes;
     }
 
-    get appliedTimes() {
-        return this.#totalTimes - this.#remainingTimes;
+    get appliedIntakes() {
+        return this.#totalIntakes - this.#remainingIntakes;
     }
 
-    get remainingTimes() {
-        return this.#remainingTimes;
+    get remainingIntakes() {
+        return this.#remainingIntakes;
     }
 
     get currentDay() {
@@ -74,7 +74,7 @@ export default class TreatmentCourse {
     }
 
     get totalDays() {
-        return (this.#totalTimes - 1) * this.#interval;
+        return (this.#totalIntakes - 1) * this.#interval;
     }
 
     get shouldTake() {
@@ -82,15 +82,15 @@ export default class TreatmentCourse {
     }
 
     get isFinished() {
-        return this.#remainingTimes === 0;
+        return this.#remainingIntakes === 0;
     }
 
     toJson() {
         return {
             medicationName: this.medicationName,
             interval: this.interval,
-            totalTimes: this.totalTimes,
-            remainingTimes: this.remainingTimes,
+            totalIntakes: this.totalIntakes,
+            remainingIntakes: this.remainingIntakes,
             currentDay: this.currentDay,
         };
     }

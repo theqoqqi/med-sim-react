@@ -18,29 +18,29 @@ CreateTreatmentCourseModal.propTypes = {
 
 function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, onCreate }) {
     const maxInterval = 15;
-    const maxTimes = 30;
+    const maxIntakes = 30;
 
     let intervalPresets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    let timesPresets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let intakesPresets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     let [selectedMedication, setSelectedMedication] = useState(null);
     let [interval, setInterval] = useState('');
-    let [times, setTimes] = useState('');
+    let [intakes, setIntakes] = useState('');
     let [isAllValid, setAllValid] = useState(false);
 
     useEffect(() => {
         let allValid = selectedMedication !== null
             && interval > 0
-            && times > 0;
+            && intakes > 0;
 
         setAllValid(allValid);
-    }, [selectedMedication, interval, times]);
+    }, [selectedMedication, interval, intakes]);
 
     function onClickCreate() {
         let treatmentCourse = new TreatmentCourse({
             medicationName: selectedMedication.name,
             interval,
-            totalTimes: times,
+            totalIntakes: intakes,
         });
 
         onCreate(treatmentCourse);
@@ -75,11 +75,11 @@ function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, on
                     <NumberControlWithPresets
                         title='Принять'
                         unitTitle='раз'
-                        presets={timesPresets}
-                        value={times}
+                        presets={intakesPresets}
+                        value={intakes}
                         minValue={1}
-                        maxValue={maxTimes}
-                        onInput={setTimes}
+                        maxValue={maxIntakes}
+                        onInput={setIntakes}
                         placeholder='другое'
                     />
                 </Modal.Body>

@@ -34,18 +34,18 @@ function TreatmentCourseInfo({className, course}) {
 
     let currentDay = course.currentDay;
     let totalDays = course.totalDays;
-    let totalTimes = course.totalTimes;
+    let totalIntakes = course.totalIntakes;
     let interval = course.interval;
 
     let elapsedPercent = Math.min(currentDay / totalDays * 100 + 0.001, 100);
-    let stepsArray = Array.from(new Array(totalTimes).keys());
+    let stepsArray = Array.from(new Array(totalIntakes).keys());
     let stepTooltips = stepsArray.map(stepNumber => {
         return getStepNumberTooltip(stepNumber, interval, currentDay);
     });
 
     const renderTimingsTooltip = props => (
         <Tooltip {...props}>
-            каждые {interval} дней, {totalTimes} раз
+            каждые {interval} дней, {totalIntakes} раз
         </Tooltip>
     );
 
@@ -69,8 +69,8 @@ function TreatmentCourseInfo({className, course}) {
                             {interval}
                         </span>
                         <span className='d-flex align-items-center gap-1'>
-                            <span className={styles.timesIcon}>↻</span>
-                            {totalTimes}
+                            <span className={styles.intakesIcon}>↻</span>
+                            {totalIntakes}
                         </span>
                     </div>
                 </OverlayTrigger>
