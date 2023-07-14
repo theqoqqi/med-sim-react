@@ -13,13 +13,13 @@ export default class TreatmentCourse {
 
     #currentDay;
 
-    constructor(medicationName, interval, times) {
+    constructor({ medicationName, interval, totalTimes, remainingTimes = null, currentDay = 0 }) {
         this.#patient = null;
         this.#medicationName = medicationName;
         this.#interval = interval;
-        this.#totalTimes = times;
-        this.#remainingTimes = times;
-        this.#currentDay = 0;
+        this.#totalTimes = totalTimes;
+        this.#remainingTimes = remainingTimes ?? totalTimes;
+        this.#currentDay = currentDay;
     }
 
     setPatient(patient) {

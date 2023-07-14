@@ -28,12 +28,11 @@ function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, on
     let [times, setTimes] = useState('');
 
     function onClickCreate() {
-        let treatmentCourse = new TreatmentCourse(
-            patient,
-            selectedMedication.name,
+        let treatmentCourse = new TreatmentCourse({
+            medicationName: selectedMedication.name,
             interval,
-            times
-        );
+            totalTimes: times,
+        });
 
         onCreate(treatmentCourse);
     }
