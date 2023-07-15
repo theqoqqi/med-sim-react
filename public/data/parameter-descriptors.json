@@ -154,7 +154,7 @@
           "type": "composite",
           "parameters": {
             "red": {
-              "title": "Красные",
+              "title": "Красные кровяные тельца",
               "type": "number",
               "randomType": "gaussian",
               "fluctuation": "low",
@@ -163,7 +163,7 @@
               "lethalRange": [10, 300]
             },
             "white": {
-              "title": "Белые",
+              "title": "Белые кровяные тельца",
               "type": "number",
               "randomType": "gaussian",
               "fluctuation": "low",
