@@ -51,11 +51,17 @@ function SaveOverview({ save, onLoad, onRemove }) {
             <div>
                 Дата создания: {startedAt.toLocaleString()}
             </div>
-            {!isNaN(+savedAt) && (
-                <div>
-                    Дата сохранения: {savedAt.toLocaleString()}
-                </div>
-            )}
+            <div>
+                Дата сохранения: {savedAt.toLocaleString()}
+            </div>
+            <Button
+                variant='transparent-info'
+                size='sm'
+                className='mx-2'
+                onClick={() => console.log(save)}
+            >
+                Вывести в консоль
+            </Button>
         </div>
     );
 }

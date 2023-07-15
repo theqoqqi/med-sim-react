@@ -36,6 +36,14 @@ export default class Simulation {
         this.#world = new World();
     }
 
+    get title() {
+        return this.#title;
+    }
+
+    get startedAt() {
+        return this.#startedAt;
+    }
+
     get allHumans() {
         return this.#world.allHumans;
     }

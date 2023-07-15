@@ -9,6 +9,7 @@ import Button from '../../atoms/Button/Button.js';
 import SaveManager from '../../../simulation/SaveManager.js';
 import SaveList from '../../organisms/SaveList/SaveList.js';
 import SaveOverview from '../../organisms/SaveOverview/SaveOverview.js';
+import SimulationOverview from '../../organisms/SimulationOverview/SimulationOverview.js';
 
 GameInfoScreen.propTypes = {
     simulation: PropTypes.instanceOf(Simulation),
@@ -19,11 +20,10 @@ function GameInfoScreen({ simulation }) {
     let [selectedSave, setSelectedSave] = useState(null);
 
     let hasSelectedSave = selectedSave !== null;
-    let allSaves = SaveManager.getAllSaves().reverse();
-    let simulationJson = simulation.save();
+    let allSaves = [...SaveManager.getAllSaveInfos()].reverse();
 
     function selectSave(save) {
-        setSelectedSave(save.saveId === selectedSave?.saveId ? null : save);
+        setSelectedSave(save);
     }
 
     function saveSimulation(simulation) {
@@ -65,21 +65,40 @@ function GameInfoScreen({ simulation }) {
                     <span>
                         {hasSelectedSave ? 'Информация о сохранении' : 'Информация о текущей игре'}
                     </span>
-                    <Button
-                        variant='success'
-                        size='sm'
-                        className='mx-2'
-                        onClick={() => saveSimulation(simulation)}
-                    >
-                        Сохранить прогресс
-                    </Button>
+                    {hasSelectedSave && (
+                        <Button
+                            variant='success'
+                            size='sm'
+                            className='mx-2'
+                            onClick={() => selectSave(null)}
+                        >
+                            Вернуться
+                        </Button>
+                    )}
+                    {!hasSelectedSave && (
+                        <Button
+                            variant='success'
+                            size='sm'
+                            className='mx-2'
+                            onClick={() => saveSimulation(simulation)}
+                        >
+                            Сохранить прогресс
+                        </Button>
+                    )}
                 </SectionHeader>
                 <SectionBody scrollable>
-                    <SaveOverview
-                        save={selectedSave ?? simulationJson}
-                        onLoad={save => loadSave(save)}
-                        onRemove={save => removeSave(save)}
-                    />
+                    {hasSelectedSave && (
+                        <SaveOverview
+                            save={selectedSave}
+                            onLoad={save => loadSave(save)}
+                            onRemove={save => removeSave(save)}
+                        />
+                    )}
+                    {!hasSelectedSave && (
+                        <SimulationOverview
+                            simulation={simulation}
+                        />
+                    )}
                 </SectionBody>
             </Section>
         </div>
