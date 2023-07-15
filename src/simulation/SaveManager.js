@@ -3,6 +3,23 @@ import { stringify, parse } from 'zipson';
 
 class JsonLocalStorage {
 
+    async getItem(key) {
+        return parse(localStorage.getItem(key));
+    }
+
+    async setItem(key, value) {
+        return localStorage.setItem(key, stringify(value));
+    }
+
+    async removeItem(key) {
+        return localStorage.removeItem(key);
+    }
+}
+
+class StorageWrapper {
+
+    static #storage = new JsonLocalStorage();
+
     static #stringifier = (key, value) => {
         if (value !== value) {
             return 'NaN';
@@ -39,27 +56,27 @@ class JsonLocalStorage {
         return value;
     };
 
-    static getItem(key, defaultValue = null) {
-        let jsonText = localStorage.getItem(key) ?? null;
+    static async getItem(key, defaultValue = null) {
+        let json = await this.#storage.getItem(key) ?? null;
 
-        return jsonText ? this.parse(jsonText) : defaultValue;
+        return json ? this.unpack(json) : defaultValue;
     }
 
-    static parse(jsonText) {
-        return JSON.parse(JSON.stringify(parse(jsonText)), this.#parser);
+    static unpack(json) {
+        return JSON.parse(JSON.stringify(json), this.#parser);
     }
 
-    static setItem(key, json) {
+    static async setItem(key, json) {
         if (!json) {
-            localStorage.removeItem(key);
+            await this.#storage.removeItem(key);
             return;
         }
 
-        localStorage.setItem(key, this.stringify(json));
+        await this.#storage.setItem(key, this.pack(json));
     }
 
-    static stringify(json) {
-        return stringify(JSON.parse(JSON.stringify(json, this.#stringifier)));
+    static pack(json) {
+        return JSON.parse(JSON.stringify(json, this.#stringifier));
     }
 }
 
@@ -67,20 +84,20 @@ export default class SaveManager {
 
     static #allSaveInfos;
 
-    static getAllSaveInfos() {
-        this.#allSaveInfos = JsonLocalStorage.getItem('saves', []);
+    static async getAllSaveInfos() {
+        this.#allSaveInfos = await StorageWrapper.getItem('saves', []);
 
         return this.#allSaveInfos;
     }
 
-    static addSave(save) {
+    static async addSave(save) {
         save.saveId = Date.now();
         save.savedAt = Date.now();
 
         this.#allSaveInfos.push(this.createSaveInfo(save));
 
-        JsonLocalStorage.setItem('saves', this.#allSaveInfos);
-        JsonLocalStorage.setItem('save_' + save.saveId, save);
+        await StorageWrapper.setItem('saves', this.#allSaveInfos);
+        await StorageWrapper.setItem('save_' + save.saveId, save);
     }
 
     static createSaveInfo(save) {
@@ -95,29 +112,29 @@ export default class SaveManager {
         };
     }
 
-    static getSave(saveId) {
-        return JsonLocalStorage.getItem('save_' + saveId);
+    static async getSave(saveId) {
+        return await StorageWrapper.getItem('save_' + saveId);
     }
 
-    static removeSave(save) {
+    static async removeSave(save) {
         let index = this.#allSaveInfos.findIndex(s => s.saveId === save.saveId);
 
         if (index !== -1) {
-            this.removeSaveByIndex(index);
+            await this.removeSaveByIndex(index);
         }
     }
 
-    static removeSaveByIndex(index) {
+    static async removeSaveByIndex(index) {
         let saveInfo = this.#allSaveInfos[index];
         this.#allSaveInfos.splice(index, 1);
 
-        JsonLocalStorage.setItem('saves', this.#allSaveInfos);
-        JsonLocalStorage.setItem('save_' + saveInfo.saveId, null);
+        await StorageWrapper.setItem('saves', this.#allSaveInfos);
+        await StorageWrapper.setItem('save_' + saveInfo.saveId, null);
     }
 
-    static clearSaves() {
+    static async clearSaves() {
         for (let i = this.#allSaveInfos.length - 1; i >= 0; i++) {
-            this.removeSaveByIndex(i);
+            await this.removeSaveByIndex(i);
         }
     }
 }

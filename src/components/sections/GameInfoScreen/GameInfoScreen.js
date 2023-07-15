@@ -1,5 +1,5 @@
 import styles from './GameInfoScreen.module.css';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import Simulation from '../../../simulation/Simulation.js';
 import Section from '../../atoms/Section/Section.js';
@@ -17,27 +17,35 @@ GameInfoScreen.propTypes = {
 
 function GameInfoScreen({ simulation }) {
 
+    let [saves, setSaves] = useState([]);
     let [selectedSave, setSelectedSave] = useState(null);
 
     let hasSelectedSave = selectedSave !== null;
-    let allSaves = [...SaveManager.getAllSaveInfos()].reverse();
+
+    useEffect(() => {
+        (async () => {
+            let saves = await SaveManager.getAllSaveInfos();
+
+            setSaves([...saves].reverse());
+        })();
+    }, []);
 
     function selectSave(save) {
         setSelectedSave(save);
     }
 
-    function saveSimulation(simulation) {
-        SaveManager.addSave(simulation.save());
+    async function saveSimulation(simulation) {
+        await SaveManager.addSave(simulation.save());
     }
 
-    function loadSave(saveInfo) {
-        let save = SaveManager.getSave(saveInfo.saveId);
+    async function loadSave(saveInfo) {
+        let save = await SaveManager.getSave(saveInfo.saveId);
 
         simulation.load(save);
     }
 
-    function removeSave(save) {
-        SaveManager.removeSave(save);
+    async function removeSave(save) {
+        await SaveManager.removeSave(save);
         setSelectedSave(null);
     }
 
@@ -49,12 +57,12 @@ function GameInfoScreen({ simulation }) {
                         Список сохранений
                     </span>
                     <b className='mx-2'>
-                        {allSaves.length}
+                        {saves.length}
                     </b>
                 </SectionHeader>
                 <SectionBody>
                     <SaveList
-                        saves={allSaves}
+                        saves={saves}
                         selected={selectedSave}
                         onSelect={save => selectSave(save)}
                     />
