@@ -72,8 +72,9 @@ export default class Fluctuation {
         ];
     }
 
-    static fromJson(json) {
+    static fromJson(parameter, json) {
         return new Fluctuation({
+            parameter,
             daysBetweenTargetUpdates: json[0],
             remainingDays: json[1],
             stepSizeInPercents: json[2],
@@ -84,6 +85,10 @@ export default class Fluctuation {
     static from(parameter, options) {
         if (typeof options === 'string') {
             options = this.getPreset(options);
+        }
+
+        if (options?.length > 0) {
+            return this.fromJson(parameter, options);
         }
 
         return new Fluctuation({

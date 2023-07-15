@@ -3,6 +3,42 @@ import { stringify, parse } from 'zipson';
 
 class JsonLocalStorage {
 
+    static #stringifier = (key, value) => {
+        if (value !== value) {
+            return 'NaN';
+        }
+
+        if (value === Infinity) {
+            return 'Infinity';
+        }
+
+        if (value === -Infinity) {
+            return '-Infinity';
+        }
+
+        if (typeof value === 'number') {
+            return +Math.round(value * 1e6) / 1e6;
+        }
+
+        return value;
+    };
+
+    static #parser = (key, value) => {
+        if (value === 'NaN') {
+            return NaN;
+        }
+
+        if (value === 'Infinity') {
+            return Infinity;
+        }
+
+        if (value === '-Infinity') {
+            return -Infinity;
+        }
+
+        return value;
+    };
+
     static getItem(key, defaultValue = null) {
         let jsonText = localStorage.getItem(key) ?? null;
 
@@ -10,7 +46,7 @@ class JsonLocalStorage {
     }
 
     static parse(jsonText) {
-        return parse(jsonText);
+        return JSON.parse(JSON.stringify(parse(jsonText)), this.#parser);
     }
 
     static setItem(key, json) {
@@ -23,7 +59,7 @@ class JsonLocalStorage {
     }
 
     static stringify(json) {
-        return stringify(json);
+        return stringify(JSON.parse(JSON.stringify(json, this.#stringifier)));
     }
 }
 
