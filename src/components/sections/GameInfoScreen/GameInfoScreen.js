@@ -23,19 +23,23 @@ function GameInfoScreen({ simulation }) {
     let hasSelectedSave = selectedSave !== null;
 
     useEffect(() => {
-        (async () => {
-            let saves = await SaveManager.getAllSaveInfos();
-
-            setSaves([...saves].reverse());
-        })();
+        // noinspection JSIgnoredPromiseFromCall
+        reloadSaves();
     }, []);
 
     function selectSave(save) {
         setSelectedSave(save);
     }
 
+    async function reloadSaves() {
+        let saves = await SaveManager.getAllSaveInfos();
+
+        setSaves([...saves].reverse());
+    }
+
     async function saveSimulation(simulation) {
         await SaveManager.addSave(simulation.save());
+        await reloadSaves();
     }
 
     async function loadSave(saveInfo) {
@@ -46,6 +50,8 @@ function GameInfoScreen({ simulation }) {
 
     async function removeSave(save) {
         await SaveManager.removeSave(save);
+        await reloadSaves();
+
         setSelectedSave(null);
     }
 

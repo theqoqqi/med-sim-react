@@ -8,6 +8,7 @@ import PatientsScreen from './components/sections/PatientsScreen/PatientsScreen.
 import Button from './components/atoms/Button/Button.js';
 import NecrologyScreen from './components/sections/NecrologyScreen/NecrologyScreen.js';
 import GameInfoScreen from './components/sections/GameInfoScreen/GameInfoScreen.js';
+import SaveManager from './simulation/SaveManager.js';
 
 async function readJson(url) {
     let data = (await axios.get(url)).data;
@@ -24,6 +25,8 @@ function App() {
 
     useEffect(() => {
         (async () => {
+            await SaveManager.resolveStorage();
+
             let parameterDescriptors = await readJson('./data/parameter-descriptors.json');
             let diseaseDescriptors = await readJson('./data/disease-descriptors.json');
             let medicationDescriptors = await readJson('./data/medication-descriptors.json');

@@ -1,5 +1,52 @@
 // noinspection NpmUsedModulesInstalled
 import { stringify, parse } from 'zipson';
+import axios from 'axios';
+
+class SaveServerStorage {
+
+    static #host = '127.0.0.1';
+    static #port = 4000;
+
+    static async isServerUp() {
+        try {
+            let response = await axios.get(SaveServerStorage.getUrl('ping'));
+
+            return response.data === 'pong';
+        } catch (e) {
+            return false;
+        }
+    }
+
+    async getItem(key) {
+        return await this.get('get', { key });
+    }
+
+    async setItem(key, value) {
+        return await this.post('set', { key, value });
+    }
+
+    async removeItem(key) {
+        return await this.post('remove', { key });
+    }
+
+    async get(url, queryParams) {
+        let response = await axios.get(SaveServerStorage.getUrl(url), {
+            params: queryParams,
+        });
+
+        return response.data;
+    }
+
+    async post(url, data) {
+        let response = await axios.post(SaveServerStorage.getUrl(url), data);
+
+        return response.data;
+    }
+
+    static getUrl(url) {
+        return `http://${SaveServerStorage.#host}:${SaveServerStorage.#port}/${url}`;
+    }
+}
 
 class JsonLocalStorage {
 
@@ -18,7 +65,13 @@ class JsonLocalStorage {
 
 class StorageWrapper {
 
-    static #storage = new JsonLocalStorage();
+    static #storage = null;
+
+    static async resolveStorage() {
+        this.#storage = await SaveServerStorage.isServerUp()
+            ? new SaveServerStorage()
+            : new JsonLocalStorage();
+    }
 
     static #stringifier = (key, value) => {
         if (value !== value) {
@@ -83,6 +136,10 @@ class StorageWrapper {
 export default class SaveManager {
 
     static #allSaveInfos;
+
+    static async resolveStorage() {
+        return await StorageWrapper.resolveStorage();
+    }
 
     static async getAllSaveInfos() {
         this.#allSaveInfos = await StorageWrapper.getItem('saves', []);
