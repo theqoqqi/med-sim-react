@@ -33,7 +33,7 @@ app.get('/get', function (request, response) {
     let path = getSavePath(key);
 
     if (!fs.existsSync(path)) {
-        return responseJson(response, 200, {});
+        return responseJson(response, 200, null);
     }
 
     let fileContents = fs.readFileSync(path, 'utf8').toString();

@@ -17,6 +17,7 @@
     "zipson": "^0.2.12"
   },
   "scripts": {
+    "server": "cd saveServer && node server",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
