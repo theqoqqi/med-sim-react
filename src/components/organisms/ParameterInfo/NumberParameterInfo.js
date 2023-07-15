@@ -1,6 +1,7 @@
 import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 import classNames from 'classnames';
 import styles from './ParameterInfo.module.css';
+import {NumberParameterBar} from './NumberParameterBar.js';
 import React from 'react';
 
 export function NumberParameterInfo({ parameter, human }) {
@@ -97,7 +98,7 @@ export function NumberParameterInfo({ parameter, human }) {
                 )}
             </div>
             <div>
-                {parameter.value.toFixed(2)}
+                <NumberParameterBar parameter={parameter} />
             </div>
         </div>
     );

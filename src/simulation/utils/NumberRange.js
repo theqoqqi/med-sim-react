@@ -16,6 +16,14 @@ export default class NumberRange {
         return (this.min + this.max) / 2;
     }
 
+    get size() {
+        return this.max - this.min;
+    }
+
+    get isValid() {
+        return this.min <= this.max;
+    }
+
     includes(value) {
         return value >= this.min && value <= this.max;
     }
@@ -30,6 +38,22 @@ export default class NumberRange {
         }
 
         return value;
+    }
+
+    intersect(other) {
+        return NumberRange.of(
+            Math.max(this.min, other.min),
+            Math.min(this.max, other.max)
+        );
+    }
+
+    extend(minBy, maxBy = null) {
+        maxBy ??= minBy;
+
+        return NumberRange.of(
+            this.min - minBy,
+            this.max + maxBy
+        );
     }
 
     random() {
