@@ -32,9 +32,7 @@ export default class SaveManager {
     static #allSaveInfos;
 
     static getAllSaveInfos() {
-        if (!this.#allSaveInfos) {
-            this.#allSaveInfos = JsonLocalStorage.getItem('saves', []);
-        }
+        this.#allSaveInfos = JsonLocalStorage.getItem('saves', []);
 
         return this.#allSaveInfos;
     }
