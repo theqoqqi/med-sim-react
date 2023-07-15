@@ -74,6 +74,7 @@ class StorageWrapper {
     }
 
     static #stringifier = (key, value) => {
+        // eslint-disable-next-line no-self-compare
         if (value !== value) {
             return 'NaN';
         }

@@ -75,15 +75,13 @@ function TreatmentCourseInfo({className, course}) {
                     </div>
                 </OverlayTrigger>
             </div>
-            <div className='d-flex justify-content-between'>
+            <div className='d-flex justify-content-between align-items-center'>
                 <small>
                     Эффекты препарата:
                 </small>
-                <a className='link-primary' href='#' onClick={() => setEffectsVisible(!isEffectsVisible)}>
-                    <small>
-                        {isEffectsVisible ? 'свернуть' : 'развернуть'}
-                    </small>
-                </a>
+                <button className='btn btn-link btn-sm p-0' onClick={() => setEffectsVisible(!isEffectsVisible)}>
+                    {isEffectsVisible ? 'свернуть' : 'развернуть'}
+                </button>
             </div>
             <Collapse in={isEffectsVisible}>
                 <div>
