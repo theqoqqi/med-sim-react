@@ -87,10 +87,6 @@ class StorageWrapper {
             return '-Infinity';
         }
 
-        if (typeof value === 'number') {
-            return +Math.round(value * 1e6) / 1e6;
-        }
-
         return value;
     };
 
