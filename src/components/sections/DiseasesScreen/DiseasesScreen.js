@@ -37,7 +37,7 @@ function DiseasesScreen({ simulation }) {
                         {diseases.length}
                     </b>
                 </SectionHeader>
-                <SectionBody>
+                <SectionBody scrollable>
                     <DiseaseList
                         descriptors={sortedDiseases}
                         selected={selectedDisease}

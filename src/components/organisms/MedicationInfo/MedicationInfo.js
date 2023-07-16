@@ -20,6 +20,11 @@ function MedicationInfo({ descriptor, simulation, patient }) {
     let averageProgressPerDay = progressPerDayRange.average;
     let averageDays = 1 / averageProgressPerDay;
 
+    let normalizedPeak = descriptor.impactFunction === 'gaussian'
+        ? descriptor?.impactFunctionOptions?.meanOrigin ?? 0.5
+        : (descriptor.impactFunction === 'linearInverse' ? 0 : 0.5);
+    let peakDay = normalizedPeak * averageDays;
+
     return (
         <div className={classNames(styles.medicationInfo)}>
             <Row>
@@ -31,7 +36,7 @@ function MedicationInfo({ descriptor, simulation, patient }) {
                         Действует около {averageDays.toFixed(1)} дней
                         {' '}
                         <small style={{ fontSize: 11 }}>
-                            ({descriptor.impactFunction})
+                            ({descriptor.impactFunction}, пик на {peakDay.toFixed(1)} день)
                         </small>
                     </small>
                 </Col>
