@@ -317,7 +317,7 @@
         "creatinineLevel": 0.3,
         "electrolyteLevels": {
           "sodiumLevel": -8,
-          "potassiumLevel": -5
+          "potassiumLevel": -0.5
         }
       }
     }
