@@ -2,28 +2,25 @@ import styles from './HumanList.module.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Human from '../../../simulation/humans/Human.js';
-import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import List from '../../molecules/List/List.js';
 
 HumanList.propTypes = {
     humans: PropTypes.arrayOf(PropTypes.instanceOf(Human)),
+    selected: PropTypes.object,
+    onSelect: PropTypes.func,
+    listItemContent: PropTypes.func.isRequired,
 };
 
 function HumanList({ humans, selected, onSelect, listItemContent }) {
-    listItemContent ??= human => human.fullName;
-
     return (
-        <ListGroup className={styles.humanList} variant='flush'>
-            {humans.map(human => (
-                <ListGroupItem
-                    key={human.id}
-                    active={human === selected}
-                    onClick={() => onSelect(human)}
-                    action
-                >
-                    {listItemContent(human)}
-                </ListGroupItem>
-            ))}
-        </ListGroup>
+        <List
+            className={styles.humanList}
+            items={humans}
+            selected={selected}
+            onSelect={onSelect}
+            listItemContent={listItemContent}
+            variant='flush'
+        />
     );
 }
 

@@ -1,8 +1,8 @@
 import styles from './SaveList.module.css';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ListGroup, ListGroupItem} from 'react-bootstrap';
 import SaveListItem from '../SaveListItem/SaveListItem.js';
+import List from '../../molecules/List/List.js';
 
 SaveList.propTypes = {
     saves: PropTypes.arrayOf(PropTypes.object),
@@ -12,18 +12,16 @@ SaveList.propTypes = {
 
 function SaveList({ saves, selected, onSelect }) {
     return (
-        <ListGroup className={styles.saveList} variant='flush'>
-            {saves.map(save => (
-                <ListGroupItem
-                    key={save.saveId}
-                    active={save.saveId === selected?.saveId}
-                    onClick={() => onSelect?.(save)}
-                    action
-                >
-                    <SaveListItem save={save} />
-                </ListGroupItem>
-            ))}
-        </ListGroup>
+        <List
+            className={styles.saveList}
+            items={saves}
+            selected={selected}
+            onSelect={onSelect}
+            variant='flush'
+            listItemContent={save => (
+                <SaveListItem save={save} />
+            )}
+        />
     );
 }
 
