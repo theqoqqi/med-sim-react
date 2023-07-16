@@ -11,6 +11,16 @@ DiseaseOverview.propTypes = {
     descriptor: PropTypes.object,
 };
 
+function getRangeByValue(value, mappings) {
+    const rangeMap = new Map(mappings);
+
+    for (const [bound, range] of rangeMap) {
+        if (value <= bound || bound === null) {
+            return range;
+        }
+    }
+}
+
 function Field({ title, value, separator = ': ' }) {
     return (
         <div>
@@ -23,6 +33,10 @@ function Field({ title, value, separator = ': ' }) {
             </span>
         </div>
     );
+}
+
+function coloredSpan(text, color) {
+    return <span style={{ color }}>{text}</span>
 }
 
 function DiseaseOverview({ simulation, descriptor }) {
@@ -47,6 +61,28 @@ function DiseaseOverview({ simulation, descriptor }) {
 
         return severityB - severityA;
     });
+
+    function getDifficultyTitle(difficulty) {
+        return getRangeByValue(difficulty, [
+            [1, coloredSpan('Очень низкая', '#4e7900')],
+            [2.5, coloredSpan('Низкая', '#7c8f0e')],
+            [4.5, coloredSpan('Средняя', '#b4800d')],
+            [7, coloredSpan('Высокая', '#c03500')],
+            [10, coloredSpan('Очень высокая', '#a60000')],
+            [null, coloredSpan('Неизлечимая', '#646464')],
+        ]);
+    }
+
+    function getSeverityTitle(severity) {
+        return getRangeByValue(severity, [
+            [1, coloredSpan('Очень легкая', '#4e7900')],
+            [2.5, coloredSpan('Легкая', '#7c8f0e')],
+            [4.5, coloredSpan('Средняя', '#b4800d')],
+            [7, coloredSpan('Тяжелая', '#c03500')],
+            [10, coloredSpan('Очень тяжелая', '#a60000')],
+            [null, coloredSpan('Невыносимая', '#646464')],
+        ]);
+    }
 
     function getDifficulty(sourcePowers) {
         return Object.values(sourcePowers)
@@ -121,12 +157,12 @@ function DiseaseOverview({ simulation, descriptor }) {
                 value={'около ' + daysToProgress.toFixed(1) + ' дней'}
             />
             <Field
-                title='Сложность'
-                value={difficulty}
+                title='Сложность лечения'
+                value={getDifficultyTitle(difficulty)}
             />
             <Field
-                title='Тяжесть'
-                value={severity}
+                title='Переносимость'
+                value={getSeverityTitle(severity)}
             />
             <h6 className='pt-3'>
                 Симптомы:
