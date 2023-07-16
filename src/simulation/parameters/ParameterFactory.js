@@ -44,6 +44,10 @@ export default class ParameterFactory {
 
                 let parameterDescriptor = this.getParameterDescriptorByPath(parameterDescriptors, parameterPath);
 
+                if (!parameterDescriptor) {
+                    throw new Error(`Unknown parameter: ${parameterPath}`);
+                }
+
                 if (parameterDescriptor.type === 'composite') {
                     return this.mapEffects(effectDescriptor, callback, parameterPath);
                 }

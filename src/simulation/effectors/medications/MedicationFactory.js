@@ -6,4 +6,10 @@ export default class MedicationFactory extends BaseEffectorFactory {
     createInstance(options) {
         return new Medication(options);
     }
+    
+    validateDescriptor(descriptor) {
+        super.validateDescriptor(descriptor);
+
+        BaseEffectorFactory.assertDiseaseSources(descriptor, 'sourceEffects');
+    }
 }

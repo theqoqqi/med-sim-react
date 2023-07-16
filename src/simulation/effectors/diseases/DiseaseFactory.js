@@ -8,6 +8,14 @@ export default class DiseaseFactory extends BaseEffectorFactory {
         return new Disease(options);
     }
 
+    validateDescriptor(descriptor) {
+        super.validateDescriptor(descriptor);
+
+        BaseEffectorFactory.assertType(descriptor, 'description', 'string');
+        BaseEffectorFactory.assertType(descriptor, 'chancePerDay', 'number');
+        BaseEffectorFactory.assertDiseaseSources(descriptor, 'sourcePowers');
+    }
+
     createRandom() {
         const randomDescriptor = Random.weightedByField(this.descriptors, 'chancePerDay');
 
