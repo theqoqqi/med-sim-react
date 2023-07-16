@@ -5,6 +5,10 @@ export default class Easing {
         return progress;
     }
 
+    static inverseLinear(progress) {
+        return 1 - progress;
+    }
+
     static quadratic(progress) {
         return progress ** 2;
     }
