@@ -9,6 +9,7 @@ import Button from './components/atoms/Button/Button.js';
 import NecrologyScreen from './components/sections/NecrologyScreen/NecrologyScreen.js';
 import GameInfoScreen from './components/sections/GameInfoScreen/GameInfoScreen.js';
 import SaveManager from './simulation/SaveManager.js';
+import DiseasesScreen from './components/sections/DiseasesScreen/DiseasesScreen.js';
 
 async function readJson(url) {
     let data = (await axios.get(url)).data;
@@ -82,6 +83,9 @@ function App() {
                             Умершие
                             {newDeaths > 0 && ` (+${newDeaths})`}
                         </Nav.Link>
+                        <Nav.Link eventKey='diseases'>
+                            Справочник
+                        </Nav.Link>
                     </Nav>
                     <div className={styles.simulationStats}>
                         <div className='d-flex flex-column me-3 text-end'>
@@ -102,6 +106,9 @@ function App() {
                     </Tab.Pane>
                     <Tab.Pane className='flex-grow-1' eventKey='necrology'>
                         <NecrologyScreen simulation={simulation} />
+                    </Tab.Pane>
+                    <Tab.Pane className='flex-grow-1' eventKey='diseases'>
+                        <DiseasesScreen simulation={simulation} />
                     </Tab.Pane>
                 </Tab.Content>
             </Tab.Container>

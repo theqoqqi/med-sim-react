@@ -275,4 +275,8 @@ export default class Simulation {
     getParameterTitle(parameterPath) {
         return this.#parameterFactory.getParameterDescriptor(parameterPath).title;
     }
+
+    getParameterDescriptor(parameterPath) {
+        return this.#parameterFactory.getParameterDescriptor(parameterPath);
+    }
 }

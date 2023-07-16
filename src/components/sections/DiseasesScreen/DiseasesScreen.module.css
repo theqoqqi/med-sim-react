@@ -1,0 +1,32 @@
+
+.diseasesScreen {
+    display: flex;
+    flex: 1;
+
+    min-height: 0;
+}
+
+.diseaseList {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    min-height: 0;
+
+    border-right: 1px solid #ccc;
+}
+
+.diseaseListHeader {
+    display: flex;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #ccc;
+}
+
+.diseaseInfo {
+    flex: 3;
+}
+
+.diseaseInfoHeader {
+    border-bottom: 1px solid #ccc;
+}

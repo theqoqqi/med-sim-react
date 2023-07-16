@@ -82,6 +82,13 @@ export default class NumberRange {
         return [ this.min, this.max ];
     }
 
+    static lerp(from, to, alpha) {
+        return this.of(
+            from.min + alpha * (to.min - from.min),
+            from.max + alpha * (to.max - from.max)
+        );
+    }
+
     static fromJson(json) {
         return this.from(json);
     }
