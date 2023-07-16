@@ -36,6 +36,30 @@ function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, on
         setAllValid(allValid);
     }, [selectedMedication, interval, intakes]);
 
+    let sortedMedications = [...simulation.allMedicationDescriptors].sort((a, b) => {
+        let aEffectiveness = getMedicationEffectiveness(a);
+        let bEffectiveness = getMedicationEffectiveness(b);
+
+        return bEffectiveness - aEffectiveness;
+    });
+
+    function getMedicationEffectiveness(medication) {
+        let parameterImpacts = simulation.mapParameterEffects(medication.effects, getParameterEffectiveness);
+
+        return parameterImpacts.reduce((sum, impact) => sum + impact, 0);
+    }
+
+    function getParameterEffectiveness(parameterPath, impactValue) {
+        let parameter = patient.getParameter(parameterPath);
+        let oldValue = parameter.value;
+        let newValue = oldValue + impactValue;
+
+        let oldDistance = parameter.normalRange.getDistance(oldValue);
+        let newDistance = parameter.normalRange.getDistance(newValue);
+
+        return oldDistance - newDistance;
+    }
+
     function onClickCreate() {
         let treatmentCourse = new TreatmentCourse({
             medicationName: selectedMedication.name,
@@ -55,7 +79,7 @@ function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, on
                 <Modal.Body className={styles.inputList}>
                     <ScrollPane className={styles.medicationListScrollPane} orientation='vertical'>
                         <MedicationList
-                            descriptors={simulation.allMedicationDescriptors}
+                            descriptors={sortedMedications}
                             simulation={simulation}
                             patient={patient}
                             selected={selectedMedication}
