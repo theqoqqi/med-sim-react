@@ -14,7 +14,7 @@ NecrologyScreen.propTypes = {
     simulation: PropTypes.instanceOf(Simulation),
 };
 
-function NecrologyScreen({simulation}) {
+function NecrologyScreen({ simulation }) {
     let [selectedHuman, setSelectedHuman] = useState(null);
 
     let hasSelectedHuman = selectedHuman !== null && simulation.deadHumans.includes(selectedHuman);
@@ -41,15 +41,7 @@ function NecrologyScreen({simulation}) {
                         humans={sortedDeadHumans}
                         selected={selectedHuman}
                         onSelect={selectHuman}
-                        listItemContent={human => (
-                            <div className='d-flex flex-column'>
-                                <span>{human.fullName}</span>
-                                <div className='d-flex justify-content-between'>
-                                    <small>{human.lethalParameter.title}</small>
-                                    <small>{human.aliveDays} день</small>
-                                </div>
-                            </div>
-                        )}
+                        listItemContentVariant='deadHuman'
                     />
                 </SectionBody>
             </Section>

@@ -18,7 +18,7 @@ PatientsScreen.propTypes = {
     simulation: PropTypes.instanceOf(Simulation),
 };
 
-function PatientsScreen({simulation}) {
+function PatientsScreen({ simulation }) {
     let [selectedHuman, setSelectedHuman] = useState(null);
     let [isAssigningTreatment, setAssigningTreatment] = useState(false);
 
@@ -68,6 +68,7 @@ function PatientsScreen({simulation}) {
                         humans={simulation.allPatients}
                         selected={selectedHuman}
                         onSelect={selectHuman}
+                        listItemContentVariant='aliveHuman'
                     />
                 </SectionBody>
             </Section>
