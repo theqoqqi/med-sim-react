@@ -10,6 +10,7 @@ import SaveManager from '../../../simulation/SaveManager.js';
 import SaveList from '../../organisms/SaveList/SaveList.js';
 import SaveOverview from '../../organisms/SaveOverview/SaveOverview.js';
 import SimulationOverview from '../../organisms/SimulationOverview/SimulationOverview.js';
+import BusyModal from '../../molecules/BusyModal/BusyModal.js';
 
 GameInfoScreen.propTypes = {
     simulation: PropTypes.instanceOf(Simulation),
@@ -19,6 +20,7 @@ function GameInfoScreen({ simulation }) {
 
     let [saves, setSaves] = useState([]);
     let [selectedSave, setSelectedSave] = useState(null);
+    let [busyState, setBusyState] = useState({});
 
     let hasSelectedSave = selectedSave !== null;
 
@@ -38,21 +40,45 @@ function GameInfoScreen({ simulation }) {
     }
 
     async function saveSimulation(simulation) {
+        setBusy('Сохранение...', 'Идет сохранение. Пожалуйста, подождите...');
+
         await SaveManager.addSave(simulation.save());
         await reloadSaves();
+
+        setNotBusy();
     }
 
     async function loadSave(saveInfo) {
+        setBusy('Загрузка...', 'Идет загрузка. Пожалуйста, подождите...');
+
         let save = await SaveManager.getSave(saveInfo.saveId);
 
         simulation.load(save);
+        setNotBusy();
     }
 
     async function removeSave(save) {
+        setBusy('Удаление...', 'Идет удаление. Пожалуйста, подождите...');
+
         await SaveManager.removeSave(save);
         await reloadSaves();
 
         setSelectedSave(null);
+        setNotBusy();
+    }
+
+    function setBusy(title, message) {
+        setBusyState({
+            isBusy: true,
+            title,
+            message,
+        });
+    }
+
+    function setNotBusy() {
+        setBusyState({
+            isBusy: false,
+        });
     }
 
     return (
@@ -115,6 +141,7 @@ function GameInfoScreen({ simulation }) {
                     )}
                 </SectionBody>
             </Section>
+            <BusyModal show={busyState.isBusy} {...busyState} />
         </div>
     );
 }
