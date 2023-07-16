@@ -1,6 +1,7 @@
 {
   "andromalasia": {
     "title": "Андромалазия",
+    "description": "Андромалазия - это легкое физиологическое расстройство, характеризующееся незначительным отклонением от нормы в показателях температуры и артериального давления. Обычно не вызывает серьезных симптомов и может проявляться лишь слабой неприятностью для пациента.",
     "chancePerDay": 0.005,
     "progressPerDay": [0.2, 0.3],
     "impactFunction": "gaussian",
@@ -19,6 +20,7 @@
   },
   "cardioferritinia": {
     "title": "Кардиоферритиния",
+    "description": "Кардиоферритиния - это сердечно-сосудистое заболевание, при котором наблюдается увеличение сердечного ритма и повышение артериального давления. Хотя это состояние может вызывать дискомфорт, оно редко приводит к серьезным осложнениям.",
     "chancePerDay": 0.002,
     "progressPerDay": [0.08, 0.12],
     "impactFunction": "gaussian",
@@ -37,6 +39,7 @@
   },
   "nephrocerebralSyndrome": {
     "title": "Нефроксеребральный синдром",
+    "description": "Нефроксеребральный синдром - это редкое расстройство, которое связано с отклонением в показателях артериального давления. Хотя симптомы могут быть разнообразными, включая усталость и головокружение, данное состояние обычно не является опасным и может быть контролируемым.",
     "chancePerDay": 0.0002,
     "progressPerDay": [0.15, 0.2],
     "impactFunction": "linear",
@@ -52,6 +55,7 @@
   },
   "hyperleukoplasia": {
     "title": "Гиперлейкоплазия",
+    "description": "Гиперлейкоплазия - это болезнь, характеризующаяся аномальным увеличением количества лейкоцитов в крови. Это может вызвать некоторые нарушения в функции иммунной системы и повышенную склонность к воспалительным реакциям.",
     "chancePerDay": 0.0003,
     "progressPerDay": [0.12, 0.15],
     "impactFunction": "squareRoot",
@@ -71,6 +75,7 @@
   },
   "neurofibrosis": {
     "title": "Нейрофиброз",
+    "description": "Нейрофиброз - это неврологическое расстройство, которое сопровождается изменениями в температуре тела, сердечном ритме и артериальном давлении. Это состояние может вызывать различные симптомы, включая повышенную температуру, сердцебиение и головокружение.",
     "chancePerDay": 0.0001,
     "progressPerDay": [0.15, 0.2],
     "impactFunction": "quadratic",
@@ -84,6 +89,443 @@
         "bloodPressure": {
           "systolic": 30,
           "diastolic": 20
+        }
+      }
+    }
+  },
+  "neurocrystalliosis": {
+    "title": "Нейрокристаллиоз",
+    "description": "Нейрокристаллиоз - это редкое неврологическое заболевание, при котором кристаллы образуются внутри нервных клеток и нейронных соединений. Это приводит к нарушению передачи нервных импульсов и возникновению различных неврологических симптомов. Нейрокристаллиоз может проявляться как проблемы с координацией движений, снижение памяти и когнитивных функций, так и болевые синдромы.",
+    "chancePerDay": 0.002,
+    "progressPerDay": [0.08, 0.12],
+    "impactFunction": "squareRoot",
+    "sourcePowers": {
+      "geneticDisorders": 2.2
+    },
+    "effects": {
+      "physiological": {
+        "temperature": 0.8,
+        "heartRate": 10,
+        "bloodPressure": {
+          "systolic": 15,
+          "diastolic": 8
+        }
+      },
+      "psychological": {
+        "focusLevel": -20,
+        "memoryLevel": -15
+      }
+    }
+  },
+  "photonemia": {
+    "title": "Фотонемия",
+    "description": "Фотонемия является редким заболеванием, которое характеризуется чувствительностью к фотонам и их избыточным воздействием на организм. Это приводит к возникновению различных симптомов, таких как головная боль, сонливость и повышенная раздражительность.",
+    "chancePerDay": 0.001,
+    "progressPerDay": [0.1, 0.15],
+    "impactFunction": "linear",
+    "sourcePowers": {
+      "viralInfection": 0.9
+    },
+    "effects": {
+      "physiological": {
+        "temperature": 1.1,
+        "heartRate": 5,
+        "bloodPressure": {
+          "systolic": 10,
+          "diastolic": 5
+        }
+      },
+      "psychological": {
+        "stressLevel": 20,
+        "anxietyLevel": 15
+      }
+    }
+  },
+  "chromatichepatitis": {
+    "title": "Хроматический гепатит",
+    "description": "Хроматический гепатит - это редкое заболевание печени, при котором она подвергается воздействию неконтролируемых цветовых вспышек. Это приводит к нарушению работы печени и может вызывать симптомы, такие как желтушность кожи, утомляемость и расстройства пищеварения.",
+    "chancePerDay": 0.0005,
+    "progressPerDay": [0.05, 0.1],
+    "impactFunction": "gaussian",
+    "sourcePowers": {
+      "autoimmuneDisorders": 1.8
+    },
+    "effects": {
+      "physiological": {
+        "bloodGlucoseLevel": 5.0,
+        "bloodPressure": {
+          "systolic": 18,
+          "diastolic": 12
+        }
+      },
+      "biochemical": {
+        "cholesterolLevel": 2.5
+      }
+    }
+  },
+  "hypersomnolence": {
+    "title": "Гиперсомнолентность",
+    "description": "Гиперсомнолентность - это редкое неврологическое расстройство, при котором человек испытывает чрезмерную сонливость и длительные эпизоды сна в течение дня. Это может приводить к нарушениям повседневной жизни и работоспособности.",
+    "chancePerDay": 0.0008,
+    "progressPerDay": [0.08, 0.12],
+    "impactFunction": "linear",
+    "sourcePowers": {
+      "geneticDisorders": 1.5,
+      "inflammatory": 1.2
+    },
+    "effects": {
+      "psychological": {
+        "sleepQuality": -20,
+        "fatigueLevel": 30,
+        "focusLevel": -15
+      }
+    }
+  },
+  "dermalocclusion": {
+    "title": "Дермалокклюзия",
+    "description": "Дермалокклюзия - это редкое дерматологическое заболевание, характеризующееся аномальным замещением и смещением клеток дермы. Оно может приводить к образованию необычных образований на коже, изменению ее текстуры и цвета.",
+    "chancePerDay": 0.0003,
+    "progressPerDay": [0.05, 0.1],
+    "impactFunction": "squareRoot",
+    "sourcePowers": {
+      "bacterialInfection": 1.2
+    },
+    "effects": {
+      "physiological": {
+        "temperature": 1.1,
+        "heartRate": 5,
+        "bloodPressure": {
+          "systolic": 10,
+          "diastolic": 8
+        }
+      }
+    }
+  },
+  "psychochondritis": {
+    "title": "Психохондриит",
+    "description": "Психохондриит - это психологическое расстройство, при котором человек постоянно испытывает навязчивую и нездоровую тревогу по поводу своего здоровья. Он переживает о существовании вымышленных болезней и часто обращается к врачам, несмотря на отсутствие медицинских признаков заболевания.",
+    "chancePerDay": 0.0005,
+    "progressPerDay": [0.03, 0.06],
+    "impactFunction": "linear",
+    "sourcePowers": {
+      "geneticDisorders": 1.5
+    },
+    "effects": {
+      "psychological": {
+        "stressLevel": 40,
+        "anxietyLevel": 25,
+        "sleepQuality": -10,
+        "focusLevel": -10
+      }
+    }
+  },
+  "pulmonofibrosis": {
+    "title": "Пульмофиброз",
+    "description": "Пульмофиброз - это редкое легочное заболевание, характеризующееся образованием рубцовой ткани в легких. Оно приводит к сокращению объема легочной ткани и нарушению дыхательной функции.",
+    "chancePerDay": 0.0002,
+    "progressPerDay": [0.08, 0.12],
+    "impactFunction": "quadratic",
+    "sourcePowers": {
+      "autoimmuneDisorders": 1.8,
+      "inflammatory": 1.2
+    },
+    "effects": {
+      "physiological": {
+        "respiratoryRate": 8,
+        "bloodOxygenLevel": -15
+      },
+      "psychological": {
+        "stressLevel": 10,
+        "fatigueLevel": 20
+      }
+    }
+  },
+  "ocularhypertonia": {
+    "title": "Окулярная гипертония",
+    "description": "Окулярная гипертония - это редкое офтальмологическое заболевание, характеризующееся повышенным внутриглазным давлением. Оно может приводить к ухудшению зрения, болезненности глаз и повышенной чувствительности к свету.",
+    "chancePerDay": 0.0004,
+    "progressPerDay": [0.05, 0.1],
+    "impactFunction": "gaussian",
+    "sourcePowers": {
+      "inflammatory": 1.9
+    },
+    "effects": {
+      "physiological": {
+        "temperature": 1.1,
+        "heartRate": -5
+      },
+      "psychological": {
+        "focusLevel": -15
+      }
+    }
+  },
+  "gastrodynia": {
+    "title": "Гастродиния",
+    "description": "Гастродиния - это редкое желудочное расстройство, характеризующееся приступами сильной боли в желудке. Она может быть вызвана различными факторами, включая стресс, пищевые аллергены и гастрит.",
+    "chancePerDay": 0.0006,
+    "progressPerDay": [0.03, 0.06],
+    "impactFunction": "linear",
+    "sourcePowers": {
+      "viralInfection": 2.2,
+      "inflammatory": 1.1
+    },
+    "effects": {
+      "physiological": {
+        "bloodPressure": {
+          "systolic": 10,
+          "diastolic": 6
+        }
+      },
+      "psychological": {
+        "stressLevel": 25
+      }
+    }
+  },
+  "metaboliczymosis": {
+    "title": "Метаболический зимоз",
+    "description": "Метаболический зимоз - это редкое метаболическое заболевание, которое возникает в результате нарушений в обмене веществ в организме. Оно может приводить к значительным изменениям в уровне глюкозы, холестерина и электролитов в крови.",
+    "chancePerDay": 0.000075,
+    "progressPerDay": [0.08, 0.12],
+    "impactFunction": "quadratic",
+    "sourcePowers": {
+      "autoimmuneDisorders": 1.5
+    },
+    "effects": {
+      "physiological": {
+        "bloodGlucoseLevel": 6.0
+      },
+      "biochemical": {
+        "cholesterolLevel": 2.5,
+        "electrolyteLevels": {
+          "sodiumLevel": -10,
+          "potassiumLevel": 8
+        }
+      }
+    }
+  },
+  "renaloxaluria": {
+    "title": "Реналоксалурия",
+    "description": "Реналоксалурия - это редкое наследственное заболевание, характеризующееся нарушением обмена оксалата в почках. Оно может приводить к образованию оксалатных камней, а также к изменениям в уровне креатинина и электролитов в крови.",
+    "chancePerDay": 0.00008,
+    "progressPerDay": [0.08, 0.12],
+    "impactFunction": "linear",
+    "sourcePowers": {
+      "geneticDisorders": 1.8
+    },
+    "effects": {
+      "biochemical": {
+        "creatinineLevel": 0.3,
+        "electrolyteLevels": {
+          "sodiumLevel": -8,
+          "potassiumLevel": -5
+        }
+      }
+    }
+  },
+  "pancreaticlipomatosis": {
+    "title": "Панкреатический липоматоз",
+    "description": "Панкреатический липоматоз - это редкое заболевание поджелудочной железы, при котором происходит замещение ее ткани жировой тканью. Оно может приводить к нарушению выработки инсулина и изменениям в уровне глюкозы и холестерина в крови.",
+    "chancePerDay": 0.0004,
+    "progressPerDay": [0.05, 0.1],
+    "impactFunction": "quadratic",
+    "sourcePowers": {
+      "bacterialInfection": 2.2,
+      "inflammatory": 1.2
+    },
+    "effects": {
+      "physiological": {
+        "bloodGlucoseLevel": 7.5
+      },
+      "biochemical": {
+        "cholesterolLevel": 2.8
+      }
+    }
+  },
+  "neuromyoclonia": {
+    "title": "Нейромиоклония",
+    "description": "Нейромиоклония - это редкое неврологическое расстройство, характеризующееся ритмическими или непроизвольными судорогами мышц и нервной системы. Оно может приводить к нарушению координации движений, судорогам и повышенной возбудимости нервной системы.",
+    "chancePerDay": 0.0003,
+    "progressPerDay": [0.08, 0.12],
+    "impactFunction": "quadratic",
+    "sourcePowers": {
+      "geneticDisorders": 1.8,
+      "autoimmuneDisorders": 1.5
+    },
+    "effects": {
+      "physiological": {
+        "temperature": 1.2,
+        "heartRate": 8,
+        "bloodPressure": {
+          "systolic": 20,
+          "diastolic": 12
+        }
+      },
+      "psychological": {
+        "focusLevel": -15,
+        "memoryLevel": -10
+      }
+    }
+  },
+  "myelofibrosis": {
+    "title": "Миелофиброз",
+    "description": "Миелофиброз - это редкое онкологическое заболевание костного мозга, при котором происходит замещение здоровых клеток костного мозга фиброзной тканью. Оно может приводить к нарушению образования крови, изменениям в уровне кровяных телец и биохимических показателей.",
+    "chancePerDay": 0.00025,
+    "progressPerDay": [0.05, 0.1],
+    "impactFunction": "squareRoot",
+    "sourcePowers": {
+      "geneticDisorders": 2.0,
+      "bacterialInfection": 1.5
+    },
+    "effects": {
+      "physiological": {
+        "bloodPressure": {
+          "systolic": 12,
+          "diastolic": 8
+        }
+      },
+      "biochemical": {
+        "bloodCells": {
+          "red": -20,
+          "white": 30
+        },
+        "creatinineLevel": 0.25
+      },
+      "psychological": {
+        "fatigueLevel": 10,
+        "memoryLevel": -15
+      }
+    }
+  },
+  "neurotoxicencephalopathy": {
+    "title": "Нейротоксическая энцефалопатия",
+    "description": "Нейротоксическая энцефалопатия - это редкое неврологическое расстройство, вызванное воздействием токсических веществ на головной мозг. Оно может приводить к различным неврологическим симптомам, включая нарушение координации движений, потерю памяти и судороги.",
+    "chancePerDay": 0.0004,
+    "progressPerDay": [0.06, 0.1],
+    "impactFunction": "gaussian",
+    "sourcePowers": {
+      "bacterialInfection": 1.8
+    },
+    "effects": {
+      "physiological": {
+        "temperature": 1.2,
+        "heartRate": 8,
+        "bloodPressure": {
+          "systolic": 18,
+          "diastolic": 10
+        }
+      },
+      "psychological": {
+        "focusLevel": -20,
+        "memoryLevel": -20
+      }
+    }
+  },
+  "xeroderma": {
+    "title": "Ксеродерма",
+    "description": "Ксеродерма - это редкое генетическое заболевание, при котором кожа становится чрезмерно сухой, тонкой и подверженной солнечным ожогам. Оно вызывается нарушением механизмов ремонта ДНК, что приводит к повышенной чувствительности к УФ-излучению и раннему старению кожи.",
+    "chancePerDay": 0.00008,
+    "progressPerDay": [0.1, 0.2],
+    "impactFunction": "quadratic",
+    "sourcePowers": {
+      "geneticDisorders": 4.5
+    },
+    "effects": {
+      "physiological": {
+        "temperature": 2.5,
+        "bloodPressure": {
+          "systolic": 30,
+          "diastolic": 20
+        }
+      },
+      "psychological": {
+        "stressLevel": 30,
+        "anxietyLevel": 15
+      }
+    }
+  },
+  "venomousaphyxia": {
+    "title": "Ядовитая афиксия",
+    "description": "Ядовитая афиксия - это редкое заболевание, вызываемое контактом с ядовитыми насекомыми. Оно может приводить к системным аллергическим реакциям, воспалению и отекам различных тканей. Причиной заболевания является высокая чувствительность к яду насекомых.",
+    "chancePerDay": 0.00006,
+    "progressPerDay": [0.12, 0.18],
+    "impactFunction": "gaussian",
+    "sourcePowers": {
+      "viralInfection": 3.5,
+      "bacterialInfection": 2.5
+    },
+    "effects": {
+      "physiological": {
+        "temperature": 1.8,
+        "bloodPressure": {
+          "systolic": 35,
+          "diastolic": 25
+        }
+      },
+      "biochemical": {
+        "bloodCells": {
+          "white": 50
+        },
+        "creatinineLevel": 0.4
+      },
+      "psychological": {
+        "stressLevel": 25,
+        "anxietyLevel": 20
+      }
+    }
+  },
+  "venomanceritus": {
+    "title": "Веномансеритус",
+    "description": "Веномансеритус - это редкое заболевание, вызванное сильными ядовитыми веществами, которые попадают в организм. Оно приводит к разрушению тканей, повреждению нервной системы и серьезным нарушениям функций органов.",
+    "chancePerDay": 0.0000137,
+    "progressPerDay": [0.25, 0.35],
+    "impactFunction": "quadratic",
+    "sourcePowers": {
+      "viralInfection": 4.5
+    },
+    "effects": {
+      "physiological": {
+        "bloodGlucoseLevel": 9.0,
+        "heartRate": 30,
+        "bloodPressure": {
+          "systolic": 40,
+          "diastolic": 30
+        }
+      },
+      "biochemical": {
+        "cholesterolLevel": 5.0,
+        "bloodCells": {
+          "red": -30,
+          "white": -40
+        }
+      },
+      "psychological": {
+        "stressLevel": 50,
+        "anxietyLevel": 60
+      }
+    }
+  },
+  "hemoglobinopathy": {
+    "title": "Гемоглобинопатия",
+    "description": "Гемоглобинопатия - это группа генетических нарушений, которые приводят к аномалиям в структуре или функции гемоглобина. Они могут вызывать различные формы анемии и серьезные нарушения кровообращения.",
+    "chancePerDay": 0.0001,
+    "progressPerDay": [0.1, 0.15],
+    "impactFunction": "linear",
+    "sourcePowers": {
+      "geneticDisorders": 2.5
+    },
+    "effects": {
+      "biochemical": {
+        "hemoglobinLevel": -30,
+        "bloodCells": {
+          "red": -40,
+          "white": 20
+        }
+      },
+      "physiological": {
+        "heartRate": 10,
+        "bloodPressure": {
+          "systolic": 15,
+          "diastolic": 10
         }
       }
     }

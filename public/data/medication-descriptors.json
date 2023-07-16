@@ -3,12 +3,10 @@
     "title": "MediRelax",
     "progressPerDay": [0.3, 0.4],
     "impactFunction": "gaussian",
-    "sourceEffects": {
-      "viralInfection": 0.5
-    },
     "effects": {
       "physiological": {
         "heartRate": -10,
+        "temperature": -0.2,
         "bloodPressure": {
           "systolic": -5,
           "diastolic": -3
@@ -18,21 +16,19 @@
   },
   "cardioVital": {
     "title": "CardioVital",
-    "progressPerDay": [0.4, 0.6],
+    "progressPerDay": [0.2, 0.3],
     "impactFunction": "gaussian",
     "sourceEffects": {
-      "bacterialInfection": 0.5
+      "viralInfection": 0.5
     },
     "effects": {
       "physiological": {
+        "heartRate": 12,
+        "temperature": 0.1,
         "bloodPressure": {
-          "systolic": -15,
-          "diastolic": -10
+          "systolic": 8,
+          "diastolic": 5
         }
-      },
-      "biochemical": {
-        "cholesterolLevel": -20,
-        "hemoglobinLevel": 10
       }
     }
   },
@@ -50,9 +46,28 @@
       }
     }
   },
+  "pressurePlus": {
+    "title": "PressurePlus",
+    "progressPerDay": [0.2, 0.3],
+    "impactFunction": "gaussian",
+    "effects": {
+      "physiological": {
+        "bloodPressure": {
+          "systolic": 12,
+          "diastolic": 8
+        }
+      },
+      "biochemical": {
+        "cholesterolLevel": 5
+      }
+    }
+  },
   "immunoBoost": {
     "title": "ImmunoBoost",
     "progressPerDay": [0.3, 0.4],
+    "impactFunctionOptions": {
+      "meanOrigin": 0.2
+    },
     "impactFunction": "gaussian",
     "sourceEffects": {
       "autoimmuneDisorders": 0.5
@@ -60,7 +75,80 @@
     "effects": {
       "physiological": {
         "temperature": -1.0,
-        "heartRate": -5
+        "heartRate": -3
+      }
+    }
+  },
+  "tempBoost": {
+    "title": "TempBoost",
+    "progressPerDay": [0.15, 0.25],
+    "impactFunctionOptions": {
+      "meanOrigin": 0.2
+    },
+    "impactFunction": "gaussian",
+    "effects": {
+      "physiological": {
+        "temperature": 1.0,
+        "heartRate": 3
+      }
+    }
+  },
+  "glucoRegul": {
+    "title": "GlucoRegul",
+    "progressPerDay": [0.18, 0.25],
+    "impactFunction": "gaussian",
+    "effects": {
+      "physiological": {
+        "bloodGlucoseLevel": -5.0,
+        "bloodOxygenLevel": -0.3
+      }
+    }
+  },
+  "glucoBoost": {
+    "title": "GlucoBoost",
+    "progressPerDay": [0.3, 0.45],
+    "impactFunction": "gaussian",
+    "impactFunctionOptions": {
+      "meanOrigin": 0.2
+    },
+    "effects": {
+      "physiological": {
+        "bloodGlucoseLevel": 7.5,
+        "bloodOxygenLevel": 0.45
+      }
+    }
+  },
+  "oxyBoost": {
+    "title": "OxyBoost",
+    "progressPerDay": [0.2, 0.3],
+    "impactFunction": "gaussian",
+    "effects": {
+      "physiological": {
+        "bloodGlucoseLevel": 0.5,
+        "bloodOxygenLevel": 2.5
+      }
+    }
+  },
+  "easyBreathe": {
+    "title": "easyBreathe",
+    "progressPerDay": [0.2, 0.3],
+    "impactFunction": "gaussian",
+    "effects": {
+      "physiological": {
+        "respiratoryRate": 5
+      }
+    }
+  },
+  "rebreathe": {
+    "title": "rebreathe",
+    "progressPerDay": [0.2, 0.3],
+    "impactFunction": "gaussian",
+    "impactFunctionOptions": {
+      "meanOrigin": 0.2
+    },
+    "effects": {
+      "physiological": {
+        "respiratoryRate": -4
       }
     }
   },
@@ -68,13 +156,426 @@
     "title": "NeuroCalm",
     "progressPerDay": [0.15, 0.2],
     "impactFunction": "gaussian",
+    "impactFunctionOptions": {
+      "meanOrigin": 0.2
+    },
     "sourceEffects": {
       "geneticDisorders": 0.5
     },
     "effects": {
       "psychological": {
-        "stressLevel": -0.3,
-        "sleepQuality": 0.2
+        "stressLevel": -30,
+        "sleepQuality": 20,
+        "focusLevel": -10,
+        "memoryLevel": -5
+      }
+    }
+  },
+  "сalmMind": {
+    "title": "CalmMind",
+    "progressPerDay": [0.2, 0.3],
+    "impactFunctionOptions": {
+      "meanOrigin": 0.2
+    },
+    "impactFunction": "gaussian",
+    "effects": {
+      "psychological": {
+        "stressLevel": -40,
+        "anxietyLevel": -25,
+        "sleepQuality": 20
+      }
+    }
+  },
+  "focusPlus": {
+    "title": "focusPlus",
+    "progressPerDay": [0.12, 0.16],
+    "impactFunctionOptions": {
+      "meanOrigin": 0.2
+    },
+    "impactFunction": "gaussian",
+    "effects": {
+      "psychological": {
+        "focusLevel": 10,
+        "memoryLevel": 5
+      }
+    }
+  },
+  "MoodBalance": {
+    "title": "MoodBalance",
+    "progressPerDay": [0.15, 0.2],
+    "impactFunction": "gaussian",
+    "effects": {
+      "psychological": {
+        "anxietyLevel": -20,
+        "sleepQuality": 10,
+        "fatigueLevel": -20
+      }
+    }
+  },
+  "energize": {
+    "title": "Energize",
+    "progressPerDay": [0.25, 0.35],
+    "impactFunction": "gaussian",
+    "impactFunctionOptions": {
+      "meanOrigin": 0.2
+    },
+    "effects": {
+      "psychological": {
+        "fatigueLevel": -40,
+        "memoryLevel": 5
+      },
+      "physiological": {
+        "heartRate": 5,
+        "bloodPressure": {
+          "systolic": 8,
+          "diastolic": 5
+        }
+      }
+    }
+  },
+  "cellBoost": {
+    "title": "CellBoost",
+    "progressPerDay": [0.2, 0.3],
+    "impactFunction": "gaussian",
+    "effects": {
+      "biochemical.bloodCells": {
+        "red": 10,
+        "white": 8
+      }
+    }
+  },
+  "cellRegul": {
+    "title": "CellRegul",
+    "progressPerDay": [0.18, 0.25],
+    "impactFunction": "gaussian",
+    "impactFunctionOptions": {
+      "meanOrigin": 0.2
+    },
+    "effects": {
+      "biochemical.bloodCells": {
+        "red": -8,
+        "white": -6
+      }
+    }
+  },
+  "hemaVital": {
+    "title": "HemaVital",
+    "progressPerDay": [0.15, 0.2],
+    "impactFunction": "gaussian",
+    "effects": {
+      "biochemical.bloodCells": {
+        "red": 5,
+        "white": 4
+      },
+      "physiological": {
+        "heartRate": -5
+      }
+    }
+  },
+  "HemaCalm": {
+    "title": "HemaCalm",
+    "progressPerDay": [0.3, 0.4],
+    "impactFunctionOptions": {
+      "meanOrigin": 0.2
+    },
+    "impactFunction": "gaussian",
+    "effects": {
+      "biochemical.bloodCells": {
+        "red": -5,
+        "white": -4
+      },
+      "physiological": {
+        "heartRate": -4,
+        "bloodPressure": {
+          "systolic": -3,
+          "diastolic": -2
+        }
+      }
+    }
+  },
+  "cholestaReg": {
+    "title": "CholestaReg",
+    "progressPerDay": [0.25, 0.35],
+    "impactFunction": "gaussian",
+    "effects": {
+      "biochemical": {
+        "cholesterolLevel": -15
+      },
+      "physiological": {
+        "bloodPressure": {
+          "systolic": -4,
+          "diastolic": -2.5
+        }
+      }
+    }
+  },
+  "cholestaControl": {
+    "title": "CholestaControl",
+    "progressPerDay": [0.2, 0.3],
+    "impactFunction": "gaussian",
+    "impactFunctionOptions": {
+      "meanOrigin": 0.2
+    },
+    "effects": {
+      "biochemical": {
+        "cholesterolLevel": 10
+      },
+      "psychological": {
+        "stressLevel": 5
+      }
+    }
+  },
+  "сreatiBoost": {
+    "title": "CreatiBoost",
+    "progressPerDay": [0.2, 0.3],
+    "impactFunction": "gaussian",
+    "impactFunctionOptions": {
+      "meanOrigin": 0.2
+    },
+    "effects": {
+      "biochemical": {
+        "creatinineLevel": 0.06
+      }
+    }
+  },
+  "сreatiControl": {
+    "title": "CreatiControl",
+    "progressPerDay": [0.1, 0.15],
+    "impactFunction": "gaussian",
+    "effects": {
+      "biochemical": {
+        "creatinineLevel": -0.06
+      },
+      "psychological": {
+        "fatigueLevel": -5
+      }
+    }
+  },
+  "electroBalance": {
+    "title": "ElectroBalance",
+    "progressPerDay": [0.25, 0.35],
+    "impactFunction": "gaussian",
+    "effects": {
+      "biochemical": {
+        "electrolyteLevels": {
+          "sodiumLevel": -5,
+          "potassiumLevel": -3
+        }
+      }
+    }
+  },
+  "electroBoost": {
+    "title": "ElectroBoost",
+    "progressPerDay": [0.3, 0.4],
+    "impactFunctionOptions": {
+      "meanOrigin": 0.2
+    },
+    "impactFunction": "gaussian",
+    "effects": {
+      "biochemical": {
+        "electrolyteLevels": {
+          "sodiumLevel": 10,
+          "potassiumLevel": 5
+        }
+      }
+    }
+  },
+  "hemoBoost": {
+    "title": "HemoBoost",
+    "progressPerDay": [0.2, 0.3],
+    "impactFunction": "gaussian",
+    "impactFunctionOptions": {
+      "meanOrigin": 0.2
+    },
+    "effects": {
+      "biochemical": {
+        "hemoglobinLevel": 10
+      },
+      "physiological": {
+        "bloodOxygenLevel": 0.5
+      }
+    }
+  },
+  "hemoClear": {
+    "title": "HemoClear",
+    "progressPerDay": [0.15, 0.25],
+    "impactFunction": "gaussian",
+    "effects": {
+      "biochemical": {
+        "hemoglobinLevel": -5
+      },
+      "physiological": {
+        "bloodPressure": {
+          "systolic": -1.5,
+          "diastolic": -0.5
+        }
+      }
+    }
+  },
+  "viroCure": {
+    "title": "ViroCure",
+    "progressPerDay": [0.3, 0.4],
+    "impactFunction": "gaussian",
+    "sourceEffects": {
+      "viralInfection": 0.8
+    },
+    "effects": {
+      "physiological": {
+        "temperature": -0.5
+      }
+    }
+  },
+  "antiviralix": {
+    "title": "Antiviralix",
+    "progressPerDay": [0.25, 0.35],
+    "impactFunction": "gaussian",
+    "sourceEffects": {
+      "viralInfection": 0.7
+    },
+    "effects": {
+      "physiological": {
+        "respiratoryRate": 2
+      }
+    }
+  },
+  "bactiKill": {
+    "title": "BactiKill",
+    "progressPerDay": [0.35, 0.5],
+    "impactFunction": "gaussian",
+    "sourceEffects": {
+      "bacterialInfection": 1.9
+    },
+    "effects": {
+      "physiological": {
+        "temperature": -0.8
+      },
+      "biochemical": {
+        "bloodCells": {
+          "white": -100
+        }
+      }
+    }
+  },
+  "antiBact": {
+    "title": "AntiBact",
+    "progressPerDay": [0.30, 0.45],
+    "impactFunction": "gaussian",
+    "sourceEffects": {
+      "bacterialInfection": 0.8
+    },
+    "effects": {
+      "physiological": {
+        "respiratoryRate": 0.1,
+        "bloodGlucoseLevel": -0.3
+      }
+    }
+  },
+  "inflaBlock": {
+    "title": "InflaBlock",
+    "progressPerDay": [0.2, 0.3],
+    "impactFunction": "gaussian",
+    "sourceEffects": {
+      "inflammatory": 0.8
+    },
+    "effects": {
+      "physiological": {
+        "temperature": -0.3,
+        "bloodPressure": {
+          "systolic": -5,
+          "diastolic": -3
+        }
+      }
+    }
+  },
+  "antiInflame": {
+    "title": "AntiInflame",
+    "progressPerDay": [0.15, 0.25],
+    "impactFunction": "gaussian",
+    "sourceEffects": {
+      "inflammatory": 0.7
+    },
+    "effects": {
+      "physiological": {
+        "respiratoryRate": 0.2
+      },
+      "biochemical": {
+        "bloodCells": {
+          "white": -50,
+          "red": -5
+        }
+      }
+    }
+  },
+  "autoShield": {
+    "title": "AutoShield",
+    "progressPerDay": [0.25, 0.35],
+    "impactFunction": "gaussian",
+    "sourceEffects": {
+      "autoimmuneDisorders": 0.9
+    },
+    "effects": {
+      "physiological": {
+        "temperature": -0.2
+      },
+      "psychological": {
+        "stressLevel": -15,
+        "anxietyLevel": -10
+      }
+    }
+  },
+  "immuRegen": {
+    "title": "ImmuRegen",
+    "progressPerDay": [0.2, 0.3],
+    "impactFunction": "gaussian",
+    "sourceEffects": {
+      "autoimmuneDisorders": -0.8
+    },
+    "effects": {
+      "physiological": {
+        "heartRate": -5
+      },
+      "psychological": {
+        "stressLevel": -10,
+        "fatigueLevel": -15
+      }
+    }
+  },
+  "geneFixer": {
+    "title": "GeneFixer",
+    "progressPerDay": [0.3, 0.4],
+    "impactFunction": "gaussian",
+    "sourceEffects": {
+      "geneticDisorders": 0.9
+    },
+    "effects": {
+      "physiological": {
+        "heartRate": -8
+      },
+      "psychological": {
+        "focusLevel": 12,
+        "memoryLevel": 8
+      }
+    }
+  },
+  "genoRestore": {
+    "title": "GenoRestore",
+    "progressPerDay": [0.25, 0.35],
+    "impactFunction": "gaussian",
+    "sourceEffects": {
+      "geneticDisorders": 0.8
+    },
+    "effects": {
+      "physiological": {
+        "temperature": 0.5,
+        "bloodPressure": {
+          "systolic": 15,
+          "diastolic": 10
+        },
+        "respiratoryRate": -2
+      },
+      "psychological": {
+        "stressLevel": 5,
+        "fatigueLevel": -10
       }
     }
   }
