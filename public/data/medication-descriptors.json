@@ -58,7 +58,7 @@
         }
       },
       "biochemical": {
-        "cholesterolLevel": 5
+        "cholesterolLevel": 0.5
       }
     }
   },
@@ -299,7 +299,7 @@
     "impactFunction": "gaussian",
     "effects": {
       "biochemical": {
-        "cholesterolLevel": -15
+        "cholesterolLevel": -1.5
       },
       "physiological": {
         "bloodPressure": {
@@ -318,7 +318,7 @@
     },
     "effects": {
       "biochemical": {
-        "cholesterolLevel": 10
+        "cholesterolLevel": 1
       },
       "psychological": {
         "stressLevel": 5
@@ -359,7 +359,7 @@
       "biochemical": {
         "electrolyteLevels": {
           "sodiumLevel": -5,
-          "potassiumLevel": -3
+          "potassiumLevel": -0.3
         }
       }
     }
@@ -375,7 +375,7 @@
       "biochemical": {
         "electrolyteLevels": {
           "sodiumLevel": 10,
-          "potassiumLevel": 5
+          "potassiumLevel": 0.5
         }
       }
     }
@@ -528,7 +528,7 @@
     "progressPerDay": [0.2, 0.3],
     "impactFunction": "gaussian",
     "sourceEffects": {
-      "autoimmuneDisorders": -0.8
+      "autoimmuneDisorders": 0.8
     },
     "effects": {
       "physiological": {

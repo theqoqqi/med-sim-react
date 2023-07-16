@@ -61,6 +61,7 @@ function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, on
         let oldDistance = parameter.normalRange.getDistance(oldValue);
         let newDistance = parameter.normalRange.getDistance(newValue);
 
+        if (oldDistance < 0 || newDistance < 0) console.log(oldDistance, newDistance);
         return oldDistance - newDistance;
     }
 

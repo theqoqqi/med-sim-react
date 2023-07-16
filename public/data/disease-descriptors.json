@@ -159,7 +159,7 @@
         }
       },
       "biochemical": {
-        "cholesterolLevel": 2.5
+        "cholesterolLevel": -0.6
       }
     }
   },
@@ -295,7 +295,7 @@
         "bloodGlucoseLevel": 6.0
       },
       "biochemical": {
-        "cholesterolLevel": 2.5,
+        "cholesterolLevel": 0.75,
         "electrolyteLevels": {
           "sodiumLevel": -10,
           "potassiumLevel": 8
@@ -337,7 +337,7 @@
         "bloodGlucoseLevel": 7.5
       },
       "biochemical": {
-        "cholesterolLevel": 2.8
+        "cholesterolLevel": 1.3
       }
     }
   },
@@ -492,7 +492,7 @@
         }
       },
       "biochemical": {
-        "cholesterolLevel": 5.0,
+        "cholesterolLevel": 3.0,
         "bloodCells": {
           "red": -30,
           "white": -40
