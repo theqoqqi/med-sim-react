@@ -36,7 +36,7 @@ function NecrologyScreen({simulation}) {
                         {simulation.deadHumans.length}
                     </b>
                 </SectionHeader>
-                <SectionBody>
+                <SectionBody scrollable>
                     <HumanList
                         humans={sortedDeadHumans}
                         selected={selectedHuman}

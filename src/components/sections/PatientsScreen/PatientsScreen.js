@@ -63,7 +63,7 @@ function PatientsScreen({simulation}) {
                         {simulation.allPatients.length}
                     </b>
                 </SectionHeader>
-                <SectionBody>
+                <SectionBody scrollable>
                     <HumanList
                         humans={simulation.allPatients}
                         selected={selectedHuman}
