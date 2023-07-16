@@ -298,7 +298,7 @@
         "cholesterolLevel": 0.75,
         "electrolyteLevels": {
           "sodiumLevel": -10,
-          "potassiumLevel": 8
+          "potassiumLevel": 0.8
         }
       }
     }
