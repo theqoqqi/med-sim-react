@@ -84,6 +84,19 @@ function DiseaseOverview({ simulation, descriptor }) {
         ]);
     }
 
+    function getImpactFunctionTitle(impactFunction) {
+        let map = {
+            inverseLinear: coloredSpan('inverseLinear', '#4e7900'),
+            gaussian: coloredSpan('gaussian', '#7c8f0e'),
+            power: coloredSpan('power', '#b4800d'),
+            squareRoot: coloredSpan('squareRoot', '#c03500'),
+            linear: coloredSpan('linear', '#a60000'),
+            quadratic: coloredSpan('quadratic', '#880039'),
+        };
+
+        return map[impactFunction];
+    }
+
     function getDifficulty(sourcePowers) {
         return Object.values(sourcePowers)
             .reduce((sum, power) => sum + power, 0);
@@ -163,6 +176,10 @@ function DiseaseOverview({ simulation, descriptor }) {
             <Field
                 title='Переносимость'
                 value={getSeverityTitle(severity)}
+            />
+            <Field
+                title='Impact function'
+                value={getImpactFunctionTitle(descriptor.impactFunction)}
             />
             <h6 className='pt-3'>
                 Симптомы:
