@@ -50,6 +50,10 @@ function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, on
     }
 
     function getParameterEffectiveness(parameterPath, impactValue) {
+        if (!patient) {
+            return 0;
+        }
+
         let parameter = patient.getParameter(parameterPath);
         let oldValue = parameter.value;
         let newValue = oldValue + impactValue;
