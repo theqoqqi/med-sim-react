@@ -34,6 +34,12 @@ export default class ParameterFactory {
         return parameters;
     }
 
+    flattenParameterDescriptors(descriptor, startPath = null) {
+        let options = ParameterFactory.createIterateOptions(this.#parameterSetDescriptor, descriptor, startPath);
+
+        return Iterate.flattenHierarchy(options);
+    }
+
     flattenEffectImpacts(effects, mapper = null, startPath = null) {
         return Iterate.flattenHierarchy({
             ...this.createFlattenEffectsOptions(effects, startPath),

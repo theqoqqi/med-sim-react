@@ -64,6 +64,10 @@ export default class Simulation {
         return this.#currentDay;
     }
 
+    get parameterSetDescriptor() {
+        return this.#parameterFactory.parameterSetDescriptor;
+    }
+
     get allMedicationDescriptors() {
         return this.#medicationFactory.allDescriptors;
     }
@@ -270,6 +274,10 @@ export default class Simulation {
 
     flattenParameterEffectImpacts(effects, mapper, startPath = null) {
         return this.#parameterFactory.flattenEffectImpacts(effects, mapper, startPath);
+    }
+
+    flattenParameterDescriptors(parameters, startPath = null) {
+        return this.#parameterFactory.flattenParameterDescriptors(parameters, startPath);
     }
 
     getParameterTitle(parameterPath) {

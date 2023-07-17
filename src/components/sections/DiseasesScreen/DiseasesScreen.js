@@ -9,6 +9,7 @@ import DiseaseList from '../../organisms/DiseaseList/DiseaseList.js';
 import Conditional from '../../atoms/Conditional/Conditional.js';
 import Center from '../../atoms/Center/Center.js';
 import DiseaseOverview from '../../organisms/DiseaseOverview/DiseaseOverview.js';
+import {Form} from 'react-bootstrap';
 
 DiseasesScreen.propTypes = {
     simulation: PropTypes.instanceOf(Simulation),
@@ -16,15 +17,32 @@ DiseasesScreen.propTypes = {
 
 function DiseasesScreen({ simulation }) {
     let [selectedDisease, setSelectedDisease] = useState(null);
+    let [selectedParameter, setSelectedParameter] = useState('');
 
-    let diseases = simulation.allDiseaseDescriptors;
-    let hasSelectedDisease = selectedDisease !== null && diseases.includes(selectedDisease);
+    let allDiseases = simulation.allDiseaseDescriptors;
+    let hasSelectedDisease = selectedDisease !== null && allDiseases.includes(selectedDisease);
 
-    function selectDisease(disease) {
-        setSelectedDisease(disease);
+    let visibleDiseases = allDiseases
+        .filter(disease => !selectedParameter || affectsParameter(disease, selectedParameter))
+        .sort((a, b) => b.chancePerDay - a.chancePerDay);
+
+    function affectsParameter(disease, parameterPath) {
+        return simulation
+            .flattenParameterEffectImpacts(disease.effects, (impact, parameterPath) => {
+                return parameterPath;
+            })
+            .includes(parameterPath);
     }
 
-    let sortedDiseases = diseases.sort((a, b) => a.title.localeCompare(b.title));
+    function mapParameterGroups(callback) {
+        return Object.entries(simulation.parameterSetDescriptor.parameters)
+            .filter(([parameterName]) => parameterName !== 'physical')
+            .map(([parameterName, compositeParameter]) => {
+                let flatten = simulation.flattenParameterDescriptors(compositeParameter, parameterName);
+
+                return callback(parameterName, flatten);
+            });
+    }
 
     return (
         <div className={styles.diseasesScreen}>
@@ -34,31 +52,47 @@ function DiseasesScreen({ simulation }) {
                         Список болезней
                     </span>
                     <b className='mx-2'>
-                        {diseases.length}
+                        {allDiseases.length}
                     </b>
                 </SectionHeader>
                 <SectionBody scrollable>
                     <DiseaseList
-                        descriptors={sortedDiseases}
+                        descriptors={visibleDiseases}
                         selected={selectedDisease}
-                        onSelect={selectDisease}
+                        onSelect={setSelectedDisease}
                     />
                 </SectionBody>
             </Section>
             <Section className={styles.diseaseInfo}>
-                <Conditional condition={hasSelectedDisease} fallback={<Center>Выберите болезнь</Center>}>
-                    <SectionHeader className={styles.diseaseInfoHeader}>
-                        <span>
-                            {selectedDisease?.title}
-                        </span>
-                    </SectionHeader>
-                    <SectionBody scrollable>
+                <SectionHeader className={styles.diseaseInfoHeader}>
+                    <span>
+                        {selectedDisease?.title}
+                    </span>
+                    <div>
+                        <Form.Select value={selectedParameter} onChange={e => setSelectedParameter(e.target.value)}>
+                            <option value=''>
+                                Без фильтра
+                            </option>
+                            {mapParameterGroups((groupName, parameters) => (
+                                <optgroup key={groupName} label={simulation.getParameterTitle(groupName)}>
+                                    {parameters.map(parameter => (
+                                        <option key={parameter.name} value={parameter.name}>
+                                            {parameter.title}
+                                        </option>
+                                    ))}
+                                </optgroup>
+                            ))}
+                        </Form.Select>
+                    </div>
+                </SectionHeader>
+                <SectionBody scrollable>
+                    <Conditional condition={hasSelectedDisease} fallback={<Center>Выберите болезнь</Center>}>
                         <DiseaseOverview
                             simulation={simulation}
                             descriptor={selectedDisease}
                         />
-                    </SectionBody>
-                </Conditional>
+                    </Conditional>
+                </SectionBody>
             </Section>
         </div>
     );
