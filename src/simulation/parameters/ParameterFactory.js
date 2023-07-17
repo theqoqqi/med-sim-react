@@ -2,6 +2,7 @@ import CompositeParameter from './CompositeParameter';
 import NumberParameter from './NumberParameter';
 import EnumParameter from './EnumParameter';
 import Parameter from './Parameter.js';
+import Iterate from '../utils/Iterate.js';
 
 export default class ParameterFactory {
 
@@ -33,50 +34,73 @@ export default class ParameterFactory {
         return parameters;
     }
 
-    flattenEffectImpacts(effects, callback, startPath = null) {
-        let parameterDescriptors = this.#parameterSetDescriptor.parameters;
+    flattenEffectImpacts(effects, mapper = null, startPath = null) {
+        return Iterate.flattenHierarchy({
+            ...this.createFlattenEffectsOptions(effects, startPath),
+            mapper,
+        });
+    }
 
-        return Object.entries(effects)
-            .flatMap(([parameterPath, effectDescriptor]) => {
-                if (startPath) {
-                    parameterPath = startPath + '.' + parameterPath;
-                }
-
-                let parameterDescriptor = this.getParameterDescriptorByPath(parameterDescriptors, parameterPath);
-
-                if (!parameterDescriptor) {
-                    throw new Error(`Unknown parameter: ${parameterPath}`);
-                }
-
-                if (parameterDescriptor.type === 'composite') {
-                    return this.flattenEffectImpacts(effectDescriptor, callback, parameterPath);
-                }
-
-                let value = typeof effectDescriptor === 'object'
+    iterateEffectImpacts(effects, callback, startPath = null) {
+        Iterate.iterateHierarchy({
+            ...this.createFlattenEffectsOptions(effects, startPath),
+            callback: (effectDescriptor, parameterPath) => {
+                let impact = typeof effectDescriptor === 'object'
                     ? effectDescriptor?.impact
                     : effectDescriptor;
 
-                return callback(parameterPath, value);
-            });
+                callback?.(impact, parameterPath);
+            },
+        });
+    }
+
+    createFlattenEffectsOptions(effects, startPath = null) {
+        return {
+            root: effects,
+            includeParents: false,
+            startPath,
+            isParent: (child, childPath) => {
+                return this.isCompositeDescriptor(childPath);
+            },
+            getChildren: parent => parent,
+        };
+    }
+
+    isCompositeDescriptor(childPath) {
+        return ParameterFactory.isCompositeDescriptor(this.#parameterSetDescriptor, childPath);
+    }
+
+    static isCompositeDescriptor(parameterSetDescriptor, parameterPath) {
+        let descriptor = ParameterFactory.getParameterDescriptorByPath(parameterSetDescriptor, parameterPath);
+
+        if (!descriptor) {
+            throw new Error(`Unknown parameter: ${parameterPath}`);
+        }
+
+        return descriptor.type === 'composite';
     }
 
     getParameterDescriptor(parameterPath) {
-        return this.getParameterDescriptorByPath(this.#parameterSetDescriptor.parameters, parameterPath);
+        return ParameterFactory.getParameterDescriptorByPath(this.#parameterSetDescriptor, parameterPath);
     }
 
-    getParameterDescriptorByPath(object, path) {
+    static getParameterDescriptorByPath(object, path) {
+        if (!path) {
+            return object;
+        }
+
         const parts = path.split('.');
         const lastPart = parts.pop();
 
         for (const part of parts) {
-            object = object[part]?.parameters;
+            object = object?.parameters[part];
 
             if (!object) {
                 return null;
             }
         }
 
-        return object[lastPart];
+        return object?.parameters[lastPart];
     }
 
     static #createTemplate(descriptor) {

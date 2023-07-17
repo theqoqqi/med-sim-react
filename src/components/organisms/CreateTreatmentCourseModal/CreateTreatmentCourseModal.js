@@ -49,7 +49,7 @@ function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, on
         return parameterImpacts.reduce((sum, impact) => sum + impact, 0);
     }
 
-    function getParameterEffectiveness(parameterPath, impactValue) {
+    function getParameterEffectiveness(impactValue, parameterPath) {
         if (!patient) {
             return 0;
         }

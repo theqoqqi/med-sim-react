@@ -268,8 +268,8 @@ export default class Simulation {
         return this.#diseaseFactory.allDescriptorsByNames[name];
     }
 
-    flattenParameterEffectImpacts(effects, callback, startPath = null) {
-        return this.#parameterFactory.flattenEffectImpacts(effects, callback, startPath);
+    flattenParameterEffectImpacts(effects, mapper, startPath = null) {
+        return this.#parameterFactory.flattenEffectImpacts(effects, mapper, startPath);
     }
 
     getParameterTitle(parameterPath) {
