@@ -46,7 +46,7 @@ function DiseaseOverview({ simulation, descriptor }) {
         .map(source => source.title);
     let monthlyRatePerMillionHumans = descriptor.chancePerDay * 1000000 * 30;
     let daysToProgress = 1 / NumberRange.from(descriptor.progressPerDay).average;
-    let effects = simulation.mapParameterEffects(descriptor.effects, (parameterPath, value) => {
+    let effects = simulation.flattenParameterEffectImpacts(descriptor.effects, (parameterPath, value) => {
         let title = simulation.getParameterTitle(parameterPath);
 
         return { parameterPath, title, value };

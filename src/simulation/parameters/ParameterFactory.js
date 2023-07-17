@@ -33,7 +33,7 @@ export default class ParameterFactory {
         return parameters;
     }
 
-    mapEffects(effects, callback, startPath = null) {
+    flattenEffectImpacts(effects, callback, startPath = null) {
         let parameterDescriptors = this.#parameterSetDescriptor.parameters;
 
         return Object.entries(effects)
@@ -49,7 +49,7 @@ export default class ParameterFactory {
                 }
 
                 if (parameterDescriptor.type === 'composite') {
-                    return this.mapEffects(effectDescriptor, callback, parameterPath);
+                    return this.flattenEffectImpacts(effectDescriptor, callback, parameterPath);
                 }
 
                 let value = typeof effectDescriptor === 'object'

@@ -44,7 +44,7 @@ function CreateTreatmentCourseModal({ simulation, patient, visible, onCancel, on
     });
 
     function getMedicationEffectiveness(medication) {
-        let parameterImpacts = simulation.mapParameterEffects(medication.effects, getParameterEffectiveness);
+        let parameterImpacts = simulation.flattenParameterEffectImpacts(medication.effects, getParameterEffectiveness);
 
         return parameterImpacts.reduce((sum, impact) => sum + impact, 0);
     }

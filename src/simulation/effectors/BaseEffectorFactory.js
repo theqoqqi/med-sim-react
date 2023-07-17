@@ -32,7 +32,7 @@ export class BaseEffectorFactory {
         for (const descriptor of this.descriptors) {
             this.validateDescriptor(descriptor);
 
-            this.#parameterFactory.mapEffects(descriptor.effects, parameterPath => {
+            this.#parameterFactory.flattenEffectImpacts(descriptor.effects, parameterPath => {
                 usedParameters[parameterPath] = true;
             });
         }
@@ -47,7 +47,7 @@ export class BaseEffectorFactory {
         BaseEffectorFactory.assertType(descriptor, 'effects', 'object');
 
         try {
-            this.#parameterFactory.mapEffects(descriptor.effects, () => {});
+            this.#parameterFactory.flattenEffectImpacts(descriptor.effects, () => {});
         } catch (e) {
             throw new TypeError(`${descriptor.name}.effects: ${e.message}`);
         }

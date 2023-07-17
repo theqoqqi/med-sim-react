@@ -21,7 +21,7 @@ function MedicationEffects({ descriptor, simulation, patient }) {
         return { sourceName, title, value };
     });
 
-    let parameterImpacts = simulation.mapParameterEffects(descriptor.effects, (parameterPath, value) => {
+    let parameterImpacts = simulation.flattenParameterEffectImpacts(descriptor.effects, (parameterPath, value) => {
         let title = simulation.getParameterTitle(parameterPath);
 
         return { parameterPath, title, value };
