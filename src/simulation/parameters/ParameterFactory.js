@@ -18,7 +18,7 @@ export default class ParameterFactory {
     #templateParameterSet;
 
     constructor(parameterSetDescriptor) {
-        this.#parameterSetDescriptor = parameterSetDescriptor;
+        this.#parameterSetDescriptor = ParameterFactory.#withNames(parameterSetDescriptor);
         this.#templateParameterSet = ParameterFactory.#createTemplate(parameterSetDescriptor);
     }
 
@@ -68,6 +68,30 @@ export default class ParameterFactory {
 
     isCompositeDescriptor(childPath) {
         return ParameterFactory.isCompositeDescriptor(this.#parameterSetDescriptor, childPath);
+    }
+
+    static #withNames(parameterSetDescriptor) {
+        Iterate.iterateHierarchy({
+            ...this.createIterateOptions(parameterSetDescriptor, parameterSetDescriptor),
+            includeParents: true,
+            callback: (descriptor, parameterPath) => {
+                descriptor.name = parameterPath;
+            },
+        });
+
+        return parameterSetDescriptor;
+    }
+
+    static createIterateOptions(parameterSetDescriptor, descriptor, startPath) {
+        return {
+            root: descriptor,
+            includeParents: false,
+            startPath,
+            isParent: (child, childPath) => {
+                return this.isCompositeDescriptor(parameterSetDescriptor, childPath);
+            },
+            getChildren: parent => parent.parameters,
+        };
     }
 
     static isCompositeDescriptor(parameterSetDescriptor, parameterPath) {
