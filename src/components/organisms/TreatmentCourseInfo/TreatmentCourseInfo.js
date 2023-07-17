@@ -32,6 +32,7 @@ function TreatmentCourseInfo({className, course}) {
 
     let [isEffectsVisible, setEffectsVisible] = useState(false);
 
+    let patient = course.patient;
     let currentDay = course.currentDay;
     let totalDays = course.totalDays;
     let totalIntakes = course.totalIntakes;
@@ -58,22 +59,27 @@ function TreatmentCourseInfo({className, course}) {
     // noinspection RequiredAttributes
     return (
         <div className={classNames(styles.treatmentCourseInfo, className)}>
-            <div className='d-flex gap-3'>
-                <div className='fw-semibold'>
-                    {course.medicationDescriptor.title}
-                </div>
-                <OverlayTrigger overlay={renderTimingsTooltip}>
-                    <div className={classNames(styles.timingsBadge, 'd-flex gap-3')}>
-                        <span className='d-flex align-items-center gap-1'>
-                            <span className={styles.intervalIcon}>⇔</span>
-                            {interval}
-                        </span>
-                        <span className='d-flex align-items-center gap-1'>
-                            <span className={styles.intakesIcon}>↻</span>
-                            {totalIntakes}
-                        </span>
+            <div className='d-flex justify-content-between'>
+                <div className='d-flex gap-3'>
+                    <div className='fw-semibold'>
+                        {course.medicationDescriptor.title}
                     </div>
-                </OverlayTrigger>
+                    <OverlayTrigger overlay={renderTimingsTooltip}>
+                        <div className={classNames(styles.timingsBadge, 'd-flex gap-3')}>
+                            <span className='d-flex align-items-center gap-1'>
+                                <span className={styles.intervalIcon}>⇔</span>
+                                {interval}
+                            </span>
+                            <span className='d-flex align-items-center gap-1'>
+                                <span className={styles.intakesIcon}>↻</span>
+                                {totalIntakes}
+                            </span>
+                        </div>
+                    </OverlayTrigger>
+                </div>
+                <button className='btn btn-sm p-0' onClick={() => patient.removeTreatmentCourse(course)}>
+                    &#10060;
+                </button>
             </div>
             <div className='d-flex justify-content-between align-items-center'>
                 <small>
