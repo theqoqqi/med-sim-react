@@ -30,6 +30,8 @@ export default class Human {
 
     #stateHistory;
 
+    #notes;
+
     #diseaseSourceImmunities = new Map([
         ['viralInfection', 0.05],
         ['bacterialInfection', 0.05],
@@ -47,7 +49,8 @@ export default class Human {
         isAlive = true,
         aliveDays = 0,
         lethalParameter,
-        stateHistory = null
+        stateHistory = null,
+        notes,
     }) {
         this.#id = id;
         this.#name = Name.from(name);
@@ -56,6 +59,7 @@ export default class Human {
         this.#aliveDays = aliveDays;
         this.#lethalParameter = lethalParameter;
         this.#stateHistory = stateHistory ?? this.createStateHistory();
+        this.#notes = notes;
 
         this.addEffectors(effectors);
         this.addTreatmentCourses(treatmentCourses);
@@ -125,6 +129,10 @@ export default class Human {
 
     get treatmentCourses() {
         return this.#treatmentCourses;
+    }
+
+    get notes() {
+        return this.#notes;
     }
 
     update() {
@@ -264,6 +272,10 @@ export default class Human {
         return this.#parameters.getParameter(path);
     }
 
+    setNotes(notes) {
+        this.#notes = notes;
+    }
+
     toJson() {
         return {
             id: this.id,
@@ -275,6 +287,7 @@ export default class Human {
             aliveDays: this.aliveDays,
             lethalParameter: this.lethalParameter?.toJson(),
             stateHistory: Human.#packHistory(this.stateHistory),
+            notes: this.notes,
         };
     }
 
