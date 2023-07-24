@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import NumberParameter from '../../../simulation/parameters/NumberParameter.js';
 import classNames from 'classnames';
+import NumberRange from '../../../simulation/utils/NumberRange.js';
 
 function omitNulls(array) {
     return array.filter(nonNull);
@@ -22,6 +23,7 @@ NumberParameterBar.propTypes = {
 
 function ValuePointer({ value, position, offset = null }) {
 
+    position = NumberRange.of(-0.02, 1.02).clamp(position);
     offset ??= -position + 0.5;
 
     return (
