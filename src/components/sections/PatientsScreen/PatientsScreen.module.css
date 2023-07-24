@@ -34,6 +34,33 @@
     border-bottom: 1px solid #ccc;
 }
 
+.notes {
+    border-bottom: 1px solid #ccc;
+}
+
+.noteTextarea {
+    display: block;
+
+    width: 100%;
+    padding: 8px;
+    margin: 0;
+    font-size: 12px;
+
+    background-color: transparent;
+    border: none;
+    outline: 0;
+
+    resize: none;
+}
+
+.noteTextarea:hover {
+    background-color: #fafafa;
+}
+
+.noteTextarea:focus {
+    background-color: white;
+}
+
 .treatmentCoursesOverview {
     border-bottom: 1px solid #ccc;
 }

@@ -13,6 +13,7 @@ import Button from '../../atoms/Button/Button.js';
 import TreatmentCoursesOverview from '../../organisms/TreatmentCoursesOverview/TreatmentCoursesOverview.js';
 import CreateTreatmentCourseModal from '../../organisms/CreateTreatmentCourseModal/CreateTreatmentCourseModal.js';
 import classNames from 'classnames';
+import AutoHeightTextarea from '../../atoms/AutoHeightTextarea/AutoHeightTextarea.js';
 
 PatientsScreen.propTypes = {
     simulation: PropTypes.instanceOf(Simulation),
@@ -21,11 +22,18 @@ PatientsScreen.propTypes = {
 function PatientsScreen({ simulation }) {
     let [selectedHuman, setSelectedHuman] = useState(null);
     let [isAssigningTreatment, setAssigningTreatment] = useState(false);
+    let [notes, setNotes] = useState('');
 
     let hasSelectedHuman = selectedHuman !== null && simulation.allPatients.includes(selectedHuman);
 
+    function onEditNotes(notes) {
+        selectedHuman.setNotes(notes);
+        setNotes(notes);
+    }
+
     function selectHuman(human) {
         setSelectedHuman(human);
+        setNotes(human.notes ?? '');
     }
 
     function freePatient(human) {
@@ -88,6 +96,14 @@ function PatientsScreen({ simulation }) {
                         </Button>
                     </SectionHeader>
                     <SectionBody scrollable>
+                        <div className={classNames(styles.notes)}>
+                            <AutoHeightTextarea
+                                className={styles.noteTextarea}
+                                value={notes}
+                                onChange={e => onEditNotes(e.target.value)}
+                                placeholder='Заметок нет'
+                            />
+                        </div>
                         <div className={classNames(styles.treatmentCoursesOverview, 'px-2 py-2')}>
                             <div className='d-flex justify-content-between align-items-center px-2'>
                                 <h6>Назначенные медикаменты</h6>
