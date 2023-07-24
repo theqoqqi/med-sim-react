@@ -14,7 +14,8 @@
     "react-dom": "^18.2.0",
     "react-step-progress-bar": "^1.0.3",
     "web-vitals": "^2.1.4",
-    "zipson": "^0.2.12"
+    "zipson": "^0.2.12",
+    "@react-buddy/ide-toolbox": "^2.4.0"
   },
   "scripts": {
     "server": "cd saveServer && node server",
